@@ -1,0 +1,28 @@
+{
+  "framework": "diginext",
+  "git": false,
+  "isStaticSite": false,
+  "shouldShowHelp": false,
+  "shouldShowVersion": false,
+  "shouldUpdateCli": false,
+  "shouldRedirectDomain": false,
+  "skipCreatingDirectory": false,
+  "projectSlug": "test",
+  "projectName": "test",
+  "username": "vansuphan",
+  "version": "v1.3.7",
+  "diginext-cli": "0.8.2",
+  "domain": {
+    "staging": [],
+    "prod": []
+  },
+  "cdn-host": {
+    "dev": "https://test.vn/test/dev",
+    "prod": "https://test.vn/test/prod"
+  },
+  "cdn": {
+    "dev": false,
+    "staging": false,
+    "prod": false
+  }
+}

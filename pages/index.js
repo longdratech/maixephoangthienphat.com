@@ -1,28 +1,17 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+// import CONFIG from "web.config";
+import MasterPageBasic from "components/website/master/MasterPageBasic";
+// import BasicLayout from "components/diginext/layout/BasicLayout";
+// import { useRouter } from "next/router";
+// import Header from "components/website/elements/Header";
+import DashkitButton from "components/dashkit/Buttons";
+import { BS } from "components/diginext/elements/Splitters";
 
-export default function Home() {
+export default function Home(props) {
+  // const router = useRouter();
+
   return (
-    <div className={styles.container}>
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <main className={styles.main}>
-        tesst thoi ma
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
-    </div>
-  )
+    <MasterPageBasic hidePrevButton header="Home Page">
+      <h2>Hello world!</h2>
+    </MasterPageBasic>
+  );
 }
