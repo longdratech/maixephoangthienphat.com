@@ -14,14 +14,16 @@ export default function Home(props) {
 
   return (
     <MasterPageBasic hidePrevButton header="Home Page">
-      <Header active="/"></Header>
-      <main id="pHome">
+      <Header active="gioi-thieu"></Header>
+      <main id="pIntroduce">
         <Container>
           <h2>Hello world!</h2>
         </Container>
       </main>
-      <FooterCustom></FooterCustom>
 
+      <FooterCustom></FooterCustom>
+     
+      
     </MasterPageBasic>
   );
 }
