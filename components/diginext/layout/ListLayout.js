@@ -1,7 +1,7 @@
 import React, { Children, forwardRef, Fragment, useEffect, useState } from "react";
 import CONFIG from "web.config";
 
-const warnDeprecated = (definition = "Biến enum", alterative = "code hint của component") => console.warn(`"${definition}" sẽ bị loại bỏ trong tương lai, chuyển sang sử dụng trực tiếp từ ${alterative} để thay thế.`)
+const warnDeprecated = (definition = "Biến enum", alterative = "code hint của component") => console.warn(`"${definition}"  ${alterative} để thay thế.`)
 
 const ListItemSize = {
   get AUTO() {
