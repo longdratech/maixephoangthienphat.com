@@ -13,7 +13,7 @@ export default function Header({active}){
     useEffect(() => {
         // console.log("scrollY", scrollY);
         // console.log("scrollDirection", scrollDirection);
-        if (scrollY && scrollY >= 200) {
+        if (scrollY && scrollY >= 250) {
           setFixed(true);
         } else {
           setFixed(false);

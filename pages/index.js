@@ -7,6 +7,7 @@ import FooterCustom from "components/website/footer/FooterCustom";
 import BannerTop from "components/website/banner/BannerTop";
 import TitleCopy from "components/website/title/TitleCopy";
 import ItemProductSmall from "components/website/items/ItemProductSmall";
+import ItemProductBig from "components/website/items/itemProductBig";
 import LayoutGrid from "components/website/elements/LayoutGrid";
 export default function Home(props) {
   // const router = useRouter();
@@ -32,6 +33,12 @@ export default function Home(props) {
             <ItemProductSmall></ItemProductSmall>
             <ItemProductSmall></ItemProductSmall>
             <ItemProductSmall></ItemProductSmall>
+          </LayoutGrid>
+          <LayoutGrid itemBig={true}>
+            <ItemProductSmall></ItemProductSmall>
+            <ItemProductBig></ItemProductBig>
+          </LayoutGrid>
+          <LayoutGrid>
             <ItemProductSmall></ItemProductSmall>
             <ItemProductSmall></ItemProductSmall>
             <ItemProductSmall></ItemProductSmall>

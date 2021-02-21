@@ -93,13 +93,14 @@ body {
     background-color: #FD7669;
     border: solid 2px #FD7669;
   }
+  .carouselCustom:hover .slick-next {
+    opacity: 1;
+    right: 25px;
+  }
+  .carouselCustom:hover .slick-prev {
+    opacity: 1;
+    left: 25px;
+  }
 }
 
-.carouselCustom:hover .slick-next {
-  opacity: 1;
-  right: 25px;
-}
-.carouselCustom:hover .slick-prev {
-  opacity: 1;
-  left: 25px;
-}
+

@@ -9,7 +9,7 @@ const fetchData =
     }
 
 
-export default function ItemProductSmall({
+export default function ItemProductBig({
     name,
     description,
     price
@@ -51,23 +51,20 @@ export default function ItemProductSmall({
         dots: false,
         infinite: true,
         arrows: true,
-        speed: 1500,
-        autoplay: true,
-        autoplaySpeed: 5000,
+        autoplaySpeed: true,
+        speed: 500,
         slidesToShow: 1,
         slidesToScroll: 1,
-        fade: true,
         nextArrow: <SampleNextArrow />,
         prevArrow: <SamplePrevArrow />
     };
 
-    return <div className="itemProductSmall">
+    return <div className="itemProductBig">
         {
             fetchData.srcImgs
                 ? <Slider {...settings}>
                     {
                         fetchData.srcImgs.map((value, index) => {
-                            console.log(value)
                             return (
                                 <div key={index} className="itemCarousel">
                                     <img src= {asset(value)} />
@@ -78,7 +75,7 @@ export default function ItemProductSmall({
                 </Slider>
                 : <></>
         }
-        <div className="infoItemProductSmall">
+        <div className="infoItemProductBig">
 
             <h4>{fetchData.title}</h4>
             <span>{fetchData.price}</span>
@@ -102,44 +99,42 @@ export default function ItemProductSmall({
         </div>
 
         <style jsx>{`
-
-            .itemProductSmall{
-                /* width: 30vw; */
+            
+            .itemProductBig{
                 overflow: hidden;
-                background-color: #fff;
+                /* background-color: #fff; */
                 border-radius: 20px;
+                position: relative;
                 transition: 0.3s;
                 cursor: pointer;
-                -webkit-box-shadow: 0 10px 6px -6px #7777771f;
-                -moz-box-shadow: 0 10px 6px -6px #7777771f;
-                box-shadow: 0 10px 6px -6px #7777771f;
-                &:hover{
-                    -webkit-box-shadow: 0 10px 6px -6px #77777785;
-                    -moz-box-shadow: 0 10px 6px -6px #77777785;
-                    box-shadow: 0 10px 6px -6px #77777785;
-                }
             }
-            .itemProductSmall:hover .itemCarousel img{
+            .itemProductBig:hover .itemCarousel img{
                 transform: scale(1.2);
             }
             .itemCarousel{
-                /* width: 30vw; */
                 overflow: hidden;
                 border-radius: 20px;
                 img{
                     transition: 0.3s;
                     width: 100%;
-                    height: 26vh;
+                    max-height: 50vh;
+                    height: 100%;
+                    border-radius: 20px;
                     object-fit: cover;
                 }
             }
-            .infoItemProductSmall{
+            .infoItemProductBig{
                 display: flex;
                 flex-direction: row;
                 justify-content: space-evenly;
                 flex-wrap: wrap;
-                padding: 20px 10px;
-
+                padding: 20px 15px;
+                position: absolute;
+                width: 50%;
+                bottom: 0;
+                right: 0;
+                background-color: #fff;
+                border-radius: 20px;
                 h4{
                     font-family: "Montserrat-SemiBold";
                     font-size: 16px;
