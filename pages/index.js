@@ -6,6 +6,7 @@ import MasterPageBasic from "components/website/master/MasterPageBasic";
 import Header from "components/website/header/Header";
 import Container from "components/website/elements/Container";
 import FooterCustom from "components/website/footer/FooterCustom";
+import BannerTop from "components/website/banner/BannerTop"; 
 // import DashkitButton from "components/dashkit/Buttons";
 // import { BS } from "components/diginext/elements/Splitters";
 
@@ -17,8 +18,9 @@ export default function Home(props) {
       <Header active="/"></Header>
       <main id="pHome">
         <Container>
-          <h2>Hello world!</h2>
+        
         </Container>
+        <BannerTop></BannerTop>
       </main>
       <FooterCustom></FooterCustom>
 
