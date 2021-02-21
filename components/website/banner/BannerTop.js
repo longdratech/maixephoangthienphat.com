@@ -26,13 +26,16 @@ function BannerTop() {
         arrows: true,
         // centerMode: true,
         // centerPadding: 0,
-        autoplaySpeed: true,
-        speed: 500,
+        speed: 1000,
+        autoplay: true,
+        autoplaySpeed: 3000,
+        // fade: true,
         slidesToShow: 1,
         slidesToScroll: 1,
 
     };
-    return <div className="carouselCustom">
+    
+    return <div className="carouselCustom bannerTop">
         {
             fetchData
                 ? <Slider {...settings}>
@@ -64,6 +67,11 @@ function BannerTop() {
         <style jsx>{`
             .itemCarousel{
                 position: relative;
+                img{
+                    width: 100%;
+                    height: 83vh;
+                    object-fit: cover;
+                }
             }
             img{
                 display:block;
@@ -95,7 +103,7 @@ function BannerTop() {
                     padding: 20px 0;
                 }
                 .btn{
-                    /* margin-left: auto; */
+                    margin-left: auto;
                     margin-right: auto;
                 }
             }
