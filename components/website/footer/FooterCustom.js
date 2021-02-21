@@ -41,7 +41,7 @@ export default function FooterCustom () {
             </div>
             <div className="itemInfo">
               <h4>Trụ sở chính</h4>
-              <p>Địa chỉ: 168 Chòm sao, Hưng Định <br /> Thuận An, Bình Dương</p>
+              <p>Địa chỉ: 168 Chòm sao, <br /> Hưng Định Thuận An, Bình Dương</p>
               
             </div>
             <div className="itemInfo">
@@ -78,7 +78,7 @@ export default function FooterCustom () {
       .listInfoFooter{
         display: flex;
         flex: 1;
-        justify-content: space-around;
+        justify-content: flex-end;
         padding-top: 20px;
         padding-bottom: 20px;
         padding-left: 20px;
@@ -108,6 +108,7 @@ export default function FooterCustom () {
           }
           p{
             font-size: 14px;
+            padding: 5px 0;
             color: #2A2A2A;
             a{
               color: #2A2A2A;
@@ -125,7 +126,7 @@ export default function FooterCustom () {
             width: 100px;
           }
           h5{
-            padding: 10px 0;
+            padding: 15px 0;
             font-size: 14px;
           }
           

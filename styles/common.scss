@@ -32,7 +32,7 @@ body {
   z-index: 1;
   transition: 0.4s;
   border-radius: 50%;
-  border: solid 2px #fff;
+  border: solid 1px #fff;
   margin: 0;
   box-sizing: border-box;
 
@@ -86,12 +86,12 @@ body {
   }
 }
 .slick-prev:hover {
-  background-color: #b90000;
-  border: solid 2px #b90000;
+  background-color: #FD7669;
+  border: solid 2px #FD7669;
 }
 .slick-next:hover {
-  background-color: #b90000;
-  border: solid 2px #b90000;
+  background-color: #FD7669;
+  border: solid 2px #FD7669;
 }
 
 .carouselCustom:hover .slick-next {

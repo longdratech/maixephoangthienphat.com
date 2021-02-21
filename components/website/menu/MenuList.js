@@ -110,7 +110,7 @@ export default function menuCustomList({
                 margin: 0 10px;
                 margin-bottom: 10px;
                 font-weight: 600;
-                text-transform: uppercase;
+                /* text-transform: uppercase; */
                 display: flex;
                 align-items: flex-end;
                 cursor: pointer;
@@ -133,6 +133,7 @@ export default function menuCustomList({
                 transition: 0.3s;
               }
             }
+
             a:hover{
               &::after{
                 content: "";
@@ -143,6 +144,7 @@ export default function menuCustomList({
                 background-color: #ff1600;
               }
             }
+
             a.active{
               transition: 0.3s;
               &::after{
@@ -155,9 +157,14 @@ export default function menuCustomList({
                 background-color: #ff1600;
               }
             }
+
             a:first-child::after{
               display: none !important;
               margin-bottom: 0;
+            }
+            a:first-child{
+              margin-left: 0;
+              padding-left: 0;
             }
         }
         .logoDesktop{
@@ -210,11 +217,11 @@ export default function menuCustomList({
         @media screen and (min-width : 1023px){
           .menuCustomList{
             display: flex;
-            justify-content: space-around;
+            justify-content: flex-start;
             width: 100%;
             div{
-              width: 80%;
-              justify-content: space-around;
+              width:80%;
+              /* justify-content: space-evenly; */
             }
           }
         }
