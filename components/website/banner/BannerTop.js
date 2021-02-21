@@ -32,7 +32,8 @@ function BannerTop() {
         slidesToScroll: 1,
 
     };
-    return <div className="carouselCustom">
+    
+    return <div className="carouselCustom bannerTop">
         {
             fetchData
                 ? <Slider {...settings}>
