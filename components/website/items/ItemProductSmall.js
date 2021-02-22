@@ -51,13 +51,15 @@ export default function ItemProductSmall({
         dots: false,
         infinite: true,
         arrows: true,
-        speed: 1500,
+        speed: 1200,
         autoplay: true,
         autoplaySpeed: 5000,
         slidesToShow: 1,
         slidesToScroll: 1,
         fade: true,
-        nextArrow: <SampleNextArrow />,
+        nextArrow: <SampleNextArrow 
+            style={{zIndex: 99, left:"0px", backgroundColor: "red"}}
+        />,
         prevArrow: <SamplePrevArrow />
     };
 
@@ -161,7 +163,7 @@ export default function ItemProductSmall({
                     border-top: 1px solid rgba(112,112,112,0.1);
                     display: flex;
                     flex-direction: row;
-                    padding: 20px 0;
+                    padding: 0px 0;
                     padding-top: 10px;
                     margin-top: 10px;
                     align-items: center;

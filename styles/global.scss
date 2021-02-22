@@ -18,6 +18,15 @@ font-family: 'Playfair Display', serif;
   font-style: normal;
   font-weight: normal;
 }
+
+@font-face {
+  font-family: "Montserrat-Light";
+  src: url("../public/fonts/Montserrat-Light.ttf");
+  src: url("../public/fonts/Montserrat-Light.ttf") format("truetype");
+  font-style: normal;
+  font-weight: normal;
+}
+
 html,
 body {
   padding: 0;
