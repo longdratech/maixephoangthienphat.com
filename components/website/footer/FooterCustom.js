@@ -73,6 +73,7 @@ export default function FooterCustom () {
 
       .contentFooter{
         display: flex;
+        padding-top: 25px;
       }
 
       .listInfoFooter{
@@ -285,13 +286,43 @@ export default function FooterCustom () {
           transform: rotate(0deg);
         }
       }
+      @media screen and (max-width: 768px) {
+        .listInfoFooter{
+          flex-wrap: wrap;
+          justify-content: flex-start;
+        }
+      }
       @media screen and (max-width: 599px) {
+        .contentFooter{
+          flex-wrap: wrap;
+          flex-direction: column;
+        }
+        .logoFooter{
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+        }
+        .logoInfo .listConnect{
+          justify-content: center;
+          align-items: center;
+        }
+        .logoInfo{
+          flex: 1;
+          padding-top: 20px;
+          padding-bottom: 20px;
+        }
         .icon-call {
           width: 40px;
           height: 40px;
           right: 32px;
         }
+        .listInfoFooter{
+          flex-wrap: wrap;
+          justify-content: flex-start;
+        }
       }
+
     `}</style>
   </footer>  
 }

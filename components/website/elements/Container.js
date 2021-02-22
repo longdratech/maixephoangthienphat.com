@@ -1,5 +1,5 @@
-function Container({children}) {
-    return <div className="container">
+function Container({children, className}) {
+    return <div className={`container ` + className}>
         {children}
         <style jsx>{`
             .container{

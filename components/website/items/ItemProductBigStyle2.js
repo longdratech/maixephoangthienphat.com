@@ -9,7 +9,7 @@ const fetchData =
     }
 
 
-export default function ItemProductBig({
+export default function ItemProductBigStyle2({
     name,
     description,
     price
@@ -48,10 +48,10 @@ export default function ItemProductBig({
     }
 
     const settings = {
-        dots: false,
+        dots: true,
         infinite: true,
         arrows: true,
-        speed: 1200,
+        speed: 2000,
         autoplay: true,
         autoplaySpeed: 5000,
         slidesToShow: 1,
@@ -61,7 +61,7 @@ export default function ItemProductBig({
         prevArrow: <SamplePrevArrow />
     };
 
-    return <div className="itemProductBig">
+    return <div className="itemProductBigStyle2">
         {
             fetchData.srcImgs
                 ? <Slider {...settings}>
@@ -77,23 +77,27 @@ export default function ItemProductBig({
                 </Slider>
                 : <></>
         }
-        <span className="priceSale">Giá sốc</span>
-        <div className="infoItemProductBig">
+       
+        <div className="infoItemProductBigStyle2">
 
             <h4>{fetchData.title}</h4>
-            <span>{fetchData.price}</span>
+
+            <p className="priceItemProductBigStyle2">
+                {`Giá: `} <span>{fetchData.price}</span>
+            </p>
+
             <p>
-                {`Bảo hành: 12 tháng`}
+                {`Bảo hành: `} <span>{`5 tháng`}</span>
             </p>
 
             <div className="infoTracking">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18.604" height="10.344" viewBox="0 0 17.604 10.344">
+                {/* <svg xmlns="http://www.w3.org/2000/svg" width="18.604" height="10.344" viewBox="0 0 17.604 10.344">
                     <g id="view_icon" data-name="view icon" transform="translate(5128 -1531.985)">
                         <path id="Path_32" data-name="Path 32" d="M17.493,97.691c-.157-.2-3.9-4.856-8.691-4.856S.269,97.493.112,97.691a.5.5,0,0,0,0,.632c.157.2,3.9,4.856,8.691,4.856s8.533-4.658,8.691-4.856A.5.5,0,0,0,17.493,97.691ZM8.8,102.109c-3.525,0-6.579-3.092-7.483-4.1.9-1.012,3.95-4.1,7.483-4.1s6.578,3.091,7.483,4.1C15.382,99.019,12.335,102.109,8.8,102.109Z" transform="translate(-5128 1439.15)" fill="#707070"/>
                         <path id="Path_33" data-name="Path 33" d="M157.929,154.725a2.832,2.832,0,1,0,3.207,2.807A3.031,3.031,0,0,0,157.929,154.725Zm0,4.678a1.888,1.888,0,1,1,2.138-1.871A2.02,2.02,0,0,1,157.929,159.4Z" transform="translate(-5277.127 1379.625)" fill="#707070"/>
                     </g>
-                </svg>
-                <p>{`1.000`}</p>
+                </svg> */}
+                {/* <p>{`1.000`}</p> */}
                 <span>
                     Đã bán: 100
                 </span>
@@ -101,67 +105,73 @@ export default function ItemProductBig({
 
         </div>
 
+        <span className="priceSale">Hot deal</span>
+
         <style jsx>{`
             .priceSale{
                 position: absolute;
-                top: 15px;
-                left: 15px;
-                padding: 8px 10px;
+                top: 0;
+                right: 10px;
+                /* border-top-right-radius: 20px; */
+                padding: 8px 20px;
                 background-color: #ff1600;
                 font-family: "Montserrat-SemiBold";
                 color: #fff;
                 border-radius: 5px;
             }
             
-            .itemProductBig{
+            .itemProductBigStyle2{
                 overflow: hidden;
-                /* background-color: #fff; */
                 border-radius: 20px;
                 position: relative;
                 transition: 0.3s;
                 cursor: pointer;
             }
-            .itemProductBig:hover .itemCarousel img{
-                transform: scale(1.2);
+            .itemProductBigStyle2:hover .itemCarousel img{
+               
             }
             .itemCarousel{
                 overflow: hidden;
                 border-radius: 20px;
+                z-index: 2;
                 img{
                     transition: 0.3s;
-                    width: 100%;
-                    max-height: 50vh;
+                    width: 35%;
+                    max-height: 250px;
                     height: 100%;
                     border-radius: 20px;
                     object-fit: cover;
                 }
             }
-            .infoItemProductBig{
+            .infoItemProductBigStyle2{
                 display: flex;
                 flex-direction: row;
                 justify-content: space-evenly;
                 flex-wrap: wrap;
                 padding: 20px 15px;
                 position: absolute;
-                width: 50%;
-                bottom: 0;
-                right: 0;
+                width: 55%;
+                top: 50%;
+                left: 40%;
+                transform: translate(0, -50%);
                 background-color: #fff;
                 border-radius: 20px;
                 h4{
                     font-family: "Montserrat-SemiBold";
-                    font-size: 16px;
+                    font-size: 24px;
                     color: #103C55;
                     flex: 1;
+                    padding-bottom: 20px;
                 }
                 span{
                     font-family: "Montserrat-SemiBold";
-                    font-size: 16px;
-                    color: #103C55;
+                    /* font-size: 16px; */
+                    color: #707070;
                 }
                 p{
+                    font-size: 18px;
                     width: 100%;
-                    padding: 10px 0;
+                    padding: 5px 0;
                 }
 
                 .infoTracking{
@@ -187,12 +197,17 @@ export default function ItemProductBig({
             }
 
             @media only screen and (max-width : 1024px){
-                .infoItemProductBig{
-                    position: relative;
-                    width: unset;
-                    
+                .priceSale{
+                    right: 0;
                 }
-                .itemProductBig{
+                .infoItemProductBigStyle2{
+                    position: relative;
+                    width: 100%;
+                    left: 0;
+                    top: unset;
+                    transform: unset;
+                }
+                .itemProductBigStyle2{
                     -webkit-box-shadow: 0 10px 6px -6px #7777771f;
                     -moz-box-shadow: 0 10px 6px -6px #7777771f;
                     box-shadow: 0 10px 6px -6px #7777771f;
@@ -204,13 +219,14 @@ export default function ItemProductBig({
                     
                 }
                 .itemCarousel{
-                        img{
-                            max-height: 26vh;
-                            height: 100%;
-                            border-radius: 20px;
-                            object-fit: cover;
-                        }
+                    img{
+                        max-height: 26vh;
+                        width: 100%;
+                        height: 100%;
+                        border-radius: 20px;
+                        object-fit: cover;
                     }
+                }
             }
         `}</style>
     </div>
