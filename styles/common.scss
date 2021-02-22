@@ -8,9 +8,18 @@ header {
 body {
   z-index: 1;
 }
-.pHome {
-  
- 
+#pHome {
+  .titleCompany{
+    h2{
+      margin-bottom: 0;
+      padding-bottom: 10px;
+    }
+    h4{
+      font-size: 18px;
+      letter-spacing: 0.1rem;
+      opacity: 0.6;
+    }
+  }
 }
 .bannerTop{
   .slick-dots {
@@ -101,6 +110,84 @@ body {
     opacity: 1;
     left: 25px;
   }
+}
+
+.itemProductSmall, .itemProductBig, .itemBannerBottom{
+  .slick-prev {
+    left: unset;
+    width: 40px;
+    height: 30px;
+    right: 40px;
+    top: 16px;
+    z-index: 1;
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    transition: 0.3s;
+    &::before{
+      display: none;
+    }
+    &:hover{
+      background-color: #FD7669;
+    }
+    
+  }
+  .slick-next {
+    right: 1px;
+    width: 40px;
+    height: 30px;
+    top: 16px;
+    border-top-right-radius: 20px;
+    z-index: 1;
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    transition: 0.3s;
+    &:hover{
+      background-color: #FD7669;
+    }
+    &::before{
+      display: none;
+    }
+    &::after{
+        content: "";
+        position: absolute;
+        width: 1px;
+        height: 15px;
+        background-color: #888;
+        left: 0;
+        top: 50%;
+        transform: translate(0, -50%);
+    }
+    
+  }
+}
+
+.itemBannerBottom{
+  .slick-next {
+    border-top-right-radius: 0;
+  }
+}
+
+.itemProductBigStyle2{
+  .slick-dots {
+    bottom: 10px;
+    width: 35%;
+    .slick-active{
+
+    }
+    li.slick-active button:before{
+      color: #fff;
+      transform: scale(1.5);
+    }
+  }
+}
+
+.layoutGrid.infoCompany{
+  padding: 20px 0;
+  column-gap: 50px !important;
 }
 
 

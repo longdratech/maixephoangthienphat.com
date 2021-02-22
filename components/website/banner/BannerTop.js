@@ -71,6 +71,8 @@ function BannerTop() {
                     width: 100%;
                     height: 83vh;
                     object-fit: cover;
+                    max-height: 560px;
+                    min-height: 300px;
                 }
             }
             img{
@@ -106,6 +108,20 @@ function BannerTop() {
                     margin-left: auto;
                     margin-right: auto;
                 }
+            }
+            @media only screen and (max-width : 599px){
+
+                .infoItemCopy{
+                    width: 85%;
+                    left: 50%;
+                    transform: translate(-50%,0);
+                    padding: 20px 20px;
+
+                    h3{
+                        font-size: 24px;
+                    }
+                }
+
             }
         `}</style>
     </div>

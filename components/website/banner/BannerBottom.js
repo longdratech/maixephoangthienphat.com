@@ -2,16 +2,16 @@ import asset from "plugins/assets/asset";
 import Slider from "react-slick";
 const fetchData = 
     {
-        title: "Mái che di động 1",
+        title: "Thi công mái hiên tại Bình Quới",
         srcImgs : ["/images/demo/banner-01.png", "/images/demo/banner-02.jpg"],
-        description : "Mái che  di động, nắng mưa nay đã không còn là nỗi lo.",
+        description : "Thi công mái hiên di động tại Đà Nẵng Thi công mái hiên di động tại Đà Nẵng đã và đang đáp ứng nhu cầu đông đảo cho người sử dụng trên địa bàn khi muốn gia tăng diện tích",
         price : "1.300.000 đ",
     }
 
 
-export default function ItemProductBig({
+export default function BannerBottom({
     name,
-    description,
+    description="",
     price
 }){
 
@@ -61,7 +61,7 @@ export default function ItemProductBig({
         prevArrow: <SamplePrevArrow />
     };
 
-    return <div className="itemProductBig">
+    return <div className="itemBannerBottom">
         {
             fetchData.srcImgs
                 ? <Slider {...settings}>
@@ -70,6 +70,13 @@ export default function ItemProductBig({
                             return (
                                 <div key={index} className="itemCarousel">
                                     <img src= {asset(value)} />
+                                    <div className="infoItemBannerBottom">
+                                        <h4>{fetchData.title}</h4>
+                                        <p className="descriptionItemBannerBottom">
+                                            {fetchData.description}
+                                        </p>
+
+                                    </div>
                                 </div>
                             )
                         })
@@ -77,29 +84,9 @@ export default function ItemProductBig({
                 </Slider>
                 : <></>
         }
-        <span className="priceSale">Giá sốc</span>
-        <div className="infoItemProductBig">
+        {/* <span className="priceSale">Giá sốc</span> */}
 
-            <h4>{fetchData.title}</h4>
-            <span>{fetchData.price}</span>
-            <p>
-                {`Bảo hành: 12 tháng`}
-            </p>
-
-            <div className="infoTracking">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18.604" height="10.344" viewBox="0 0 17.604 10.344">
-                    <g id="view_icon" data-name="view icon" transform="translate(5128 -1531.985)">
-                        <path id="Path_32" data-name="Path 32" d="M17.493,97.691c-.157-.2-3.9-4.856-8.691-4.856S.269,97.493.112,97.691a.5.5,0,0,0,0,.632c.157.2,3.9,4.856,8.691,4.856s8.533-4.658,8.691-4.856A.5.5,0,0,0,17.493,97.691ZM8.8,102.109c-3.525,0-6.579-3.092-7.483-4.1.9-1.012,3.95-4.1,7.483-4.1s6.578,3.091,7.483,4.1C15.382,99.019,12.335,102.109,8.8,102.109Z" transform="translate(-5128 1439.15)" fill="#707070"/>
-                        <path id="Path_33" data-name="Path 33" d="M157.929,154.725a2.832,2.832,0,1,0,3.207,2.807A3.031,3.031,0,0,0,157.929,154.725Zm0,4.678a1.888,1.888,0,1,1,2.138-1.871A2.02,2.02,0,0,1,157.929,159.4Z" transform="translate(-5277.127 1379.625)" fill="#707070"/>
-                    </g>
-                </svg>
-                <p>{`1.000`}</p>
-                <span>
-                    Đã bán: 100
-                </span>
-            </div>
-
-        </div>
+        
 
         <style jsx>{`
             .priceSale{
@@ -113,104 +100,95 @@ export default function ItemProductBig({
                 border-radius: 5px;
             }
             
-            .itemProductBig{
-                overflow: hidden;
-                /* background-color: #fff; */
-                border-radius: 20px;
+            .itemBannerBottom{
                 position: relative;
                 transition: 0.3s;
                 cursor: pointer;
             }
-            .itemProductBig:hover .itemCarousel img{
-                transform: scale(1.2);
+            .itemBannerBottom:hover .itemCarousel img{
+                transform: scale(1.1);
             }
             .itemCarousel{
-                overflow: hidden;
-                border-radius: 20px;
                 img{
                     transition: 0.3s;
                     width: 100%;
                     max-height: 50vh;
                     height: 100%;
-                    border-radius: 20px;
                     object-fit: cover;
+                    
+                }
+                &::after{
+                    content: "";
+                    width: 100%;
+                    height: 100%;
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    z-index: 1;
+                    background-color: rgba(0,0,0,0.5);
                 }
             }
-            .infoItemProductBig{
+            .infoItemBannerBottom{
+                z-index: 2;
                 display: flex;
                 flex-direction: row;
-                justify-content: space-evenly;
+                justify-content: center;
                 flex-wrap: wrap;
                 padding: 20px 15px;
                 position: absolute;
-                width: 50%;
                 bottom: 0;
-                right: 0;
-                background-color: #fff;
-                border-radius: 20px;
+                left: 50%;
+                transform: translate(-50%,0);
+                color: #fff;
+               
                 h4{
                     font-family: "Montserrat-SemiBold";
-                    font-size: 16px;
-                    color: #103C55;
+                    font-size: 32px;
+                    color: #fff;
                     flex: 1;
+                    text-align: center;
                 }
                 span{
                     font-family: "Montserrat-SemiBold";
                     font-size: 16px;
-                    color: #103C55;
+                    color: #fff;
                 }
                 p{
                     width: 100%;
                     padding: 10px 0;
+                    color: #fff;
+                    text-align: center;
                 }
 
-                .infoTracking{
-                    width: 100%;
-                    border-top: 1px solid rgba(112,112,112,0.1);
-                    display: flex;
-                    flex-direction: row;
-                    padding: 0px 0;
-                    padding-top: 10px;
-                    margin-top: 10px;
-                    align-items: center;
-                    p{
-                        padding-left: 10px;
-                        flex: 1;
-                    }
-                    span{
-                        font-family: "Montserrat-Regular";
-                        font-size: 14px;
-                        color: rgba(0, 0, 0, 0.85)
-
-                    }
-                }
             }
 
             @media only screen and (max-width : 1024px){
-                .infoItemProductBig{
-                    position: relative;
-                    width: unset;
-                    
-                }
-                .itemProductBig{
-                    -webkit-box-shadow: 0 10px 6px -6px #7777771f;
-                    -moz-box-shadow: 0 10px 6px -6px #7777771f;
-                    box-shadow: 0 10px 6px -6px #7777771f;
-                    &:hover{
-                        -webkit-box-shadow: 0 10px 6px -6px #77777785;
-                        -moz-box-shadow: 0 10px 6px -6px #77777785;
-                        box-shadow: 0 10px 6px -6px #77777785;
+                .infoItemBannerBottom{
+                    width: 90%;
+                    h4{
+                        font-size: 24px;
                     }
-                    
+                    p{
+                        font-size: 14px;
+                    }
                 }
+                
                 .itemCarousel{
                         img{
-                            max-height: 26vh;
                             height: 100%;
-                            border-radius: 20px;
                             object-fit: cover;
                         }
                     }
+            }
+            @media only screen and (max-width : 599px){
+                .infoItemBannerBottom{
+                    h4{
+                        font-size: 20px;
+                    }
+                    p{
+                        font-size: 10px;
+                    }
+                }
             }
         `}</style>
     </div>

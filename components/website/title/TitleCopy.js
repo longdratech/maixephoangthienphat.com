@@ -2,12 +2,16 @@ export default function TitleCopy({
     name="Sản phẩm nổi bật",
     positionLine = "CENTER",
     fontSize = 32,
+    className = "",
+    children,
 }) {
-    return <div className={`titleCopy__`+ positionLine}>
+    return <div className={`titleCopy__`+ positionLine + " " + className}>
         <h2>
             <span className={`positionLine__`+ positionLine}> {name} </span>
         </h2>
-
+        {
+            children
+        }
 
         <style jsx>{`
 
@@ -28,7 +32,7 @@ export default function TitleCopy({
             h2{
                 font-family: "Montserrat-SemiBold";
                 font-size: ${fontSize +"px"};
-                color: #2A2A2A;
+                color: #103C55;
                 padding: 20px 0;
                 margin: 20px 0;
                 display: block;
