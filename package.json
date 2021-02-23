@@ -8,7 +8,7 @@
     "dev:next": "node postinstall.js && next dev",
     "build": "TZ=Asia/Ho_Chi_Minh node postinstall.js && NODE_ENV=production next build",
     "startup": "TZ=Asia/Ho_Chi_Minh NODE_ENV=production yarn build && node server",
-    "start": "TZ=Asia/Ho_Chi_Minh NODE_ENV=production node server",
+    "start": "next start -p $PORT",
     "export": "TZ=Asia/Ho_Chi_Minh node postinstall.js && next build && next export",
     "analyze": "node postinstall.js && ANALYZE=true yarn build"
   },
