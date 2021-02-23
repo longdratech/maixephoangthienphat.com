@@ -6,9 +6,9 @@
     "pr": "node git",
     "dev": "node postinstall.js && node server.dev",
     "dev:next": "node postinstall.js && next dev",
-    "build": "node postinstall.js && NODE_ENV=production next build",
-    "startup": "NODE_ENV=production yarn build && node server",
-    "start": "NODE_ENV=production node server",
+    "build": "node postinstall.js && NODE_ENV=dev next build",
+    "startup": "NODE_ENV=dev yarn build && node server",
+    "start": "NODE_ENV=dev node server",
     "export": "node postinstall.js && next build && next export",
     "analyze": "node postinstall.js && ANALYZE=true yarn build"
   },
