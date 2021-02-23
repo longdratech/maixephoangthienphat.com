@@ -2,11 +2,10 @@
 import MasterPageBasic from "components/website/master/MasterPageBasic";
 // import BasicLayout from "components/diginext/layout/BasicLayout";
 // import { useRouter } from "next/router";
-// import Header from "components/website/elements/Header";
 import Header from "components/website/header/Header";
+import FooterCustom from "components/website/footer/FooterCustom";
 import Container from "components/website/elements/Container";
-// import DashkitButton from "components/dashkit/Buttons";
-// import { BS } from "components/diginext/elements/Splitters";
+import BannerTopStyle2 from "components/website/banner/BannerTopStyle2";
 
 export default function Home(props) {
   // const router = useRouter();
@@ -15,11 +14,13 @@ export default function Home(props) {
     <MasterPageBasic hidePrevButton header="Home Page">
       <Header active="lien-he"></Header>
       <main id="pContact">
+        <BannerTopStyle2></BannerTopStyle2>
         <Container>
           <h2>Hello world!</h2>
         </Container>
       </main>
-     
+
+      <FooterCustom></FooterCustom>
       
     </MasterPageBasic>
   );
