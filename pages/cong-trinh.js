@@ -4,9 +4,8 @@ import MasterPageBasic from "components/website/master/MasterPageBasic";
 // import { useRouter } from "next/router";
 // import Header from "components/website/elements/Header";
 import Header from "components/website/header/Header";
+import FooterCustom from "components/website/footer/FooterCustom";
 import Container from "components/website/elements/Container";
-// import DashkitButton from "components/dashkit/Buttons";
-// import { BS } from "components/diginext/elements/Splitters";
 
 export default function Home(props) {
   // const router = useRouter();
@@ -19,7 +18,7 @@ export default function Home(props) {
           <h2>Hello world!</h2>
         </Container>
       </main>
-     
+      <FooterCustom></FooterCustom>
       
     </MasterPageBasic>
   );

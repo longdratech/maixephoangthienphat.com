@@ -5,6 +5,7 @@ import Header from "components/website/header/Header";
 import Container from "components/website/elements/Container";
 import FooterCustom from "components/website/footer/FooterCustom";
 import BannerTop from "components/website/banner/BannerTop";
+// import BannerTopStyle2 from "components/website/banner/BannerTopStyle2";
 import BannerBottom from "components/website/banner/BannerBottom";
 import TitleCopy from "components/website/title/TitleCopy";
 
