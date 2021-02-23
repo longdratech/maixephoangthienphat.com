@@ -12,7 +12,7 @@ import ItemProductSmall from "components/website/items/ItemProductSmall";
 import ItemProductBig from "components/website/items/ItemProductBig";
 import ItemProductBigStyle2 from "components/website/items/ItemProductBigStyle2";
 
-import ItemTextInfo from "components/website/items/itemTextInfo";
+import ItemTextInfo from "components/website/items/ItemTextInfo";
 
 import LayoutGrid from "components/website/elements/LayoutGrid";
 export default function Home(props) {
