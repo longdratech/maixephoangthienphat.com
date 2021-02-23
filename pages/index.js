@@ -9,7 +9,7 @@ import BannerBottom from "components/website/banner/BannerBottom";
 import TitleCopy from "components/website/title/TitleCopy";
 
 import ItemProductSmall from "components/website/items/ItemProductSmall";
-import ItemProductBig from "components/website/items/ItemProductBig";
+import ItemProductBig from "@/components/website/items/ItemProductBig";
 import ItemProductBigStyle2 from "components/website/items/ItemProductBigStyle2";
 
 import ItemTextInfo from "components/website/items/itemTextInfo";
