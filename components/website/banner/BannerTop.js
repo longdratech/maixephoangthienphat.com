@@ -111,6 +111,12 @@ function BannerTop() {
             }
             @media only screen and (max-width : 599px){
 
+                .itemCarousel{
+                    img{
+                        height: 60vh;
+                    }
+                }
+
                 .infoItemCopy{
                     width: 85%;
                     left: 50%;
