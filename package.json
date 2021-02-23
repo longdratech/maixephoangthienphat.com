@@ -8,7 +8,7 @@
     "dev:next": "node postinstall.js && next development",
     "build": "node postinstall.js && NODE_ENV=development next build",
     "startup": "NODE_ENV=development yarn build && node server",
-    "start": "NODE_ENV=development node server",
+    "start": "NODE_ENV=development node server && next start",
     "export": "node postinstall.js && next build && next export",
     "analyze": "node postinstall.js && ANALYZE=true yarn build"
   },
