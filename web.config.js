@@ -8,7 +8,7 @@ export const ENVIRONMENT_DATA = {
 const CONFIG = {
   environment: process.env.NEXT_PUBLIC_ENV || "development",
   site: {
-    title: "Hello Website",
+    title: "Hoàng Thiên Phát",
     description: "Description goes here",
     type: "article",
   },

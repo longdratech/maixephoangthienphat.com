@@ -3,6 +3,9 @@ import {useState, useEffect} from "react"
 export default function LayoutGrid({
     children,
     column=3,
+    gridGap=20,
+    paddingBottom=20,
+    paddingTop=0,
     itemBig = false,
     revert = false,
     className="",
@@ -23,22 +26,24 @@ export default function LayoutGrid({
             .layoutGrid{
                 display: grid;
                 grid-template-columns: repeat(${column}, 1fr);
-                grid-gap: 20px;
-                padding-bottom: 20px;
+                grid-gap: ${gridGap + "px"};
+                padding-bottom: ${paddingBottom + "px"};
+                padding-top: ${paddingTop + "px"};
             }
 
             .layoutGridBig{
                 display: grid;
                 grid-template-columns: repeat(1, 1fr) repeat(1, 2fr);
-                grid-gap: 20px;
-                padding-bottom: 20px;
-               
+                grid-gap: ${gridGap + "px"};
+                padding-bottom: ${paddingBottom + "px"};
+                padding-top: ${paddingTop + "px"};
             }
             .layoutGridBig.revert{
                 display: grid;
                 grid-template-columns: repeat(1, 2fr) repeat(1, 1fr);
-                grid-gap: 20px;
-                padding-bottom: 20px;
+                grid-gap: ${gridGap + "px"};
+                padding-bottom: ${paddingBottom + "px"};
+                padding-top: ${paddingTop + "px"};
             }
 
             @media only screen and (max-width : 599px){
@@ -46,21 +51,15 @@ export default function LayoutGrid({
                 .layoutGrid{
                     display: grid;
                     grid-template-columns: repeat(1, 1fr);
-                    grid-gap: 20px;
-                    padding-bottom: 20px;
                 }
 
                 .layoutGridBig{
                     display: grid;
                     grid-template-columns: repeat(1, 1fr);
-                    grid-gap: 20px;
-                    padding-bottom: 20px;
                 }
                 .layoutGridBig.revert{
                     display: grid;
                     grid-template-columns: repeat(1, 1fr);
-                    grid-gap: 20px;
-                    padding-bottom: 20px;
                 }
             }
 
