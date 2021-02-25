@@ -1,7 +1,10 @@
 import asset from "plugins/assets/asset";
 import Slider from "react-slick";
+import { useRouter } from "next/router"
+
 const fetchData = 
     {
+        id:"123",
         title: "Mái che di động 1",
         srcImgs : ["/images/demo/banner-01.png", "/images/demo/banner-02.jpg"],
         description : "Mái che  di động, nắng mưa nay đã không còn là nỗi lo.",
@@ -14,6 +17,12 @@ export default function ItemProductBig({
     description,
     price
 }){
+
+    const router = useRouter();
+    
+    const handleClickTitle = (e) =>{
+        router.push("/chi-tiet-san-pham/"+fetchData.id);
+    }
 
     function SampleNextArrow(props) {
         const { className, style, onClick } = props;
@@ -80,7 +89,7 @@ export default function ItemProductBig({
         <span className="priceSale">Giá sốc</span>
         <div className="infoItemProductBig">
 
-            <h4>{fetchData.title}</h4>
+            <h4 onClick={handleClickTitle}> {fetchData.title} </h4>
             <span>{fetchData.price}</span>
             <p>
                 {`Bảo hành: 12 tháng`}

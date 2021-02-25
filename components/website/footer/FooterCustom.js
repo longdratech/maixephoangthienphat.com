@@ -70,7 +70,10 @@ export default function FooterCustom () {
       </Container>
     
     <style jsx>{`
-
+      footer{
+        margin-top: 60px;
+        border-top: solid 1px rgba(0,0,0,0.1);
+      }
       .contentFooter{
         display: flex;
         padding-top: 25px;

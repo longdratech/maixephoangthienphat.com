@@ -14,8 +14,16 @@ import ItemProductBig from "components/website/items/ItemProductBig";
 import ItemProductBigStyle2 from "components/website/items/ItemProductBigStyle2";
 
 import ItemTextInfo from "components/website/items/ItemTextInfo";
-
 import LayoutGrid from "components/website/elements/LayoutGrid";
+
+const fetchDataBannerBottom = 
+    {
+        title: "Thi công mái hiên tại Bình Quới",
+        srcImgs : ["/images/demo/banner-bottom.png", "/images/demo/banner-02.jpg"],
+        description : "Thi công mái hiên di động tại Đà Nẵng Thi công mái hiên di động tại Đà Nẵng đã và đang đáp ứng nhu cầu đông đảo cho người sử dụng trên địa bàn khi muốn gia tăng diện tích",
+        price : "1.300.000 đ",
+    }
+
 export default function Home(props) {
   // const router = useRouter();
 
@@ -109,7 +117,10 @@ export default function Home(props) {
             name={"Công trình"}
             positionLine={"CENTER"}
           ></TitleCopy>
-          <BannerBottom></BannerBottom>
+
+          <BannerBottom
+            data={fetchDataBannerBottom}
+          ></BannerBottom>
 
         </Container>
         
