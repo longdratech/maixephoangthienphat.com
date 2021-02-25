@@ -5,7 +5,7 @@ const fetchData =
     {
         id:"123",
         title: "Mái che di động 1",
-        srcImgs : ["/images/demo/banner-01.png", "/images/demo/banner-02.jpg"],
+        srcImgs : ["/images/demo/banner-01.jpg", "/images/demo/banner-02.jpg"],
         description : "Mái che  di động, nắng mưa nay đã không còn là nỗi lo.",
         price : "1.300.000 đ",
     }

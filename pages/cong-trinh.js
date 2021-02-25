@@ -10,7 +10,7 @@ import ItemProductBigStyle2 from "components/website/items/ItemProductBigStyle2"
 const fetchData = [
   {
       title: "Công trình",
-      srcImg: "/images/demo/banner-top-style-2.png",
+      srcImg: "/images/demo/banner-top-style-2.jpg",
       description: "Mái che  di động, nắng mưa nay đã không còn là nỗi lo."
   }
 ]
