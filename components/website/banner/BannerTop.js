@@ -8,12 +8,12 @@ import Container from "components/website/elements/Container";
 const fetchData = [
     {
         title: "Mái che di động 1",
-        srcImg : "/images/demo/banner-01.png",
+        srcImg : "/images/demo/banner-01.jpg",
         description : "Mái che  di động, nắng mưa nay đã không còn là nỗi lo."
     },
     {
         title: "Mái che di động 2",
-        srcImg : "/images/demo/banner-01.png",
+        srcImg : "/images/demo/banner-01.jpg",
         description : "Mái che  di động, nắng mưa nay đã không còn là nỗi lo."
     },
 ]
