@@ -10,7 +10,7 @@ import BannerTopStyle2 from "components/website/banner/BannerTopStyle2";
 const fetchData = [
   {
       title: "Giới thiệu",
-      srcImg: "/images/demo/banner-top-style-2.png",
+      srcImg: "/images/demo/banner-top-style-2.jpg",
       description: "Mái che  di động, nắng mưa nay đã không còn là nỗi lo."
   }
 ]

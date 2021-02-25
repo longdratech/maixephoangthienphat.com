@@ -3,7 +3,7 @@ import Slider from "react-slick";
 const fetchData = 
     {
         title: "Thi công mái hiên tại Bình Quới",
-        srcImgs : ["/images/demo/banner-01.png", "/images/demo/banner-02.jpg"],
+        srcImgs : ["/images/demo/banner-01.jpg", "/images/demo/banner-02.jpg"],
         description : "Thi công mái hiên di động tại Đà Nẵng Thi công mái hiên di động tại Đà Nẵng đã và đang đáp ứng nhu cầu đông đảo cho người sử dụng trên địa bàn khi muốn gia tăng diện tích",
         price : "1.300.000 đ",
     }

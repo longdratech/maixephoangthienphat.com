@@ -19,7 +19,7 @@ import LayoutGrid from "components/website/elements/LayoutGrid";
 const fetchDataBannerBottom = 
     {
         title: "Thi công mái hiên tại Bình Quới",
-        srcImgs : ["/images/demo/banner-bottom.png", "/images/demo/banner-02.jpg"],
+        srcImgs : ["/images/demo/banner-bottom.jpg", "/images/demo/banner-02.jpg"],
         description : "Thi công mái hiên di động tại Đà Nẵng Thi công mái hiên di động tại Đà Nẵng đã và đang đáp ứng nhu cầu đông đảo cho người sử dụng trên địa bàn khi muốn gia tăng diện tích",
         price : "1.300.000 đ",
     }
