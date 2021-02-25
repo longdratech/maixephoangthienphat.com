@@ -10,9 +10,11 @@ const fetchData =
 
 
 export default function BannerBottom({
-    name,
+    name="",
     description="",
-    price
+    price,
+    srcImgs,
+    data,
 }){
 
     function SampleNextArrow(props) {
@@ -66,7 +68,22 @@ export default function BannerBottom({
             fetchData.srcImgs
                 ? <Slider {...settings}>
                     {
-                        fetchData.srcImgs.map((value, index) => {
+                        data 
+                        ?data.srcImgs.map((value, index) => {
+                            return (
+                                <div key={index} className="itemCarousel">
+                                    <img src= {asset(value)} />
+                                    <div className="infoItemBannerBottom">
+                                        <h4>{fetchData.title}</h4>
+                                        <p className="descriptionItemBannerBottom">
+                                            {fetchData.description}
+                                        </p>
+
+                                    </div>
+                                </div>
+                            )
+                        })
+                        :fetchData.srcImgs.map((value, index) => {
                             return (
                                 <div key={index} className="itemCarousel">
                                     <img src= {asset(value)} />
@@ -109,10 +126,12 @@ export default function BannerBottom({
                 transform: scale(1.1);
             }
             .itemCarousel{
+                overflow: hidden;
+                height: 40vh;
                 img{
                     transition: 0.3s;
                     width: 100%;
-                    max-height: 50vh;
+                    /* max-height: 50vh; */
                     height: 100%;
                     object-fit: cover;
                     
@@ -123,7 +142,7 @@ export default function BannerBottom({
                     height: 100%;
                     position: absolute;
                     left: 0;
-                    top: 0;
+                    top: -3px;
                     z-index: 1;
                     background-color: rgba(0,0,0,0.5);
                 }

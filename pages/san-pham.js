@@ -20,49 +20,52 @@ export default function Home(props) {
   // const router = useRouter();
 
   return (
-    <MasterPageBasic hidePrevButton header="Home Page">
+    <MasterPageBasic hidePrevButton pageName="Sản phẩm">
+
       <Header active="san-pham"></Header>
+
       <main id="pProducts">
-      <BannerTopStyle2></BannerTopStyle2>
 
-      <Container>
+        <BannerTopStyle2></BannerTopStyle2>
 
-        <TitleCopy
-          name={"Sản phẩm nổi bậc"}
-          positionLine={"CENTER"}
-        ></TitleCopy>
+        <Container>
 
-      </Container>
+          <TitleCopy
+            name={"Sản phẩm nổi bậc"}
+            positionLine={"CENTER"}
+          ></TitleCopy>
 
-      <Container>
+        </Container>
 
-        <LayoutGrid>
-          <ItemProductSmall></ItemProductSmall>
-          <ItemProductSmall></ItemProductSmall>
-          <ItemProductSmall></ItemProductSmall>
-        </LayoutGrid>
+        <Container>
 
-        <LayoutGrid itemBig={true}>
-          <ItemProductSmall></ItemProductSmall>
-          <ItemProductBig></ItemProductBig>
-        </LayoutGrid>
+          <LayoutGrid>
+            <ItemProductSmall></ItemProductSmall>
+            <ItemProductSmall></ItemProductSmall>
+            <ItemProductSmall></ItemProductSmall>
+          </LayoutGrid>
 
-        <LayoutGrid>
-          <ItemProductSmall></ItemProductSmall>
-          <ItemProductSmall></ItemProductSmall>
-          <ItemProductSmall></ItemProductSmall>
-        </LayoutGrid>
+          <LayoutGrid itemBig={true}>
+            <ItemProductSmall></ItemProductSmall>
+            <ItemProductBig></ItemProductBig>
+          </LayoutGrid>
 
-        <LayoutGrid itemBig={true} revert={true}>
-          <ItemProductBig></ItemProductBig>
-          <ItemProductSmall></ItemProductSmall>
-        </LayoutGrid>
-        
-      </Container>
+          <LayoutGrid>
+            <ItemProductSmall></ItemProductSmall>
+            <ItemProductSmall></ItemProductSmall>
+            <ItemProductSmall></ItemProductSmall>
+          </LayoutGrid>
+
+          <LayoutGrid itemBig={true} revert={true}>
+            <ItemProductBig></ItemProductBig>
+            <ItemProductSmall></ItemProductSmall>
+          </LayoutGrid>
+
+        </Container>
       </main>
 
       <FooterCustom></FooterCustom>
-      
+
     </MasterPageBasic>
   );
 }

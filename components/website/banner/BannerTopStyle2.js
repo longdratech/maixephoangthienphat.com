@@ -8,13 +8,13 @@ import Container from "components/website/elements/Container";
 const fetchData = [
     {
         title: "Mái che di động",
-        srcImg : "/images/demo/banner-01.png",
-        description : "Mái che  di động, nắng mưa nay đã không còn là nỗi lo."
+        srcImg: "/images/demo/banner-top-style-2.png",
+        description: "Mái che  di động, nắng mưa nay đã không còn là nỗi lo."
     }
 ]
 
-function BannerTopStyle2() {
-  
+function BannerTopStyle2({ data }) {
+
     const settings = {
         dots: true,
         infinite: true,
@@ -29,24 +29,25 @@ function BannerTopStyle2() {
         slidesToScroll: 1,
 
     };
-    
+
     return <div className="carouselCustom bannerTopStyle2">
         {
-            fetchData
+            data
                 ? <Slider {...settings}>
                     {
-                        fetchData.map((value, index) => {
+                        data.map((value, index) => {
                             return (
                                 <div key={index} className="itemCarousel">
-                                    <img src= {asset(value.srcImg)} />
-                                   
+                                    <img src={asset(value.srcImg)} />
+
                                     <div className="infoItemCopy">
                                         <TitleCopy
                                             name={value.title}
                                             positionLine={"CENTER"}
                                             color="#fff"
+                                            fontSize={40}
                                         ></TitleCopy>
-                                        
+
                                     </div>
                                 </div>
                             )
@@ -61,7 +62,7 @@ function BannerTopStyle2() {
                 position: relative;
                 img{
                     width: 100%;
-                    height: 83vh;
+                    height: 30vh;
                     object-fit: cover;
                     max-height: 560px;
                     min-height: 300px;
