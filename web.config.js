@@ -4,7 +4,7 @@ export const ENVIRONMENT_DATA = {
   STAGING: "staging",
   DEVELOPMENT: "development",
 }
-
+// console.log("process.env.NEXT_PUBLIC_API_BASE_PATH : ",process.env.NEXT_PUBLIC_API_BASE_PATH)
 const CONFIG = {
   environment: process.env.NEXT_PUBLIC_ENV || "development",
   site: {

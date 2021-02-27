@@ -5,11 +5,12 @@ import { useRouter } from "next/router";
 // import { assertInputObjectType } from "graphql";
 import asset from "plugins/assets/asset";
 import useScroll from "components/website/hooks-custom/useScroll";
-
+import Search from "components/website/search/Search";
 export default function menuCustomList({
   classActive,
 }) {
   const node = useRef();
+  // const refSearch = useRef();
   const router = useRouter();
 
   const { scrollX, scrollY, scrollDirection } = useScroll();
@@ -69,6 +70,7 @@ export default function menuCustomList({
           </h3>
           
         </a> */}
+        <Search></Search>
       </div>
       <style jsx>{`
         
