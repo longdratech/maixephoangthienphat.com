@@ -6,10 +6,10 @@
     "pr": "node git",
     "dev": "node postinstall.js && node server.dev",
     "dev:next": "node postinstall.js && next dev",
-    "build": "node postinstall.js && next build",
-    "startup": "yarn build && node server",
-    "start": "next start -p $PORT",
-    "export": "node postinstall.js && next build && next export",
+    "build": "TZ=Asia/Ho_Chi_Minh node postinstall.js && NODE_ENV=production next build",
+    "startup": "TZ=Asia/Ho_Chi_Minh NODE_ENV=production yarn build && node server",
+    "start": "TZ=Asia/Ho_Chi_Minh NODE_ENV=production node server",
+    "export": "TZ=Asia/Ho_Chi_Minh node postinstall.js && next build && next export",
     "analyze": "node postinstall.js && ANALYZE=true yarn build"
   },
   "dependencies": {
@@ -58,7 +58,7 @@
     "react-recipes": "^1.1.0",
     "react-render-html": "^0.6.0",
     "react-responsive": "^8.1.0",
-    "react-slick": "^0.27.14",
+    "react-slick": "^0.27.12",
     "react-spring": "9.0.0-rc.3",
     "replace-in-file": "^6.1.0",
     "sass": "^1.27.0",

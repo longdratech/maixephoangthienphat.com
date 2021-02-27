@@ -14,12 +14,20 @@ const fetchData =
 export default function ItemProductSmall({
     name,
     description,
-    price
+    price,
+    listImg,
+    handleClick,
 }){
+
     const router = useRouter();
 
     const handleClickTitle = (e) =>{
-        router.push("/chi-tiet-san-pham/"+fetchData.id);
+        if(handleClick){
+            handleClick();
+        }else{
+            router.push("/chi-tiet-san-pham/"+fetchData.id);
+        }
+       
     }
 
     function SampleNextArrow(props) {

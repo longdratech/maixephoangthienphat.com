@@ -18,7 +18,9 @@ const fetchData = [
     },
 ]
 
-function BannerTop() {
+function BannerTop({
+    dataList
+}) {
   
     const settings = {
         dots: true,
@@ -37,19 +39,19 @@ function BannerTop() {
     
     return <div className="carouselCustom bannerTop">
         {
-            fetchData
+            dataList
                 ? <Slider {...settings}>
                     {
-                        fetchData.map((image, index) => {
+                        dataList.map((data, index) => {
                             return (
                                 <div key={index} className="itemCarousel">
-                                    <img src= {asset(image.srcImg)} />
+                                    <img src= {asset(data.image)} />
                                    
                                         <div className="infoItemCopy">
                                         
-                                        <h3>{image.title}</h3>
+                                        <h3>{data.title}</h3>
                                         <p>
-                                                {image.description}
+                                                {data.description}
                                         </p>
                                         <span className="btn">Xem tất cả</span>
                                         
@@ -86,6 +88,11 @@ function BannerTop() {
                 display: flex;
                 cursor: pointer;
                 color: #fff;
+                box-shadow: 0 20px 25px rgba(253, 118, 105,0.2);
+                transition: all 0.5s ease-in-out;
+                &:hover{
+                    box-shadow: 0 20px 25px rgba(253, 118, 105,0.5);
+                }
             }
             .infoItemCopy{
                 padding: 30px 30px;

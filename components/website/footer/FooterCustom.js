@@ -142,6 +142,10 @@ export default function FooterCustom () {
           img{
             width: 30px;
             margin-right: 10px;
+            transition: .3s;
+            &:hover{
+              transform: scale(1.1);
+            }
           }
         }
       }
