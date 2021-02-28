@@ -45,7 +45,7 @@ function BannerTop({
                         dataList.map((data, index) => {
                             return (
                                 <div key={index} className="itemCarousel">
-                                    <img src= {asset(data.image)} />
+                                    <img src= {data.image} />
                                    
                                         <div className="infoItemCopy">
                                         

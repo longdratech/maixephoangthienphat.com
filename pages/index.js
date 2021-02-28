@@ -53,7 +53,8 @@ export default function Home(props) {
       <Header active="/"></Header>
       <main id="pHome">
         
-        <BannerTop></BannerTop>
+        {/* <BannerTop></BannerTop> */}
+
         {
           dataBanner 
           ? <BannerTop dataList={dataBanner}></BannerTop>
