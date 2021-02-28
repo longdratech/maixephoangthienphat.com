@@ -224,6 +224,10 @@ export default function menuCustomList({
             div{
               width:80%;
               /* justify-content: space-evenly; */
+            }
+          }
+          .menuCustomList.fixed{
+            div{
               margin-left: auto;
               margin-right: auto;
             }
