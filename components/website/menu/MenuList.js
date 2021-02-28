@@ -224,6 +224,8 @@ export default function menuCustomList({
             div{
               width:80%;
               /* justify-content: space-evenly; */
+              margin-left: auto;
+              margin-right: auto;
             }
           }
         }
