@@ -228,3 +228,40 @@ body {
   height: 100%;
   height: 78px;
 }
+.container.center{
+  .ant-pagination-item{
+    border-radius: 100%;
+  }
+  .ant-pagination-options{
+    display: none;
+  }
+  .ant-pagination-next .ant-pagination-item-link, .ant-pagination-prev .ant-pagination-item-link{
+    border: none;
+  }
+}
+
+#pContact{
+  .noneLine{
+    margin-bottom: 40px;
+    h2{
+      margin-bottom: 0;
+    }
+    p{
+      padding: 10px 0;
+      font-size: 16px;
+    }
+  }
+
+}
+.contentIntroduce{
+  p{
+    padding: 10px 0;
+  }
+  p{
+    img{
+      max-width: 90%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+}

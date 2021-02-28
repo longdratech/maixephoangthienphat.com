@@ -31,7 +31,7 @@ export default function Home(props) {
 
   const router = useRouter();
   const [dataBanner, setDataBanner] = useState();
-  
+
   const getDataBanner = async() => {
     let res = await ApiCall({
       path: "/categories"
@@ -109,17 +109,17 @@ export default function Home(props) {
 
             <ItemTextInfo 
               title={`Mái hiên mái xếp di động Hoàng Thiên Phát`}
-              description={`Chúng tôi chuyên sản xuất phân phối và thi công giá sỉ các sản phẩm chuyên ngành về mái hiên, mái xếp, mái che với đội ngũ thi công chuyên nghiệp. Luôn lắng nghe chia sẻ thấu hiểu khách hàng`}
+              description={`Chúng tôi chuyên sản xuất phân phối và thi công giá sỉ các sản phẩm chuyên ngành về mái hiên, mái xếp, mái che với đội ngũ thi công chuyên nghiệp. Luôn lắng nghe chia sẻ thấu hiểu khách hàng.`}
               index="01"
             ></ItemTextInfo>
 
             <ItemTextInfo 
-              title={`Mái hiên mái xếp di động Hoàng Thiên Phát`}
-              description={`Chúng tôi chuyên sản xuất phân phối và thi công giá sỉ các sản phẩm chuyên ngành về mái hiên, mái xếp, mái che với đội ngũ thi công chuyên nghiệp. Luôn lắng nghe chia sẻ thấu hiểu khách hàng`}
+              title={`Ngành nghề và dịch vụ`}
+              description={`Tất cả các sản phẩm của Hoàng Thiên Phát khi được đưa tới tay người tiêu dùng luôn được kiểm tra kỹ lưỡng từ khâu nguyên liệu đầu vào tới qui trình sản xuất, ứng dụng thực tế luôn nghiêm ngạc.`}
               index="02"></ItemTextInfo>
 
-            <ItemTextInfo title={`Mái hiên mái xếp di động Hoàng Thiên Phát`}
-              description={`Chúng tôi chuyên sản xuất phân phối và thi công giá sỉ các sản phẩm chuyên ngành về mái hiên, mái xếp, mái che với đội ngũ thi công chuyên nghiệp. Luôn lắng nghe chia sẻ thấu hiểu khách hàng`}
+            <ItemTextInfo title={`Thành tựu và chứng nhận`}
+              description={`Mái che Hoàng Thiên Phát có rất nhiều kinh nghiệm và thành tự trong lĩnh vực mái hiên, mái che, thi công bạt xếp mà hiếm có đơn vị nào khác có được. Hoàng Thiên phát đạt chứng nhận nâng cao.`}
               index="03"></ItemTextInfo>
           </LayoutGrid>
           
