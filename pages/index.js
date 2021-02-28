@@ -17,6 +17,8 @@ import ItemProductBig from "components/website/items/ItemProductBig";
 import ItemTextInfo from "components/website/items/ItemTextInfo";
 import LayoutGrid from "components/website/elements/LayoutGrid";
 
+// import { Pagination } from "antd";
+
 const fetchDataBannerBottom = 
     {
         title: "Thi công mái hiên tại Bình Quới",
@@ -31,21 +33,42 @@ export default function Home(props) {
 
   const router = useRouter();
   const [dataBanner, setDataBanner] = useState([]);
+  const [dataProducts, setDataProducts] = useState([]);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  // const limitDefault = 10;
+  // const totalList = 200;
+
+  const onChangePage = (page)=>{
+    console.log("Page : ", page);
+    setCurrentPage(page);
+  }
 
   const getDataBanner = async() => {
     let res = await ApiCall({
       path: "/categories"
     });
     if (res) {
-      console.log("Data Api : ", res);
       setDataBanner(res);
     }
   }
 
-  useEffect(()=>{
-    if(dataBanner.length === 0){
-      getDataBanner();
+  const getDataProducts = async () =>{
+    let res = await ApiCall({
+      path: `/products?page=1&limit=10`
+    });
+    if (res) {
+      console.log("Data Api : ", res);
+      setDataProducts(res);
+      setCurrentPage(res.page)
     }
+  }
+
+  useEffect(()=>{
+    
+      getDataBanner();
+      getDataProducts();
+    
   }, [])
 
   return (
@@ -73,7 +96,18 @@ export default function Home(props) {
         <Container>
 
           <LayoutGrid>
-            <ItemProductSmall></ItemProductSmall>
+
+            {
+              dataProducts.data 
+              ? dataProducts.data.map((data, index)=>{
+                console.log(data)
+                return <ItemProductSmall
+                  dataAPI={data}
+                ></ItemProductSmall>
+              })
+              :<></>
+            }
+            
             <ItemProductSmall></ItemProductSmall>
             <ItemProductSmall></ItemProductSmall>
           </LayoutGrid>
@@ -94,6 +128,16 @@ export default function Home(props) {
             <ItemProductSmall></ItemProductSmall>
           </LayoutGrid>
           
+        </Container>
+
+        <Container className="center">
+          {/* <Pagination
+                onChange={onChangePage}
+                defaultPageSize={limitDefault}
+                current={currentPage}
+                defaultCurrent={1}
+                total={totalList}
+              /> */}
         </Container>
 
         <Container>
