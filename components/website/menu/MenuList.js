@@ -222,12 +222,13 @@ export default function menuCustomList({
             justify-content: flex-start;
             width: 100%;
             div{
-              width:80%;
+              width:100%;
               /* justify-content: space-evenly; */
             }
           }
           .menuCustomList.fixed{
             div{
+              width: 80%;
               margin-left: auto;
               margin-right: auto;
             }
