@@ -31,6 +31,7 @@ export default function Home(props) {
 
   const router = useRouter();
   const [dataBanner, setDataBanner] = useState();
+  
   const getDataBanner = async() => {
     let res = await ApiCall({
       path: "/categories"
