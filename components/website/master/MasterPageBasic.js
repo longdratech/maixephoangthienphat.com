@@ -3,7 +3,7 @@ import CONFIG from "web.config";
 import { useRouter } from "next/router";
 import { NextSeo } from 'next-seo';
 import asset from "plugins/assets/asset";
-
+// import Compose from "components/diginext/context/Compose";
 const BlankMasterPage = ({ pageName, children }) => {
   const router = useRouter();
 

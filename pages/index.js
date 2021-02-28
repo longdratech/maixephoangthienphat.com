@@ -19,8 +19,7 @@ import LayoutGrid from "components/website/elements/LayoutGrid";
 
 // import { Pagination } from "antd";
 
-const fetchDataBannerBottom = 
-    {
+const fetchDataBannerBottom = {
         title: "Thi công mái hiên tại Bình Quới",
         srcImgs : ["/images/demo/banner-bottom.jpg", "/images/demo/banner-02.jpg"],
         description : "Thi công mái hiên di động tại Đà Nẵng Thi công mái hiên di động tại Đà Nẵng đã và đang đáp ứng nhu cầu đông đảo cho người sử dụng trên địa bàn khi muốn gia tăng diện tích",
@@ -58,7 +57,6 @@ export default function Home(props) {
       path: `/products?page=1&limit=10`
     });
     if (res) {
-      console.log("Data Api : ", res);
       setDataProducts(res);
       setCurrentPage(res.page)
     }
@@ -100,7 +98,7 @@ export default function Home(props) {
             {
               dataProducts.data 
               ? dataProducts.data.map((data, index)=>{
-                console.log(data)
+                // console.log(data)
                 return <ItemProductSmall
                   dataAPI={data}
                 ></ItemProductSmall>

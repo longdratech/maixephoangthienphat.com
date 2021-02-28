@@ -9,7 +9,7 @@ const CONFIG = {
   environment: process.env.NEXT_PUBLIC_ENV || "development",
   site: {
     title: "Hoàng Thiên Phát",
-    description: "Description goes here",
+    description: "Chất lượng đến từng chi tiết. Giá cả cạnh tranh",
     type: "article",
   },
   links: {

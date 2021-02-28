@@ -7,6 +7,7 @@ import "styles/responsive.scss";
 import "quill/dist/quill.snow.css";
 import { ConfigLive } from "plugins/utils/ConfigLive";
 import { useEffect } from "react";
+import MainContent from "../components/website/contexts/MainContent";
 
 function MyApp({ Component, pageProps }) {
   useEffect(() => {
@@ -14,7 +15,9 @@ function MyApp({ Component, pageProps }) {
     return () => {};
   }, []);
 
-  return <Component {...pageProps} />;
+  return  <MainContent> 
+    <Component {...pageProps} /> 
+  </MainContent>;
 }
 
 export default MyApp;
