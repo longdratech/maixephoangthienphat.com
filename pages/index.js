@@ -30,7 +30,7 @@ import ApiCall from "modules/ApiCall";
 export default function Home(props) {
 
   const router = useRouter();
-  const [dataBanner, setDataBanner] = useState();
+  const [dataBanner, setDataBanner] = useState([]);
 
   const getDataBanner = async() => {
     let res = await ApiCall({
@@ -43,9 +43,9 @@ export default function Home(props) {
   }
 
   useEffect(()=>{
-
-    getDataBanner();
-
+    if(dataBanner.length === 0){
+      getDataBanner();
+    }
   }, [])
 
   return (

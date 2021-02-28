@@ -84,7 +84,7 @@ export default function ItemProductSmall({
                 ? <Slider {...settings}>
                     {
                         fetchData.srcImgs.map((value, index) => {
-                            console.log(value)
+                            // console.log(value)
                             return (
                                 <div key={index} className="itemCarousel">
                                     <img src= {asset(value)} />
