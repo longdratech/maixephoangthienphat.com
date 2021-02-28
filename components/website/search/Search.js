@@ -1,13 +1,17 @@
 import { useRef, useEffect, useState } from "react"
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import asset from "plugins/assets/asset";
 export default function Search({
     handleSearch,
 }) {
 
     const [status, setStatus] = useState(false);
+    // const searchRef = useRef();
+    let defaultValue = {
+        "valueSearch" : null
+    }
 
-    const { register, handleSubmit } = useForm();
+    const { register, handleSubmit, reset, control } = useForm( defaultValue );
 
     const onSubmit = (data, e) => {
         console.log(data, e);
@@ -15,6 +19,7 @@ export default function Search({
             handleSearch()
         } else {
             console.log("Submit ==> value search: ", data);
+            reset({...defaultValue});
         }
         handleClick();
     }
@@ -27,15 +32,22 @@ export default function Search({
 
     return <div className={`${status === true ? "active formSearch" : "formSearch"}`}>
 
-        <svg xmlns="http://www.w3.org/2000/svg" width="17.555" height="17.559" viewBox="0 0 17.555 17.559">
+        <svg onClick={handleClick} xmlns="http://www.w3.org/2000/svg" width="17.555" height="17.559" viewBox="0 0 17.555 17.559">
             <path id="Icon_ionic-ios-search" data-name="Icon ionic-ios-search" d="M21.849,20.781l-4.882-4.928a6.958,6.958,0,1,0-1.056,1.07l4.85,4.9a.751.751,0,0,0,1.061.027A.756.756,0,0,0,21.849,20.781Zm-10.35-3.8a5.494,5.494,0,1,1,3.886-1.609A5.46,5.46,0,0,1,11.5,16.983Z" transform="translate(-4.5 -4.493)" fill="#103c55" />
         </svg>
-        <label onClick={handleClick}>Tìm kiếm</label>
+        <label onClick={handleClick} for="search">Tìm kiếm</label>
         
         <div className="contentSearch">
             <div className="closeForm" onClick={handleClick}></div>
             <form onSubmit={handleSubmit(onSubmit, onError)}>
                 <h3>Nhập tên sản phẩm cần tìm</h3>
+                {/* <Controller
+                    as={<input id="search"/>}
+                    name="valueSearch" 
+                    control={control}
+                    defaultValue=""
+                    ref={register}
+                    /> */}
                 <input id="search" name="valueSearch" ref={register} />
                 <button type="submit" className="btn">Tìm kiếm</button>
             </form>
