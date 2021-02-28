@@ -67,7 +67,15 @@ export default function TitleCopy({
                         left: 0;
                     }
                 }
+                
             }
+            .noneLine{
+                span{
+                    &::after{
+                        display: none;
+                    }
+                }
+            }   
         `}</style>
     </div>
 }

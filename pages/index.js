@@ -17,8 +17,9 @@ import ItemProductBig from "components/website/items/ItemProductBig";
 import ItemTextInfo from "components/website/items/ItemTextInfo";
 import LayoutGrid from "components/website/elements/LayoutGrid";
 
-const fetchDataBannerBottom = 
-    {
+// import { Pagination } from "antd";
+
+const fetchDataBannerBottom = {
         title: "Thi công mái hiên tại Bình Quới",
         srcImgs : ["/images/demo/banner-bottom.jpg", "/images/demo/banner-02.jpg"],
         description : "Thi công mái hiên di động tại Đà Nẵng Thi công mái hiên di động tại Đà Nẵng đã và đang đáp ứng nhu cầu đông đảo cho người sử dụng trên địa bàn khi muốn gia tăng diện tích",
@@ -30,22 +31,42 @@ import ApiCall from "modules/ApiCall";
 export default function Home(props) {
 
   const router = useRouter();
-  const [dataBanner, setDataBanner] = useState();
-  
+  const [dataBanner, setDataBanner] = useState([]);
+  const [dataProducts, setDataProducts] = useState([]);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  // const limitDefault = 10;
+  // const totalList = 200;
+
+  const onChangePage = (page)=>{
+    console.log("Page : ", page);
+    setCurrentPage(page);
+  }
+
   const getDataBanner = async() => {
     let res = await ApiCall({
       path: "/categories"
     });
     if (res) {
-      console.log("Data Api : ", res);
       setDataBanner(res);
     }
   }
 
+  const getDataProducts = async () =>{
+    let res = await ApiCall({
+      path: `/products?page=1&limit=10`
+    });
+    if (res) {
+      setDataProducts(res);
+      setCurrentPage(res.page)
+    }
+  }
+
   useEffect(()=>{
-
-    getDataBanner();
-
+    
+      getDataBanner();
+      getDataProducts();
+    
   }, [])
 
   return (
@@ -53,7 +74,8 @@ export default function Home(props) {
       <Header active="/"></Header>
       <main id="pHome">
         
-        <BannerTop></BannerTop>
+        {/* <BannerTop></BannerTop> */}
+
         {
           dataBanner 
           ? <BannerTop dataList={dataBanner}></BannerTop>
@@ -72,7 +94,18 @@ export default function Home(props) {
         <Container>
 
           <LayoutGrid>
-            <ItemProductSmall></ItemProductSmall>
+
+            {
+              dataProducts.data 
+              ? dataProducts.data.map((data, index)=>{
+                // console.log(data)
+                return <ItemProductSmall
+                  dataAPI={data}
+                ></ItemProductSmall>
+              })
+              :<></>
+            }
+            
             <ItemProductSmall></ItemProductSmall>
             <ItemProductSmall></ItemProductSmall>
           </LayoutGrid>
@@ -95,6 +128,16 @@ export default function Home(props) {
           
         </Container>
 
+        <Container className="center">
+          {/* <Pagination
+                onChange={onChangePage}
+                defaultPageSize={limitDefault}
+                current={currentPage}
+                defaultCurrent={1}
+                total={totalList}
+              /> */}
+        </Container>
+
         <Container>
 
           <TitleCopy
@@ -109,17 +152,17 @@ export default function Home(props) {
 
             <ItemTextInfo 
               title={`Mái hiên mái xếp di động Hoàng Thiên Phát`}
-              description={`Chúng tôi chuyên sản xuất phân phối và thi công giá sỉ các sản phẩm chuyên ngành về mái hiên, mái xếp, mái che với đội ngũ thi công chuyên nghiệp. Luôn lắng nghe chia sẻ thấu hiểu khách hàng`}
+              description={`Chúng tôi chuyên sản xuất phân phối và thi công giá sỉ các sản phẩm chuyên ngành về mái hiên, mái xếp, mái che với đội ngũ thi công chuyên nghiệp. Luôn lắng nghe chia sẻ thấu hiểu khách hàng.`}
               index="01"
             ></ItemTextInfo>
 
             <ItemTextInfo 
-              title={`Mái hiên mái xếp di động Hoàng Thiên Phát`}
-              description={`Chúng tôi chuyên sản xuất phân phối và thi công giá sỉ các sản phẩm chuyên ngành về mái hiên, mái xếp, mái che với đội ngũ thi công chuyên nghiệp. Luôn lắng nghe chia sẻ thấu hiểu khách hàng`}
+              title={`Ngành nghề và dịch vụ`}
+              description={`Tất cả các sản phẩm của Hoàng Thiên Phát khi được đưa tới tay người tiêu dùng luôn được kiểm tra kỹ lưỡng từ khâu nguyên liệu đầu vào tới qui trình sản xuất, ứng dụng thực tế luôn nghiêm ngạc.`}
               index="02"></ItemTextInfo>
 
-            <ItemTextInfo title={`Mái hiên mái xếp di động Hoàng Thiên Phát`}
-              description={`Chúng tôi chuyên sản xuất phân phối và thi công giá sỉ các sản phẩm chuyên ngành về mái hiên, mái xếp, mái che với đội ngũ thi công chuyên nghiệp. Luôn lắng nghe chia sẻ thấu hiểu khách hàng`}
+            <ItemTextInfo title={`Thành tựu và chứng nhận`}
+              description={`Mái che Hoàng Thiên Phát có rất nhiều kinh nghiệm và thành tự trong lĩnh vực mái hiên, mái che, thi công bạt xếp mà hiếm có đơn vị nào khác có được. Hoàng Thiên phát đạt chứng nhận nâng cao.`}
               index="03"></ItemTextInfo>
           </LayoutGrid>
           
