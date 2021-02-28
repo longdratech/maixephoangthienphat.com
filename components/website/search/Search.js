@@ -45,8 +45,6 @@ export default function Search({
         .formSearch{
             overflow: hidden;
             transition: all 0.4s ease;
-            /* height: 30px; */
-            /* position: relative; */
             .contentSearch{
                 position: absolute;
                 background-color: rgba(255,255,255,1);

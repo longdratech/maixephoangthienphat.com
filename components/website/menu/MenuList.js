@@ -226,6 +226,12 @@ export default function menuCustomList({
               /* justify-content: space-evenly; */
             }
           }
+          .menuCustomList.fixed{
+            div{
+              margin-left: auto;
+              margin-right: auto;
+            }
+          }
         }
       `}</style>
     </div>

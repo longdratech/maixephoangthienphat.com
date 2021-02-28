@@ -11,6 +11,12 @@ function Container({children, className}) {
 
             }
 
+            .container.center{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
             @media only screen and (max-width:599px){
                 
             }
