@@ -64,7 +64,7 @@ const TopBar = ({ children, isMobile = false, onMenuClick, user }) => {
       </Dropdown> */}
 
       <Dropdown overlay={menu} placement="bottomRight">
-        <Avatar src={ user.profileImage || asset("/admin/images/avatar.png") } size={38} />
+        {/* <Avatar src={ user.profileImage || asset("/admin/images/avatar.png") } size={38} /> */}
       </Dropdown>
     </HorizontalList>
   );
@@ -83,7 +83,7 @@ const TopBar = ({ children, isMobile = false, onMenuClick, user }) => {
       </Dropdown> */}
 
       <Dropdown overlay={menu} placement="bottomRight">
-        <Avatar src={ user.profileImage || asset("/admin/images/avatar.png") } size={38} />
+        {/* <Avatar src={ user.profileImage || asset("/admin/images/avatar.png") } size={38} /> */}
       </Dropdown>
     </HorizontalList>
   );
