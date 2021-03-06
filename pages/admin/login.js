@@ -46,25 +46,6 @@ const AdminLogin = () => {
     const loginHandler = async () => {
 
         clearTimeout(myTimeout);
-        // if (emailRef.current && passRef.current) {
-        //     var data = JSON.stringify({"username":emailRef.current.value,"password":passRef.current.value});
-        //     var config = {
-        //         method: 'post',
-        //         url: 'https://maixephoangthienphat-api.herokuapp.com/api/v1/auth/signin',
-        //         headers: { 
-        //             'Content-Type': 'application/json'
-        //         },
-        //         data : data
-        //     };
-        //     Axios(config)
-        //     .then(function (response) {
-        //     console.log(JSON.stringify(response.data));
-        //     })
-        //     .catch(function (error) {
-        //     console.log(error);
-        //     });
-        // }
-
         let loginTimeout = setTimeout(async function() {
 
             if (emailRef.current && passRef.current) {
@@ -75,23 +56,26 @@ const AdminLogin = () => {
                         url: `${CONFIG.NEXT_PUBLIC_API_BASE_PATH}/auth/signin`,
                         method: "POST",
                         data: body,
-                        headers: {
-                            // 'Content-Type': 'application/x-www-form-urlencoded',
-                            'Content-Type': 'application/json'
-                        },
+                        headers: { 'Content-Type': 'application/json' },
                     });
                 } catch (e) {
                     res = e.response;
                 }
         
                 if (res.data.accessToken) {
-                    valueContext.setToken(res.data.accessToken);
-                    router.push("/admin");
+
+                    if(localStorage){
+
+                        localStorage.setItem("token",res.data.accessToken);
+                        router.push("/admin");
+
+                    }
+                    
                 } else {
                     if (res.data.message) {
                         if (typeof res.data.message == "string") res.data.message = [res.data.message];
                             res.data.message.map((msg) => {
-                                console.log("Msg ==> ",msg)
+                                console.log("Msg ==> ",msg);
                             notification.error({
                                 message: msg,
                             });

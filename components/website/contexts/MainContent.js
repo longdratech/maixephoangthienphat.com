@@ -7,7 +7,20 @@ export default function MainContentProvider( {children}){
     const [dataUser, setDataUser] =  useState();
     const [token, setToken] =  useState();
 
-    // useEffect()
+    useEffect(()=>{
+        if(localStorage){
+            if(localStorage.getItem("token")){
+                setToken(localStorage.getItem("token"));
+            }
+        }
+    }, [token]);
+    useEffect(()=>{
+        if(localStorage){
+            if(localStorage.getItem("token")){
+                setToken(localStorage.getItem("token"));
+            }
+        }
+    }, []);
 
     return(
         <MainContent.Provider
