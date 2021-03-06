@@ -5,68 +5,68 @@ const warnDeprecated = (definition = "Biến enum", alterative = "code hint củ
 
 const ListItemSize = {
   get AUTO() {
-    warnDeprecated("ListItemSize.AUTO")
+    // warnDeprecated("ListItemSize.AUTO")
     return "auto";
   }, // default
   get STRETCH() {
-    warnDeprecated("ListItemSize.STRETCH")
+    // warnDeprecated("ListItemSize.STRETCH")
     return "stretch";
   },
 };
 
 const VerticalListAlign = {
   get LEFT() {
-    warnDeprecated("ListItemSize.LEFT")
+    // warnDeprecated("ListItemSize.LEFT")
     return "left";
   }, // default
   get CENTER() {
-    warnDeprecated("ListItemSize.CENTER")
+    // warnDeprecated("ListItemSize.CENTER")
     return "center";
   },
   get RIGHT() {
-    warnDeprecated("ListItemSize.RIGHT")
+    // warnDeprecated("ListItemSize.RIGHT")
     return "right";
   },
 };
 
 const HorizontalListAlign = {
   get TOP() {
-    warnDeprecated("ListItemSize.TOP")
+    // warnDeprecated("ListItemSize.TOP")
     return "top";
   }, // default
   get MIDDLE() {
-    warnDeprecated("ListItemSize.MIDDLE")
+    // warnDeprecated("ListItemSize.MIDDLE")
     return "middle";
   },
   get BOTTOM() {
-    warnDeprecated("ListItemSize.BOTTOM")
+    // warnDeprecated("ListItemSize.BOTTOM")
     return "bottom";
   },
 };
 
 const ListType = {
   get STRETCH() {
-    warnDeprecated("ListItemSize.STRETCH")
+    // warnDeprecated("ListItemSize.STRETCH")
     return "stretch";
   }, // default
   get SPACE_BETWEEN() {
-    warnDeprecated("ListItemSize.SPACE_BETWEEN")
+    // warnDeprecated("ListItemSize.SPACE_BETWEEN")
     return "space_between";
   },
   get SPACE_AROUND() {
-    warnDeprecated("ListItemSize.SPACE_AROUND")
+    // warnDeprecated("ListItemSize.SPACE_AROUND")
     return "space_around";
   },
   get START() {
-    warnDeprecated("ListItemSize.START")
+    // warnDeprecated("ListItemSize.START")
     return "start";
   },
   get CENTER() {
-    warnDeprecated("ListItemSize.CENTER")
+    // warnDeprecated("ListItemSize.CENTER")
     return "center";
   },
   get END() {
-    warnDeprecated("ListItemSize.END")
+    // warnDeprecated("ListItemSize.END")
     return "end";
   },
 };
