@@ -4,18 +4,20 @@ import { useRouter } from "next/router";
 import { withAuth } from "plugins/next-auth/admin";
 import {MainContent} from "components/website/contexts/MainContent";
 import {useContext, useEffect} from "react"
-
+import Navbar from "components/website/navbar/Navbar";
 const AdminIndex = ({ user }) => {
 
     const valueContext =  useContext(MainContent);
     const router = useRouter();
 
     useEffect(() => {
-        if(valueContext.token){
-            
+
+        if(valueContext.token || localStorage.getItem("token")){
+                console.log("TOKEN", localStorage.getItem("token"))
         }else{
             router.push("/admin/login");
         }
+
     }, [])
     
     const header = (
@@ -24,7 +26,11 @@ const AdminIndex = ({ user }) => {
         </PageHeader>
     );
     if(valueContext.token){
-        return <LayoutPage header={header} user={user} token={valueContext.token}></LayoutPage>;
+        return <LayoutPage header={header} user={user} token={valueContext.token}>
+            <div className="navbar">
+                    <Navbar></Navbar>
+            </div>
+        </LayoutPage>;
     }else{
         return <></>
     }
@@ -32,4 +38,5 @@ const AdminIndex = ({ user }) => {
 };
 
 export default AdminIndex;
+
 // export default withAuth(AdminIndex);
