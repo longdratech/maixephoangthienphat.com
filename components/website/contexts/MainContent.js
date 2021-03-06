@@ -1,11 +1,13 @@
 import {useState, useEffect} from "react"
 export const MainContent = React.createContext();
-
+import { useRouter } from "next/router"
+import ApiCall from "modules/ApiCall";
 export default function MainContentProvider( {children}){
 
 
     const [dataUser, setDataUser] =  useState();
     const [token, setToken] =  useState();
+    const router =  useRouter();
 
     useEffect(()=>{
         if(localStorage){
@@ -22,6 +24,34 @@ export default function MainContentProvider( {children}){
         }
     }, []);
 
+    const logout = () => {
+        if(localStorage){
+            if(localStorage.getItem("token")){
+                setToken();
+                localStorage.removeItem("token");
+                router.push("/admin/login");
+            }
+        }
+    }   
+
+    const getDataProducts = async (FunctionnCb, page=1, limit=50) =>{
+        let res = await ApiCall({
+          path: `/products?page=${page}&limit=${limit}`
+        });
+        if (res) {
+            FunctionnCb(res);
+        }
+    }
+
+    const getDataCategories = async(FunctionnCb, page=1, limit=50) => {
+        let res = await ApiCall({
+          path: "/categories"
+        });
+        if (res) {
+            FunctionnCb(res);
+        }
+    }
+
     return(
         <MainContent.Provider
             value = {{
@@ -29,6 +59,9 @@ export default function MainContentProvider( {children}){
                 token: token,
                 setDataUser : setDataUser,
                 setToken: setToken,
+                logout: logout,
+                getDataProducts: getDataProducts,
+                getDataCategories: getDataCategories
             }}
         >
             {children}
