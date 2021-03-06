@@ -25,16 +25,12 @@ const AdminIndex = ({ user }) => {
             Thông số tổng quát.
         </PageHeader>
     );
-    if(valueContext.token){
-        return <LayoutPage header={header} user={user} token={valueContext.token}>
+   
+    return <LayoutPage header={header} user={user} token={valueContext.token}>
             <div className="navbar">
                     <Navbar></Navbar>
             </div>
-        </LayoutPage>;
-    }else{
-        return <></>
-    }
-    
+    </LayoutPage>;
 };
 
 export default AdminIndex;
