@@ -1,24 +1,19 @@
-import TitleCopy from "components/website/title/TitleCopy"
 import { Table, Button, Space } from 'antd';
 import {useState, useEffect, useContext} from "react";
 import { MainContent } from "components/website/contexts/MainContent";
 import Link from "next/link";
+// import {Button} from "antd"
 const fetchData = [
-    {
-      key: '1',
-      title: 'test 1',
-      price: 32,
-      category: 'New York No. 1 Lake Park',
-    },
     {
       key: '2',
       title: 'test 2',
       price: 42,
       category: 'London No. 1 Lake Park',
+      id :"1"
     },
 ];
 
-export default function Product() {
+export default function Product({routeProductID}) {
 
     const valueContext =  useContext(MainContent);
     
@@ -33,6 +28,12 @@ export default function Product() {
         setFilteredInfo(filters)
         setSortedInfo(sorter)
     };
+
+    const handleRepairInfo = (value) => {
+        if(routeProductID){
+            routeProductID(value);
+        }
+    }
     
     const clearFilters = () => {
         setFilteredInfo(null)
@@ -66,7 +67,7 @@ export default function Product() {
           sorter: (a, b) => a.title.length - b.title.length,
           sortOrder: sortedInfo.columnKey === 'title' && sortedInfo.order,
           ellipsis: true,
-          render: text => <Link href="">{text}</Link>,
+        //   render: text => <Link href="">{text}</Link>,
         },
         {
           title: 'Giá',
@@ -90,15 +91,17 @@ export default function Product() {
           sortOrder: sortedInfo.columnKey === 'category' && sortedInfo.order,
           ellipsis: true,
         },
+        {
+            title: '',
+            dataIndex: 'id',
+            key: 'id',
+            // sorter: (a, b) => a.id - b.id,
+            // sortOrder: sortedInfo.columnKey === 'id' && sortedInfo.order,
+            // ellipsis: true,
+            render: text =><Button type="primary" onClick={()=>{handleRepairInfo(text)}}>{"Sửa"}</Button>,
+          },
       ];
     
-    //   const transformData = (data) => {
-    //     return data.map((index, value)=>{
-    //         value.key = index;
-    //         return value;
-    //     })
-    //   }
-
     useEffect(()=>{
         if(valueContext && setData){
             valueContext.getDataProducts(setData)
@@ -106,20 +109,13 @@ export default function Product() {
         
     },[]);
 
-    useEffect(()=>{
-        if(data){
-            console.log("DATA Products", data)
-            // transformData(data)
-        }
-    }, [data])
+    // useEffect(()=>{
+    //     if(data){
+    //         console.log("DATA Products", data)
+    //     }
+    // }, [data])
 
     return <div className="contentProductAdmin">
-        <TitleCopy
-            name="Sản phẩm"
-            positionLine={"CENTER"}
-            fontSize={24}>
-        </TitleCopy>
-
         <div className="content">
         <>
         <Space style={{ marginBottom: 16 }}>
@@ -128,7 +124,7 @@ export default function Product() {
             </Space>
             {
                 data
-                ? <Table columns={columns} dataSource={data ? data.data : fetchData} onChange={handleChange} />
+                ? <Table columns={columns} dataSource={data.data ? data.data : []} onChange={handleChange} />
                 : <></>
             }
             

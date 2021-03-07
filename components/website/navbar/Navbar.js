@@ -23,21 +23,21 @@ const Sider = ({
             <Menu.Item value="profile" icon={<UserOutlined />} key="1">Thông tin admin</Menu.Item>
 
             <SubMenu key="sub2" icon={<AppstoreOutlined />} title="Sản Phẩm">
-                <Menu.Item value="product-list" key="2">Danh sách</Menu.Item>
-                <Menu.Item value="product-create" key="3">Tạo mới</Menu.Item>
+                <Menu.Item title="Sản Phẩm" value="product-list" key="2">Danh sách</Menu.Item>
+                <Menu.Item title="Sản Phẩm" value="product-create" key="3">Tạo mới</Menu.Item>
                 
             </SubMenu>
 
             <SubMenu key="sub3" icon={<AppstoreOutlined />} title="Dự án">
-                <Menu.Item value="portfolio-list" key="4">Danh sách</Menu.Item>
-                <Menu.Item value="portfolio-create" key="5">Tạo mới</Menu.Item>
+                <Menu.Item title="Dự án" value="portfolio-list" key="4">Danh sách</Menu.Item>
+                <Menu.Item title="Dự án" value="portfolio-create" key="5">Tạo mới</Menu.Item>
             </SubMenu>
 
-            <Menu.Item value="product" icon={<AppstoreOutlined />} key="7">Tải ảnh lên</Menu.Item>
+            <Menu.Item title="Hình ảnh upload" value="product" icon={<AppstoreOutlined />} key="7">Tải ảnh lên</Menu.Item>
 
             <SubMenu key="sub4" icon={<AppstoreOutlined />} title="Category">
-                <Menu.Item value="category-list" key="6">Danh sách</Menu.Item>
-                <Menu.Item value="category-create" key="7">Tạo mới</Menu.Item>
+                <Menu.Item title="Category" value="category-list" key="6">Danh sách</Menu.Item>
+                {/* <Menu.Item title="Category" value="category-create" key="7">Tạo mới</Menu.Item> */}
             </SubMenu>
 
         </Menu>
