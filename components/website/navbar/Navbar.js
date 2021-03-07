@@ -33,7 +33,7 @@ const Sider = ({
                 <Menu.Item title="Dự án" value="portfolio-create" key="5">Tạo mới</Menu.Item>
             </SubMenu>
 
-            <Menu.Item title="Hình ảnh upload" value="product" icon={<AppstoreOutlined />} key="7">Tải ảnh lên</Menu.Item>
+            <Menu.Item title="Hình ảnh upload" value="image-create" icon={<AppstoreOutlined />} key="7">Tải ảnh lên</Menu.Item>
 
             <SubMenu key="sub4" icon={<AppstoreOutlined />} title="Category">
                 <Menu.Item title="Category" value="category-list" key="6">Danh sách</Menu.Item>
