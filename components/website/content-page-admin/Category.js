@@ -114,12 +114,6 @@ export default function Category() {
     }, [data])
 
     return <div className="contentProductAdmin">
-        <TitleCopy
-            name="Sản phẩm"
-            positionLine={"CENTER"}
-            fontSize={24}>
-        </TitleCopy>
-
         <div className="content">
         <>
         <Space style={{ marginBottom: 16 }}>

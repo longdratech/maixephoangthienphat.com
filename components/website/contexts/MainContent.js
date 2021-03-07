@@ -39,7 +39,16 @@ export default function MainContentProvider( {children}){
           path: `/products?page=${page}&limit=${limit}`
         });
         if (res) {
-            FunctionnCb(res);
+            await FunctionnCb(res);
+        }
+    }
+
+    const getDataProduct = async (FunctionnCb, id ="") =>{
+        let res = await ApiCall({
+          path: `/products/${id}`
+        });
+        if (res) {
+            await FunctionnCb(res);
         }
     }
 
@@ -61,7 +70,8 @@ export default function MainContentProvider( {children}){
                 setToken: setToken,
                 logout: logout,
                 getDataProducts: getDataProducts,
-                getDataCategories: getDataCategories
+                getDataCategories: getDataCategories,
+                getDataProduct :getDataProduct
             }}
         >
             {children}
