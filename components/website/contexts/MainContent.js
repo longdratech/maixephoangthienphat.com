@@ -61,6 +61,15 @@ export default function MainContentProvider( {children}){
         }
     }
 
+    const getDataImages = async (FunctionnCb) =>{
+        let res = await ApiCall({
+          path: `/photos?page=1&limit=10`
+        });
+        if (res) {
+            await FunctionnCb(res);
+        }
+    }
+
     return(
         <MainContent.Provider
             value = {{
@@ -71,7 +80,8 @@ export default function MainContentProvider( {children}){
                 logout: logout,
                 getDataProducts: getDataProducts,
                 getDataCategories: getDataCategories,
-                getDataProduct :getDataProduct
+                getDataProduct :getDataProduct,
+                getDataImages: getDataImages
             }}
         >
             {children}
