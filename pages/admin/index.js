@@ -9,6 +9,7 @@ import {Button} from "antd"
 import Product from "components/website/content-page-admin/Products";
 import Category from "components/website/content-page-admin/Category";
 import ProductCreate from "components/website/content-page-admin/ProductCreate";
+import UploadImages from  "components/website/content-page-admin/UploadImages";
 const routingContent = {
 
     PROFILE :  "profile",
@@ -28,6 +29,10 @@ const routingContent = {
         LITS :  "category-list",
     },
 
+    IMAGES : {
+        CREATE : "image-create"
+    }
+
 }
 
 const AdminIndex = ({ user }) => {
@@ -43,10 +48,10 @@ const AdminIndex = ({ user }) => {
         // console.log("DATA CLICK : ", e);
         // console.log("SLUG : ", e.item.props.value);
         if(e){
-            e.item.props.title ?  setTitle(e.item.props.title) : setTitle("Dashboard")
+            e.item.props.title ?  setTitle(e.item.props.title) : setTitle("Dashboard");
         }
         if(e){
-            e.item.props.value ?  setSlug(e.item.props.value) : setSlug("profile")
+            e.item.props.value ?  setSlug(e.item.props.value) : setSlug("profile");
         }
        
     }
@@ -58,6 +63,10 @@ const AdminIndex = ({ user }) => {
     const handleRepairProduct = (id) => {
         console.log("repair ID", id);
         // setIdProduct(id)
+    }
+
+    const handleChooseImg = (value) => {
+        console.log("Click Img", value);
     }
 
     const handleContain = ( slug )=>{
@@ -74,6 +83,9 @@ const AdminIndex = ({ user }) => {
 
             case routingContent.PORTFOLIO.CREATE:
                 return <Category></Category>
+            
+            case routingContent.IMAGES.CREATE: 
+                return <UploadImages handleClickOutSite={handleChooseImg}></UploadImages>
 
             case routingContent.CATEGORIES.LITS:
                 return <Category></Category>
