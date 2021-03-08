@@ -54,6 +54,20 @@ export default function MainContentProvider( {children}){
         }
     }
 
+    const postDataProduct = async (FunctionnCb, data) =>{
+        let res = await ApiCall({
+            token: token,
+            path: `/products`,
+            method: "POST",
+            data: data
+        });
+        if (res) {
+            await FunctionnCb();
+        }
+    }
+
+
+
     const getDataCategories = async(FunctionnCb, page=1, limit=50) => {
         let res = await ApiCall({
           path: "/categories"
@@ -92,6 +106,7 @@ export default function MainContentProvider( {children}){
                 setToken: setToken,
                 logout: logout,
                 getDataProducts: getDataProducts,
+                postDataProduct: postDataProduct,
                 getDataCategories: getDataCategories,
                 getDataProduct :getDataProduct,
                 getDataImages: getDataImages,

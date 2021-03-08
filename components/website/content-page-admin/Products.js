@@ -58,10 +58,10 @@ export default function Product({routeProductID}) {
           title: 'Tên sản phẩm',
           dataIndex: 'title',
           key: 'title',
-        //   filters: [
-        //     { text: 'Joe', value: 'Joe' },
-        //     { text: 'Jim', value: 'Jim' },
-        //   ],
+            //   filters: [
+            //     { text: '1', value: '1' },
+            //     { text: '2', value: '2' },
+            //   ],
           filteredValue: filteredInfo ? filteredInfo.title :  null,
           onFilter: (value, record) => record.title.includes(value),
           sorter: (a, b) => a.title.length - b.title.length,
@@ -91,15 +91,15 @@ export default function Product({routeProductID}) {
           sortOrder: sortedInfo.columnKey === 'category' && sortedInfo.order,
           ellipsis: true,
         },
-        {
-            title: '',
-            dataIndex: 'id',
-            key: 'id',
-            // sorter: (a, b) => a.id - b.id,
-            // sortOrder: sortedInfo.columnKey === 'id' && sortedInfo.order,
-            // ellipsis: true,
-            render: text =><Button type="primary" onClick={()=>{handleRepairInfo(text)}}>{"Sửa"}</Button>,
-          },
+        // {
+        //     title: '',
+        //     dataIndex: 'id',
+        //     key: 'id',
+        //     // sorter: (a, b) => a.id - b.id,
+        //     // sortOrder: sortedInfo.columnKey === 'id' && sortedInfo.order,
+        //     // ellipsis: true,
+        //     render: text =><Button type="primary" onClick={()=>{handleRepairInfo(text)}}>{"Sửa"}</Button>,
+        //   },
       ];
     
     useEffect(()=>{

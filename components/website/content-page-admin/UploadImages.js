@@ -7,7 +7,7 @@ import Link from "next/link";
 import { inferTo } from "@react-spring/core";
 import CONFIG from "web.config";
 
-export default function UploadImages({handleClickOutSite}) {
+export default function UploadImages({handleClickOutSite, showBtnChoose}) {
 
     const valueContext = useContext(MainContent);
     const [data, setData] = useState(null);
@@ -70,9 +70,17 @@ export default function UploadImages({handleClickOutSite}) {
     },[fileList])
 
     const uploadButton = (
-        <div>
+        <div className="btnUploadImg">
             <PlusOutlined />
             <div style={{ marginTop: 8 }}>Upload</div>
+            <style jsx>{`
+                .btnUploadImg{
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    width: 100%;
+                }
+            `}</style>
         </div>
     );
 
@@ -102,7 +110,12 @@ export default function UploadImages({handleClickOutSite}) {
                                     >
                                         <Button type="primary" danger>Xoá</Button>
                                     </Popconfirm>
-                                    <Button type="primary" onClick={()=>handleClickImage(value)}>Chọn</Button>
+                                    {
+                                        showBtnChoose == true
+                                        ?   <Button type="primary" onClick={()=>handleClickImage(value)}>Chọn</Button>
+                                        :   <></>
+                                    }
+                                    
                                 </div>
                                 
                             </div>
@@ -117,13 +130,13 @@ export default function UploadImages({handleClickOutSite}) {
                 headers={
                     {'Authorization': `Bearer ${valueContext.token}`}
                 }
-                
                 name={"images"}
                 listType="picture-card"
                 fileList={fileList}
                 onPreview={handlePreview}
                 onChange={handleChange}
                 multiple={true}
+                className="btnUploadImg"
             >
                 {fileList.length >= 5 ? null : uploadButton}
             </Upload>
@@ -162,12 +175,14 @@ export default function UploadImages({handleClickOutSite}) {
                     }
                 }
                 .listImg{
+                    padding: 70px 35px 100px 40px;
                     display: grid;
-                    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+                    grid-template-columns: 1fr 1fr 1fr 1fr;
                     column-gap: 20px;
                     row-gap: 20px;
                     justify-content: space-between;
-                    max-height: 300px;
+                    /* height: 80vh; */
+                    max-height: 400px;
                     overflow: auto;
                     border: solid 5px rgba(0,0,0,0.2);
                     border-radius: 10px;
