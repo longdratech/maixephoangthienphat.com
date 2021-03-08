@@ -26,7 +26,6 @@ export default function Category() {
     const [sortedInfo, setSortedInfo] = useState({});
 
     const [data, setData] = useState([]);
-    // const [dataTransform, setDataTransForm] = useState([])
       
     const handleChange = (pagination, filters, sorter) => {
         console.log('Various parameters', pagination, filters, sorter);
@@ -54,7 +53,7 @@ export default function Category() {
 
     const columns = [
         {
-          title: 'Tên sản phẩm',
+          title: 'Tên category',
           dataIndex: 'title',
           key: 'title',
         //   filters: [
@@ -68,14 +67,14 @@ export default function Category() {
           ellipsis: true,
           render: text => <Link href="">{text}</Link>,
         },
-        {
-          title: 'Giá',
-          dataIndex: 'price',
-          key: 'price',
-          sorter: (a, b) => a.price - b.price,
-          sortOrder: sortedInfo.columnKey === 'price' && sortedInfo.order,
-          ellipsis: true,
-        },
+        // {
+        //   title: 'Giá',
+        //   dataIndex: 'price',
+        //   key: 'price',
+        //   sorter: (a, b) => a.price - b.price,
+        //   sortOrder: sortedInfo.columnKey === 'price' && sortedInfo.order,
+        //   ellipsis: true,
+        // },
         {
           title: 'Category',
           dataIndex: 'category',
@@ -101,14 +100,14 @@ export default function Category() {
 
     useEffect(()=>{
         if(valueContext && setData){
-            valueContext.getDataProducts(setData)
+            valueContext.getDataCategories(setData)
         }
         
     },[]);
 
     useEffect(()=>{
         if(data){
-            console.log("DATA Products", data)
+            console.log("DATA Category ", data)
             // transformData(data)
         }
     }, [data])
@@ -122,7 +121,7 @@ export default function Category() {
             </Space>
             {
                 data
-                ? <Table columns={columns} dataSource={data ? data.data : fetchData} onChange={handleChange} />
+                ? <Table columns={columns} dataSource={data ? data : fetchData} onChange={handleChange} />
                 : <></>
             }
             

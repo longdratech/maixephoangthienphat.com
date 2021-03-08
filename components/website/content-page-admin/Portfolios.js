@@ -1,9 +1,8 @@
-import { Table, Space, Modal, Button } from 'antd';
+import { Table, Button, Space } from 'antd';
 import {useState, useEffect, useContext} from "react";
 import { MainContent } from "components/website/contexts/MainContent";
 import Link from "next/link";
-import ProductCreate from "components/website/content-page-admin/ProductCreate";
-import UploadImages from "components/website/content-page-admin/UploadImages";
+// import {Button} from "antd"
 const fetchData = [
     {
       key: '2',
@@ -14,7 +13,7 @@ const fetchData = [
     },
 ];
 
-export default function Product({routeProductID}) {
+export default function Portfolios({routePortfolioID}) {
 
     const valueContext =  useContext(MainContent);
     
@@ -22,8 +21,7 @@ export default function Product({routeProductID}) {
     const [sortedInfo, setSortedInfo] = useState({});
 
     const [data, setData] = useState([]);
-    const [idProductSelect, setDataProductSelect] = useState("")
-    const [dataSelect, setDataSelect] = useState()
+    // const [dataTransform, setDataTransForm] = useState([])
       
     const handleChange = (pagination, filters, sorter) => {
         console.log('Various parameters', pagination, filters, sorter);
@@ -32,10 +30,9 @@ export default function Product({routeProductID}) {
     };
 
     const handleRepairInfo = (value) => {
-        // if(routeProductID){
-        //     routeProductID(value);
-        // }
-        showModal(value)
+        if(routePortfolioID){
+            routeProductID(value);
+        }
     }
     
     const clearFilters = () => {
@@ -54,24 +51,6 @@ export default function Product({routeProductID}) {
                 columnKey: 'price',
             }
         )
-    };
-
-    const [isModalVisible, setIsModalVisible] = useState(false);
-
-    const showModal = async (value) => {
-        if(value){
-            await setDataProductSelect(value);
-            await valueContext.getDataProduct(setDataSelect, value);
-            await setIsModalVisible(true);
-        }
-    };
-
-    const handleOk = () => {
-        setIsModalVisible(false);
-    };
-
-    const handleCancel = () => {
-        setIsModalVisible(false);
     };
 
     const columns = [
@@ -112,29 +91,23 @@ export default function Product({routeProductID}) {
           sortOrder: sortedInfo.columnKey === 'category' && sortedInfo.order,
           ellipsis: true,
         },
-        {
-            title: '',
-            dataIndex: 'id',
-            key: 'id',
-            // sorter: (a, b) => a.id - b.id,
-            // sortOrder: sortedInfo.columnKey === 'id' && sortedInfo.order,
-            // ellipsis: true,
-            render: text =><Button type="primary" onClick={()=>{handleRepairInfo(text)}}>{"Sửa"}</Button>,
-          },
+        // {
+        //     title: '',
+        //     dataIndex: 'id',
+        //     key: 'id',
+        //     // sorter: (a, b) => a.id - b.id,
+        //     // sortOrder: sortedInfo.columnKey === 'id' && sortedInfo.order,
+        //     // ellipsis: true,
+        //     render: text =><Button type="primary" onClick={()=>{handleRepairInfo(text)}}>{"Sửa"}</Button>,
+        //   },
       ];
     
     useEffect(()=>{
         if(valueContext && setData){
-            valueContext.getDataProducts(setData)
+            valueContext.getDataPortfolios(setData)
         }
         
     },[]);
-
-    // useEffect(()=>{
-    //     if(dataSelect){
-    //         console.log("Product select")
-    //     }
-    // }, [dataSelect])
 
     // useEffect(()=>{
     //     if(data){
@@ -145,7 +118,7 @@ export default function Product({routeProductID}) {
     return <div className="contentProductAdmin">
         <div className="content">
         <>
-            <Space style={{ marginBottom: 16 }}>
+        <Space style={{ marginBottom: 16 }}>
             {/* <Button onClick={setPriceSort}>Sort age</Button> */}
             {/* <Button onClick={clearFilters}>Clear filters</Button> */}
             </Space>
@@ -154,19 +127,11 @@ export default function Product({routeProductID}) {
                 ? <Table columns={columns} dataSource={data.data ? data.data : []} onChange={handleChange} />
                 : <></>
             }
-
-            <Modal title="Basic Modal" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
-                <h2>Sửa thông tin</h2>
-                {
-                    idProductSelect && dataSelect 
-                    ?  <ProductCreate closeModal={handleCancel} id={idProductSelect ? idProductSelect : 1} dataProductSelect={dataSelect ? dataSelect : null}></ProductCreate>
-                    : <></>
-                }
-               
-            </Modal>
             
         </>
         </div>
+
+
 
         <style jsx>{`
             .contentProductAdmin{
