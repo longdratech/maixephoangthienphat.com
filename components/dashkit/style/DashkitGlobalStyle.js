@@ -19,7 +19,7 @@ const DefaultStyles = {
     maxWidthXS: 350,
     maxWidthSM: 550,
     maxWidthMD: 728,
-    maxWidthLG: 1100,
+    maxWidthLG: 1230,
   },
 };
 

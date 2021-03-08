@@ -2,6 +2,8 @@ import {useState, useEffect} from "react"
 export const MainContent = React.createContext();
 import { useRouter } from "next/router"
 import ApiCall from "modules/ApiCall";
+import Axios from "axios";
+import { method } from "lodash";
 export default function MainContentProvider( {children}){
 
 
@@ -38,7 +40,7 @@ export default function MainContentProvider( {children}){
         let res = await ApiCall({
           path: `/products?page=${page}&limit=${limit}`
         });
-        if (res) {
+        if (res.data) {
             await FunctionnCb(res);
         }
     }
@@ -47,23 +49,48 @@ export default function MainContentProvider( {children}){
         let res = await ApiCall({
           path: `/products/${id}`
         });
-        if (res) {
+        if (res.data) {
             await FunctionnCb(res);
         }
     }
+
+    const postDataProduct = async (FunctionnCb, data) =>{
+        let res = await ApiCall({
+            token: token,
+            path: `/products`,
+            method: "POST",
+            data: data
+        });
+        if (res) {
+            await FunctionnCb();
+        }
+    }
+
+
 
     const getDataCategories = async(FunctionnCb, page=1, limit=50) => {
         let res = await ApiCall({
           path: "/categories"
         });
-        if (res) {
+        if (res.data) {
             FunctionnCb(res);
         }
     }
 
     const getDataImages = async (FunctionnCb) =>{
         let res = await ApiCall({
-          path: `/photos?page=1&limit=10`
+          path: `/photos?page=1&limit=50`
+        });
+        if (res.data) {
+            await FunctionnCb(res);
+        }
+    }
+
+    const deleteImage = async (FunctionnCb, idPublic) =>{
+        let res = await ApiCall({
+            token: token,
+            path: `/photos/${idPublic}`,
+            method: "DELETE"
         });
         if (res) {
             await FunctionnCb(res);
@@ -79,9 +106,11 @@ export default function MainContentProvider( {children}){
                 setToken: setToken,
                 logout: logout,
                 getDataProducts: getDataProducts,
+                postDataProduct: postDataProduct,
                 getDataCategories: getDataCategories,
                 getDataProduct :getDataProduct,
-                getDataImages: getDataImages
+                getDataImages: getDataImages,
+                deleteImage: deleteImage
             }}
         >
             {children}
