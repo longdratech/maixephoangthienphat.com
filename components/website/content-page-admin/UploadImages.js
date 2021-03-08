@@ -1,12 +1,13 @@
 import TitleCopy from "components/website/title/TitleCopy"
-import { Form, Input, InputNumber, Button, Radio, Upload, Modal } from 'antd';
+import { Button, Radio, Upload, Modal, message, Popconfirm } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import { useState, useEffect, useContext } from "react";
 import { MainContent } from "components/website/contexts/MainContent";
 import Link from "next/link";
+import { inferTo } from "@react-spring/core";
+import CONFIG from "web.config";
 
-
-export default function UploadImages({handleClickOutSite}) {
+export default function UploadImages({handleClickOutSite, showBtnChoose}) {
 
     const valueContext = useContext(MainContent);
     const [data, setData] = useState(null);
@@ -22,6 +23,17 @@ export default function UploadImages({handleClickOutSite}) {
             handleClickOutSite(value)
         }
     }
+
+    const handleDeleteImg = async (value) => {
+        const success = async () => {
+            message.success('Đã xoá ảnh', 3);
+            await valueContext.getDataImages(setDataImages);
+        };
+        await valueContext.deleteImage(success, value.id);
+        success();
+    }
+
+
 
     const getBase64 = (file) => {
         return new Promise((resolve, reject) => {
@@ -45,7 +57,7 @@ export default function UploadImages({handleClickOutSite}) {
     };
 
     const handleChange = ({ fileList }) => {
-        console.log("fileList : ", fileList)
+        // console.log("fileList : ", fileList)
         setFileList([...fileList]);
     };
 
@@ -53,16 +65,28 @@ export default function UploadImages({handleClickOutSite}) {
         valueContext.getDataImages(setDataImages)
     }, []);
 
+    useEffect(()=>{
+        valueContext.getDataImages(setDataImages)
+    },[fileList])
+
     const uploadButton = (
-        <div>
+        <div className="btnUploadImg">
             <PlusOutlined />
             <div style={{ marginTop: 8 }}>Upload</div>
+            <style jsx>{`
+                .btnUploadImg{
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    width: 100%;
+                }
+            `}</style>
         </div>
     );
 
     useEffect(() => {
         if (data) {
-            console.log("DATA : ", data)
+            console.log("DATA : ", data);
         }
     }, [data])
 
@@ -74,8 +98,26 @@ export default function UploadImages({handleClickOutSite}) {
                     dataImages.length !== 0
                         ? <div className="listImg">
                             {dataImages.data.map((value, index) => {
-                                return <div className="itemImageUpload" key={index} onClick={()=>handleClickImage(value)}> 
+                                return <div className="itemImageUpload" key={index} > 
                                 <img style={{ display: "block" }} src={value.url} /> 
+                                <div className="btnDeleteImg">
+                                    <Popconfirm
+                                        placement="top"
+                                        title={"Bạn có muốn xoá ảnh này không?"}
+                                        onConfirm={()=>handleDeleteImg(value)}
+                                        okText="Yes"
+                                        cancelText="No"
+                                    >
+                                        <Button type="primary" danger>Xoá</Button>
+                                    </Popconfirm>
+                                    {
+                                        showBtnChoose == true
+                                        ?   <Button type="primary" onClick={()=>handleClickImage(value)}>Chọn</Button>
+                                        :   <></>
+                                    }
+                                    
+                                </div>
+                                
                             </div>
                             })}
                         </div>
@@ -84,13 +126,19 @@ export default function UploadImages({handleClickOutSite}) {
             </div>
 
             <Upload
-                // action="https://maixephoangthienphat-api.herokuapp.com/api/v1/photos"
+                action={`${CONFIG.NEXT_PUBLIC_API_BASE_PATH}/photos`}
+                headers={
+                    {'Authorization': `Bearer ${valueContext.token}`}
+                }
+                name={"images"}
                 listType="picture-card"
                 fileList={fileList}
                 onPreview={handlePreview}
                 onChange={handleChange}
+                multiple={true}
+                className="btnUploadImg"
             >
-                {fileList.length >= 3 ? null : uploadButton}
+                {fileList.length >= 5 ? null : uploadButton}
             </Upload>
             <Modal
                 visible={previewVisible}
@@ -98,7 +146,7 @@ export default function UploadImages({handleClickOutSite}) {
                 footer={null}
                 onCancel={handleCancel}
             >
-                <img alt="example" style={{ width: '100%' }} src={previewImage} />
+                <img alt="imgs" style={{ width: '100%' }} src={previewImage} />
             </Modal>
         </div>
         <style jsx>{`
@@ -108,19 +156,33 @@ export default function UploadImages({handleClickOutSite}) {
                     padding-left: 20px;
                 }
                 .itemImageUpload{
+                    position: relative;
+                    overflow: hidden;
                     img{
                         width: 100%;
                         height: 100%;
                         object-fit: cover;
                     }
+                    .btnDeleteImg{
+                        position: absolute;
+                        bottom: -50px;
+                        left: 0;
+                    }
+                    &:hover{
+                        .btnDeleteImg{
+                            bottom: 0;
+                        }
+                    }
                 }
                 .listImg{
+                    padding: 70px 35px 100px 40px;
                     display: grid;
-                    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+                    grid-template-columns: 1fr 1fr 1fr 1fr;
                     column-gap: 20px;
                     row-gap: 20px;
                     justify-content: space-between;
-                    max-height: 300px;
+                    /* height: 80vh; */
+                    max-height: 400px;
                     overflow: auto;
                     border: solid 5px rgba(0,0,0,0.2);
                     border-radius: 10px;

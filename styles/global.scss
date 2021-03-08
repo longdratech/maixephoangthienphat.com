@@ -120,3 +120,18 @@ code.hljs {
   width: 80px;
   height: 80px;
 }
+.ant-upload-picture-card-wrapper.btnUploadImg{
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  .ant-upload-list{
+    width: 100%;
+  }
+  .ant-upload.ant-upload-select-picture-card{
+    background-color: #00adff;
+    border-radius: 10px;
+    width: 100%;
+    color: #000;
+  }
+}
