@@ -31,9 +31,9 @@ export default function Product({routeProductID}) {
     };
 
     const handleRepairInfo = (value) => {
-        if(routeProductID){
-            routeProductID(value);
-        }
+        // if(routeProductID){
+        //     routeProductID(value);
+        // }
         showModal(value)
     }
     
@@ -57,9 +57,9 @@ export default function Product({routeProductID}) {
 
     const [isModalVisible, setIsModalVisible] = useState(false);
 
-    const showModal = (data) => {
-        if(data){
-            valueContext.getDataProduct(setDataSelect, data)
+    const showModal = (value) => {
+        if(value){
+            valueContext.getDataProduct(setDataSelect, value)
         }
         setIsModalVisible(true);
     };
@@ -155,7 +155,7 @@ export default function Product({routeProductID}) {
 
             <Modal title="Basic Modal" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
                 <h2>Sửa thông tin</h2>
-                <ProductCreate></ProductCreate>
+                <ProductCreate id={1} dataProductSelect={dataSelect ? dataSelect : null}></ProductCreate>
             </Modal>
             
         </>

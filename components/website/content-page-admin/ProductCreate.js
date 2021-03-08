@@ -35,6 +35,11 @@ export default function ProductCreate({ id = null, dataProductSelect }) {
         valueContext.postDataProduct(success, values)
     };
 
+    const onFinishHadID = (values) => {
+        console.log("Submit : ", values);
+        valueContext.postDataProduct(success, values)
+    };
+
     const success =  () => {
         message.success('Tạo sản phẩm thành công!', 4);
        
@@ -89,17 +94,113 @@ export default function ProductCreate({ id = null, dataProductSelect }) {
         }
     }, [])
 
-    useEffect(() => {
-        if (data) {
-            console.log("DATA : ", data)
-        }
-    }, [data]);
+    // useEffect(() => {
+    //     if (data) {
+    //         console.log("DATA : ", data)
+    //     }
+    // }, [data]);
 
     if (id) {
         console.log("dataProductSelect : ", dataProductSelect)
         return <div className="contentProductAdmin">
-            <div className="content">
-                {id}
+             <div className="content">
+                <Form name="dynamic_form_item" {...layout} onFinish={onFinishHadID} validateMessages={validateMessages}>
+                    <Form.Item name={[ 'title']} label="Tên sản phẩm" rules={[{ required: true }]}>
+                        <Input />
+                    </Form.Item>
+
+                    <Form.Item name={[ 'price']} label="Giá sản phẩm" rules={[{ type: 'number', min: 0, required: true }]}>
+                        <InputNumber style={{ width: "100%" }} />
+                    </Form.Item>
+
+                    <Form.Item name={[ 'guarantee']} label="Bảo hành" rules={[{ type: 'number', min: 0 }]}>
+                        <InputNumber style={{ width: "100%" }} />
+                    </Form.Item>
+
+                    <Form.Item name={[ 'sold']} label="Đã bán" rules={[{ type: 'number', min: 0 }]}>
+                        <InputNumber style={{ width: "100%" }} />
+                    </Form.Item>
+
+                    <Form.Item name={[ 'category']} label="Category" rules={[{ required: true }]}>
+                        <Radio.Group>
+                            <Radio.Button value="Mái che">Mái che</Radio.Button>
+                            <Radio.Button value="Mái xếp">Mái xếp</Radio.Button>
+                            <Radio.Button value="Mái hiên">Mái hiên</Radio.Button>
+                            <Radio.Button value="Khác">Khác</Radio.Button>
+                        </Radio.Group>
+                    </Form.Item>
+                    <Form.Item name={[ 'description']} label="description">
+                        <Input.TextArea />
+                    </Form.Item>
+                    
+                    <Form.List name={['images']}
+                        rules={[
+                            {
+                              validator: async (_, names) => {
+                                if (!names || names.length < 1) {
+                                  return Promise.reject(new Error('Cần thêm ít nhất 1 hình ảnh'));
+                                }
+                              },
+                            },
+                          ]}
+                    >
+                        {(fields, { add, remove }, { errors }) => (
+                            <>
+                                {fields.map((field, index) => (
+                                    <Form.Item
+                                        {...(index === 0 ? layout : layout)}
+                                        label={`Images[${index}]`}
+                                        required={false}
+                                        key={field.key}
+                                    >
+                                        <Form.Item
+                                            {...field}
+                                            validateTrigger={['onChange', 'onBlur']}
+                                            rules={[
+                                                {
+                                                    required: true,
+                                                    message: "Vui lòng nhập link hình ảnh!",
+                                                },
+                                            ]}
+                                        >
+                                            <Input placeholder="Url images" style={{ width: "80%" }} />
+                                            {/* <span
+                                                onClick={() => null}
+                                                style={{ width: "16%" }}
+                                                icon={<PlusOutlined />}
+                                            >
+                                                Chọn ảnh
+                                            </span> */}
+                                        </Form.Item>
+                                        {fields.length > 1 ? (
+                                            <MinusCircleOutlined
+                                                className="dynamic-delete-button"
+                                                onClick={() => remove(field.name)}
+                                            />
+                                        ) : null}
+                                    </Form.Item>
+                                ))}
+                                <Form.Item>
+                                    <Button
+                                        type="dashed"
+                                        onClick={() => add()}
+                                        style={{ width: "100%" }}
+                                        icon={<PlusOutlined />}
+                                    >
+                                        Thêm ảnh
+                                    </Button>
+                                    <Form.ErrorList errors={errors} />
+                                </Form.Item>
+                            </>
+                        )}
+                    </Form.List>
+
+                    <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
+                        <Button type="primary" htmlType="submit">
+                            Submit
+                    </Button>
+                    </Form.Item>
+                </Form>
             </div>
             <style jsx>{`
                 .contentProductAdmin{
