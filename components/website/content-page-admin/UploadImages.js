@@ -1,7 +1,7 @@
 import TitleCopy from "components/website/title/TitleCopy"
 import { Button, Radio, Upload, Modal, message, Popconfirm } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, useRef } from "react";
 import { MainContent } from "components/website/contexts/MainContent";
 import Link from "next/link";
 import { inferTo } from "@react-spring/core";
@@ -17,10 +17,24 @@ export default function UploadImages({handleClickOutSite, showBtnChoose}) {
     const [previewImage, setPreviewImage] = useState('');
     const [previewTitle, setPreviewTitle] = useState('');
     const [fileList, setFileList] = useState([]);
+    const [valueCopy, setValueCopy] = useState('');
+    const btnChooseRef = useRef();
+    const inputSaveCopyRef = useRef();
 
     const handleClickImage = (value) => {
         if(handleClickOutSite){
-            handleClickOutSite(value)
+            handleClickOutSite(value);
+            
+        }
+        const success = async () => {
+            message.success('Đã copy link ảnh', 3);
+        };
+        if(btnChooseRef.current){
+            setValueCopy(value.url);
+            console.log("inputSaveCopyRef ", inputSaveCopyRef.current)
+            inputSaveCopyRef.current.select();
+            document.execCommand("copy");
+            success()
         }
     }
 
@@ -112,7 +126,10 @@ export default function UploadImages({handleClickOutSite, showBtnChoose}) {
                                     </Popconfirm>
                                     {
                                         showBtnChoose == true
-                                        ?   <Button type="primary" onClick={()=>handleClickImage(value)}>Chọn</Button>
+                                        ?   <>
+                                                <Button ref={btnChooseRef} type="primary" onClick={()=>handleClickImage(value)}>Copy link</Button>
+                                                <input style={{display:"none"}} ref={inputSaveCopyRef} value={valueCopy}/>
+                                            </>
                                         :   <></>
                                     }
                                     
@@ -165,8 +182,9 @@ export default function UploadImages({handleClickOutSite, showBtnChoose}) {
                     }
                     .btnDeleteImg{
                         position: absolute;
-                        bottom: -50px;
+                        bottom: -60px;
                         left: 0;
+                        transition: 0.3s;
                     }
                     &:hover{
                         .btnDeleteImg{
