@@ -9,7 +9,9 @@ import {Button} from "antd"
 import Product from "components/website/content-page-admin/Products";
 import Category from "components/website/content-page-admin/Category";
 import ProductCreate from "components/website/content-page-admin/ProductCreate";
+import CategoryCreate from "components/website/content-page-admin/CategoryCreate";
 import UploadImages from  "components/website/content-page-admin/UploadImages";
+import Portfolios from "components/website/content-page-admin/Portfolios";
 const routingContent = {
 
     PROFILE :  "profile",
@@ -65,6 +67,11 @@ const AdminIndex = ({ user }) => {
         // setIdProduct(id)
     }
 
+    const handleRepairPortfolio = (id) => {
+        console.log("repair ID", id);
+        // setIdProduct(id)
+    }
+
     const handleChooseImg = (value) => {
         console.log("Click Img", value);
     }
@@ -79,10 +86,12 @@ const AdminIndex = ({ user }) => {
                 return <ProductCreate id={idProduct}></ProductCreate>
 
             case routingContent.PORTFOLIO.LITS:
-                return <Category></Category>
+                return <div>Chưa có data</div>
+                // return <Portfolios routePortfolioID={handleRepairPortfolio} ></Portfolios>
 
             case routingContent.PORTFOLIO.CREATE:
-                return <Category></Category>
+                return <div>Chưa có data</div>
+                // return <Category></Category>
             
             case routingContent.IMAGES.CREATE: 
                 return <UploadImages showBtnChoose={true} handleClickOutSite={handleChooseImg}></UploadImages>
@@ -91,7 +100,7 @@ const AdminIndex = ({ user }) => {
                 return <Category></Category>
 
             case routingContent.CATEGORIES.CREATE:
-                return <Category></Category>
+                return <CategoryCreate id={null}></CategoryCreate>
 
             default:
                 return <></>;
