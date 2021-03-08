@@ -85,7 +85,7 @@ const AdminIndex = ({ user }) => {
                 return <Category></Category>
             
             case routingContent.IMAGES.CREATE: 
-                return <UploadImages handleClickOutSite={handleChooseImg}></UploadImages>
+                return <UploadImages showBtnChoose={true} handleClickOutSite={handleChooseImg}></UploadImages>
 
             case routingContent.CATEGORIES.LITS:
                 return <Category></Category>
