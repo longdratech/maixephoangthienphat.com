@@ -1,24 +1,19 @@
-import TitleCopy from "components/website/title/TitleCopy"
 import { Table, Button, Space } from 'antd';
 import {useState, useEffect, useContext} from "react";
 import { MainContent } from "components/website/contexts/MainContent";
 import Link from "next/link";
+// import {Button} from "antd"
 const fetchData = [
-    {
-      key: '1',
-      title: 'test 1',
-      price: 32,
-      category: 'New York No. 1 Lake Park',
-    },
     {
       key: '2',
       title: 'test 2',
       price: 42,
       category: 'London No. 1 Lake Park',
+      id :"1"
     },
 ];
 
-export default function Category() {
+export default function Portfolios({routePortfolioID}) {
 
     const valueContext =  useContext(MainContent);
     
@@ -26,12 +21,19 @@ export default function Category() {
     const [sortedInfo, setSortedInfo] = useState({});
 
     const [data, setData] = useState([]);
+    // const [dataTransform, setDataTransForm] = useState([])
       
     const handleChange = (pagination, filters, sorter) => {
         console.log('Various parameters', pagination, filters, sorter);
         setFilteredInfo(filters)
         setSortedInfo(sorter)
     };
+
+    const handleRepairInfo = (value) => {
+        if(routePortfolioID){
+            routeProductID(value);
+        }
+    }
     
     const clearFilters = () => {
         setFilteredInfo(null)
@@ -53,28 +55,28 @@ export default function Category() {
 
     const columns = [
         {
-          title: 'Tên category',
+          title: 'Tên sản phẩm',
           dataIndex: 'title',
           key: 'title',
-        //   filters: [
-        //     { text: 'Joe', value: 'Joe' },
-        //     { text: 'Jim', value: 'Jim' },
-        //   ],
+            //   filters: [
+            //     { text: '1', value: '1' },
+            //     { text: '2', value: '2' },
+            //   ],
           filteredValue: filteredInfo ? filteredInfo.title :  null,
           onFilter: (value, record) => record.title.includes(value),
           sorter: (a, b) => a.title.length - b.title.length,
           sortOrder: sortedInfo.columnKey === 'title' && sortedInfo.order,
           ellipsis: true,
-          render: text => <Link href="">{text}</Link>,
+        //   render: text => <Link href="">{text}</Link>,
         },
-        // {
-        //   title: 'Giá',
-        //   dataIndex: 'price',
-        //   key: 'price',
-        //   sorter: (a, b) => a.price - b.price,
-        //   sortOrder: sortedInfo.columnKey === 'price' && sortedInfo.order,
-        //   ellipsis: true,
-        // },
+        {
+          title: 'Giá',
+          dataIndex: 'price',
+          key: 'price',
+          sorter: (a, b) => a.price - b.price,
+          sortOrder: sortedInfo.columnKey === 'price' && sortedInfo.order,
+          ellipsis: true,
+        },
         {
           title: 'Category',
           dataIndex: 'category',
@@ -89,28 +91,29 @@ export default function Category() {
           sortOrder: sortedInfo.columnKey === 'category' && sortedInfo.order,
           ellipsis: true,
         },
+        // {
+        //     title: '',
+        //     dataIndex: 'id',
+        //     key: 'id',
+        //     // sorter: (a, b) => a.id - b.id,
+        //     // sortOrder: sortedInfo.columnKey === 'id' && sortedInfo.order,
+        //     // ellipsis: true,
+        //     render: text =><Button type="primary" onClick={()=>{handleRepairInfo(text)}}>{"Sửa"}</Button>,
+        //   },
       ];
     
-    //   const transformData = (data) => {
-    //     return data.map((index, value)=>{
-    //         value.key = index;
-    //         return value;
-    //     })
-    //   }
-
     useEffect(()=>{
         if(valueContext && setData){
-            valueContext.getDataCategories(setData)
+            valueContext.getDataPortfolios(setData)
         }
         
     },[]);
 
-    useEffect(()=>{
-        if(data){
-            console.log("DATA Category ", data)
-            // transformData(data)
-        }
-    }, [data])
+    // useEffect(()=>{
+    //     if(data){
+    //         console.log("DATA Products", data)
+    //     }
+    // }, [data])
 
     return <div className="contentProductAdmin">
         <div className="content">
@@ -121,7 +124,7 @@ export default function Category() {
             </Space>
             {
                 data
-                ? <Table columns={columns} dataSource={data ? data : fetchData} onChange={handleChange} />
+                ? <Table columns={columns} dataSource={data.data ? data.data : []} onChange={handleChange} />
                 : <></>
             }
             

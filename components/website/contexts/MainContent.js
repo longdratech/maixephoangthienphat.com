@@ -45,6 +45,7 @@ export default function MainContentProvider( {children}){
         }
     }
 
+    // get product[id]
     const getDataProduct = async (FunctionnCb, id ="") =>{
         let res = await ApiCall({
           path: `/products/${id}`
@@ -66,13 +67,33 @@ export default function MainContentProvider( {children}){
         }
     }
 
+    // get all portfolios
+    const getDataPortfolios = async (FunctionnCb, page=1, limit=50) =>{
+        let res = await ApiCall({
+          path: `/portfolios?page=${page}&limit=${limit}`
+        });
+        if (res.data) {
+            await FunctionnCb(res);
+        }
+    }
+
+    // get portfolios[id]
+    const getDataPortfolio = async (FunctionnCb, id ="") =>{
+        let res = await ApiCall({
+          path: `/portfolios/${id}`
+        });
+        if (res.data) {
+            await FunctionnCb(res);
+        }
+    }
 
 
     const getDataCategories = async(FunctionnCb, page=1, limit=50) => {
         let res = await ApiCall({
           path: "/categories"
         });
-        if (res.data) {
+        if (res) {
+            console.log("categories : " ,res.data);
             FunctionnCb(res);
         }
     }
@@ -107,6 +128,8 @@ export default function MainContentProvider( {children}){
                 logout: logout,
                 getDataProducts: getDataProducts,
                 postDataProduct: postDataProduct,
+                getDataPortfolios: getDataPortfolios,
+                getDataPortfolio: getDataPortfolio,
                 getDataCategories: getDataCategories,
                 getDataProduct :getDataProduct,
                 getDataImages: getDataImages,
