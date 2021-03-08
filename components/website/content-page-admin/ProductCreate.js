@@ -90,7 +90,7 @@ export default function ProductCreate({ id = null, dataProductSelect }) {
 
     useEffect(() => {
         if (valueContext && id) {
-            valueContext.getDataProduct(setData)
+            // valueContext.getDataProduct(setData)
         }
     }, [])
 
@@ -100,21 +100,22 @@ export default function ProductCreate({ id = null, dataProductSelect }) {
     //     }
     // }, [data]);
 
-    if (id) {
+    if (id && dataProductSelect) {
         console.log("dataProductSelect : ", dataProductSelect)
         return <div className="contentProductAdmin">
              <div className="content">
                 <Form name="dynamic_form_item" {...layout} onFinish={onFinishHadID} validateMessages={validateMessages}>
-                    <Form.Item name={[ 'title']} label="Tên sản phẩm" rules={[{ required: true }]}>
+                    <Form.Item value={dataProductSelect.title ? dataProductSelect.title :  ""}
+                        name={[ 'title']} label="Tên sản phẩm" rules={[{ required: true }]}>
                         <Input />
                     </Form.Item>
 
                     <Form.Item name={[ 'price']} label="Giá sản phẩm" rules={[{ type: 'number', min: 0, required: true }]}>
-                        <InputNumber style={{ width: "100%" }} />
+                        <InputNumber  style={{ width: "100%" }}  />
                     </Form.Item>
 
                     <Form.Item name={[ 'guarantee']} label="Bảo hành" rules={[{ type: 'number', min: 0 }]}>
-                        <InputNumber style={{ width: "100%" }} />
+                        <InputNumber   style={{ width: "100%" }} />
                     </Form.Item>
 
                     <Form.Item name={[ 'sold']} label="Đã bán" rules={[{ type: 'number', min: 0 }]}>
