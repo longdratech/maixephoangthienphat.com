@@ -1,8 +1,9 @@
-import { Table, Button, Space } from 'antd';
+import { Table, Space, Modal, Button } from 'antd';
 import {useState, useEffect, useContext} from "react";
 import { MainContent } from "components/website/contexts/MainContent";
 import Link from "next/link";
-// import {Button} from "antd"
+import ProductCreate from "components/website/content-page-admin/ProductCreate";
+import UploadImages from "components/website/content-page-admin/UploadImages";
 const fetchData = [
     {
       key: '2',
@@ -13,7 +14,7 @@ const fetchData = [
     },
 ];
 
-export default function Portfolios({routePortfolioID}) {
+export default function Product({routeProductID}) {
 
     const valueContext =  useContext(MainContent);
     
@@ -21,7 +22,10 @@ export default function Portfolios({routePortfolioID}) {
     const [sortedInfo, setSortedInfo] = useState({});
 
     const [data, setData] = useState([]);
-    // const [dataTransform, setDataTransForm] = useState([])
+    const [idProductSelect, setDataProductSelect] = useState("")
+    const [dataSelect, setDataSelect] = useState();
+    const [isModalVisible, setIsModalVisible] = useState(false);
+
       
     const handleChange = (pagination, filters, sorter) => {
         console.log('Various parameters', pagination, filters, sorter);
@@ -30,9 +34,10 @@ export default function Portfolios({routePortfolioID}) {
     };
 
     const handleRepairInfo = (value) => {
-        if(routePortfolioID){
-            routeProductID(value);
-        }
+        // if(routeProductID){
+        //     routeProductID(value);
+        // }
+        showModal(value)
     }
     
     const clearFilters = () => {
@@ -51,6 +56,26 @@ export default function Portfolios({routePortfolioID}) {
                 columnKey: 'price',
             }
         )
+    };
+
+    
+
+    const showModal = async (value) => {
+        if(value){
+            await setDataProductSelect(value);
+            await valueContext.getDataProduct(setDataSelect, value);
+            await setIsModalVisible(true);
+        }
+    };
+
+    const handleOk = async () => {
+        await setIsModalVisible(false);
+        valueContext.getDataProducts(setData);
+    };
+
+    const handleCancel = async () => {
+        await setIsModalVisible(false);
+        valueContext.getDataProducts(setData);
     };
 
     const columns = [
@@ -91,23 +116,32 @@ export default function Portfolios({routePortfolioID}) {
           sortOrder: sortedInfo.columnKey === 'category' && sortedInfo.order,
           ellipsis: true,
         },
-        // {
-        //     title: '',
-        //     dataIndex: 'id',
-        //     key: 'id',
-        //     // sorter: (a, b) => a.id - b.id,
-        //     // sortOrder: sortedInfo.columnKey === 'id' && sortedInfo.order,
-        //     // ellipsis: true,
-        //     render: text =><Button type="primary" onClick={()=>{handleRepairInfo(text)}}>{"Sửa"}</Button>,
-        //   },
+        {
+            title: '',
+            dataIndex: 'id',
+            key: 'id',
+            // sorter: (a, b) => a.id - b.id,
+            // sortOrder: sortedInfo.columnKey === 'id' && sortedInfo.order,
+            // ellipsis: true,
+            render: text =><Button type="primary" onClick={()=>{handleRepairInfo(text)}}>{"Sửa"}</Button>,
+          },
       ];
     
     useEffect(()=>{
         if(valueContext && setData){
-            valueContext.getDataPortfolios(setData)
+            valueContext.getDataProducts(setData)
         }
-        
     },[]);
+
+    useEffect(()=>{
+        valueContext.getDataProducts(setData);
+    }, [isModalVisible])
+
+    // useEffect(()=>{
+    //     if(dataSelect){
+    //         console.log("Product select")
+    //     }
+    // }, [dataSelect])
 
     // useEffect(()=>{
     //     if(data){
@@ -118,7 +152,7 @@ export default function Portfolios({routePortfolioID}) {
     return <div className="contentProductAdmin">
         <div className="content">
         <>
-        <Space style={{ marginBottom: 16 }}>
+            <Space style={{ marginBottom: 16 }}>
             {/* <Button onClick={setPriceSort}>Sort age</Button> */}
             {/* <Button onClick={clearFilters}>Clear filters</Button> */}
             </Space>
@@ -127,11 +161,24 @@ export default function Portfolios({routePortfolioID}) {
                 ? <Table columns={columns} dataSource={data.data ? data.data : []} onChange={handleChange} />
                 : <></>
             }
+
+            <Modal 
+                footer={null}
+                title={(<h2>Sửa thông tin</h2>)}
+                width={1000} 
+                visible={isModalVisible} 
+                onOk={handleOk} 
+                onCancel={handleCancel}>
+                {
+                    idProductSelect && dataSelect 
+                    ?  <ProductCreate closeModal={handleCancel} id={idProductSelect ? idProductSelect : 1} dataProductSelect={dataSelect ? dataSelect : null}></ProductCreate>
+                    : <></>
+                }
+               
+            </Modal>
             
         </>
         </div>
-
-
 
         <style jsx>{`
             .contentProductAdmin{

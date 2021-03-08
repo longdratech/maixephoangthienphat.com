@@ -1,4 +1,4 @@
-import { Table, Space, Modal, Button } from 'antd';
+import { Table, Space, Modal, Button, Popconfirm } from 'antd';
 import {useState, useEffect, useContext} from "react";
 import { MainContent } from "components/website/contexts/MainContent";
 import Link from "next/link";
@@ -23,7 +23,9 @@ export default function Product({routeProductID}) {
 
     const [data, setData] = useState([]);
     const [idProductSelect, setDataProductSelect] = useState("")
-    const [dataSelect, setDataSelect] = useState()
+    const [dataSelect, setDataSelect] = useState();
+    const [isModalVisible, setIsModalVisible] = useState(false);
+
       
     const handleChange = (pagination, filters, sorter) => {
         console.log('Various parameters', pagination, filters, sorter);
@@ -32,10 +34,11 @@ export default function Product({routeProductID}) {
     };
 
     const handleRepairInfo = (value) => {
-        // if(routeProductID){
-        //     routeProductID(value);
-        // }
         showModal(value)
+    }
+
+    const handleDeleteProduct = (value) => {
+       console.log("handleDeleteProduct: ", value)
     }
     
     const clearFilters = () => {
@@ -56,7 +59,29 @@ export default function Product({routeProductID}) {
         )
     };
 
-    const [isModalVisible, setIsModalVisible] = useState(false);
+    const [visiblePopupConfirm, setVisiblePopupConfirm] = useState(false);
+    const [confirmLoading, setConfirmLoading] = useState(false);
+
+    const showPopconfirm = (value) => {
+        if(value){
+            handleDeleteProduct(value);
+            setVisiblePopupConfirm(true);
+        }
+        
+      };
+    
+      const handleOkPopupConfirm = () => {
+        setConfirmLoading(true);
+        setTimeout(() => {
+            setVisiblePopupConfirm(false);
+            setConfirmLoading(false);
+        }, 1000);
+      };
+    
+      const handleCancelPopupConfirm = () => {
+        console.log('Clicked cancel button');
+        setConfirmLoading(false);
+      };
 
     const showModal = async (value) => {
         if(value){
@@ -66,12 +91,14 @@ export default function Product({routeProductID}) {
         }
     };
 
-    const handleOk = () => {
-        setIsModalVisible(false);
+    const handleOk = async () => {
+        await setIsModalVisible(false);
+        valueContext.getDataProducts(setData);
     };
 
-    const handleCancel = () => {
-        setIsModalVisible(false);
+    const handleCancel = async () => {
+        await setIsModalVisible(false);
+        valueContext.getDataProducts(setData);
     };
 
     const columns = [
@@ -116,19 +143,32 @@ export default function Product({routeProductID}) {
             title: '',
             dataIndex: 'id',
             key: 'id',
-            // sorter: (a, b) => a.id - b.id,
-            // sortOrder: sortedInfo.columnKey === 'id' && sortedInfo.order,
-            // ellipsis: true,
-            render: text =><Button type="primary" onClick={()=>{handleRepairInfo(text)}}>{"Sửa"}</Button>,
-          },
+            render: text =><>
+                <Button type="primary" onClick={()=>{handleRepairInfo(text)}}>{"Sửa"}</Button>
+                {/* <Popconfirm
+                    title="Title"
+                    visible={visiblePopupConfirm}
+                    onConfirm={handleOkPopupConfirm}
+                    okButtonProps={{ loading: confirmLoading }}
+                    onCancel={handleCancelPopupConfirm}
+                >
+                    <Button style={{margin:"0 10px"}} type="primary" danger 
+                        onClick={()=>{showPopconfirm(text)}}>{"Xoá"}</Button>
+                </Popconfirm> */}
+                
+            </> ,
+        },
       ];
     
     useEffect(()=>{
         if(valueContext && setData){
             valueContext.getDataProducts(setData)
         }
-        
     },[]);
+
+    useEffect(()=>{
+        valueContext.getDataProducts(setData);
+    }, [isModalVisible])
 
     // useEffect(()=>{
     //     if(dataSelect){
@@ -155,8 +195,13 @@ export default function Product({routeProductID}) {
                 : <></>
             }
 
-            <Modal title="Basic Modal" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
-                <h2>Sửa thông tin</h2>
+            <Modal 
+                footer={null}
+                title={(<h2>Sửa thông tin</h2>)}
+                width={1000} 
+                visible={isModalVisible} 
+                onOk={handleOk} 
+                onCancel={handleCancel}>
                 {
                     idProductSelect && dataSelect 
                     ?  <ProductCreate closeModal={handleCancel} id={idProductSelect ? idProductSelect : 1} dataProductSelect={dataSelect ? dataSelect : null}></ProductCreate>
