@@ -24,11 +24,11 @@ const layout = {
 };
 
 
-export default function ProductCreate({ id = null, dataProductSelect }) {
+export default function ProductCreate({ id = null, dataProductSelect, closeModal }) {
 
     const valueContext = useContext(MainContent);
     const [data, setData] = useState(null);
-
+    const [formRepair] = Form.useForm();
 
     const onFinish = (values) => {
         console.log("Submit : ", values);
@@ -36,13 +36,15 @@ export default function ProductCreate({ id = null, dataProductSelect }) {
     };
 
     const onFinishHadID = (values) => {
-        console.log("Submit : ", values);
-        valueContext.postDataProduct(success, values)
+        console.log("Submit onFinishHadID: ", values);
+        valueContext.patchDataProduct(success, id, values);
+        if(closeModal){
+            closeModal();
+        }
     };
 
     const success =  () => {
-        message.success('Tạo sản phẩm thành công!', 4);
-       
+        message.success('Tạo sản phẩm thành công 123!', 4);
     };
 
     const [previewVisible, setPreviewVisible] = useState(false)
@@ -99,14 +101,29 @@ export default function ProductCreate({ id = null, dataProductSelect }) {
     //         console.log("DATA : ", data)
     //     }
     // }, [data]);
+    
+    useEffect(()=>{
+        if(dataProductSelect){
+            initValueForm(dataProductSelect);
+        }
+    },[dataProductSelect]);
+
+    const initValueForm = async (dataProductSelect) => {
+        console.log("dataProductSelect : ", dataProductSelect)
+        await formRepair.setFieldsValue({...dataProductSelect})
+    }
 
     if (id && dataProductSelect) {
-        console.log("dataProductSelect : ", dataProductSelect)
+        formRepair.setFieldsValue({...dataProductSelect})
         return <div className="contentProductAdmin">
              <div className="content">
-                <Form name="dynamic_form_item" {...layout} onFinish={onFinishHadID} validateMessages={validateMessages}>
-                    <Form.Item value={dataProductSelect.title ? dataProductSelect.title :  ""}
-                        name={[ 'title']} label="Tên sản phẩm" rules={[{ required: true }]}>
+                <Form 
+                form={formRepair}
+                name="dynamic_form_item" 
+                {...layout} onFinish={onFinishHadID} 
+                validateMessages={validateMessages}>
+                    <Form.Item 
+                        name={['title']} label="Tên sản phẩm" rules={[{ required: true }]}>
                         <Input />
                     </Form.Item>
 

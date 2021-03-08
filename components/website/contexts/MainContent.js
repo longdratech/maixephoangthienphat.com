@@ -54,6 +54,17 @@ export default function MainContentProvider( {children}){
             await FunctionnCb(res);
         }
     }
+    // repair product[id]
+    const patchDataProduct = async (FunctionnCb, id ="", data) =>{
+        let res = await ApiCall({
+          path: `/products/${id}`,
+          method: "PATCH",
+          data: data
+        });
+        if (res) {
+            await FunctionnCb(res);
+        }
+    }
 
     const postDataProduct = async (FunctionnCb, data) =>{
         let res = await ApiCall({
@@ -128,6 +139,7 @@ export default function MainContentProvider( {children}){
                 logout: logout,
                 getDataProducts: getDataProducts,
                 postDataProduct: postDataProduct,
+                patchDataProduct: patchDataProduct,
                 getDataPortfolios: getDataPortfolios,
                 getDataPortfolio: getDataPortfolio,
                 getDataCategories: getDataCategories,

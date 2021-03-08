@@ -22,7 +22,8 @@ export default function Product({routeProductID}) {
     const [sortedInfo, setSortedInfo] = useState({});
 
     const [data, setData] = useState([]);
-    const [dataSelect, setDataSelect] = useState("")
+    const [idProductSelect, setDataProductSelect] = useState("")
+    const [dataSelect, setDataSelect] = useState()
       
     const handleChange = (pagination, filters, sorter) => {
         console.log('Various parameters', pagination, filters, sorter);
@@ -57,11 +58,12 @@ export default function Product({routeProductID}) {
 
     const [isModalVisible, setIsModalVisible] = useState(false);
 
-    const showModal = (value) => {
+    const showModal = async (value) => {
         if(value){
-            valueContext.getDataProduct(setDataSelect, value)
+            await setDataProductSelect(value);
+            await valueContext.getDataProduct(setDataSelect, value);
+            await setIsModalVisible(true);
         }
-        setIsModalVisible(true);
     };
 
     const handleOk = () => {
@@ -128,11 +130,11 @@ export default function Product({routeProductID}) {
         
     },[]);
 
-    useEffect(()=>{
-        if(dataSelect){
-            console.log("Product select")
-        }
-    }, [dataSelect])
+    // useEffect(()=>{
+    //     if(dataSelect){
+    //         console.log("Product select")
+    //     }
+    // }, [dataSelect])
 
     // useEffect(()=>{
     //     if(data){
@@ -155,7 +157,12 @@ export default function Product({routeProductID}) {
 
             <Modal title="Basic Modal" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
                 <h2>Sửa thông tin</h2>
-                <ProductCreate id={1} dataProductSelect={dataSelect ? dataSelect : null}></ProductCreate>
+                {
+                    idProductSelect && dataSelect 
+                    ?  <ProductCreate closeModal={handleCancel} id={idProductSelect ? idProductSelect : 1} dataProductSelect={dataSelect ? dataSelect : null}></ProductCreate>
+                    : <></>
+                }
+               
             </Modal>
             
         </>
