@@ -24,7 +24,7 @@ const layout = {
 };
 
 
-export default function ProductCreate({ id = null }) {
+export default function ProductCreate({ id = null, dataProductSelect }) {
 
     const valueContext = useContext(MainContent);
     const [data, setData] = useState(null);
@@ -96,6 +96,7 @@ export default function ProductCreate({ id = null }) {
     }, [data]);
 
     if (id) {
+        console.log("dataProductSelect : ", dataProductSelect)
         return <div className="contentProductAdmin">
             <div className="content">
                 {id}

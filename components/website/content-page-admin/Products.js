@@ -1,8 +1,9 @@
-import { Table, Button, Space } from 'antd';
+import { Table, Space, Modal, Button } from 'antd';
 import {useState, useEffect, useContext} from "react";
 import { MainContent } from "components/website/contexts/MainContent";
 import Link from "next/link";
-// import {Button} from "antd"
+import ProductCreate from "components/website/content-page-admin/ProductCreate";
+import UploadImages from "components/website/content-page-admin/UploadImages";
 const fetchData = [
     {
       key: '2',
@@ -21,7 +22,7 @@ export default function Product({routeProductID}) {
     const [sortedInfo, setSortedInfo] = useState({});
 
     const [data, setData] = useState([]);
-    // const [dataTransform, setDataTransForm] = useState([])
+    const [dataSelect, setDataSelect] = useState("")
       
     const handleChange = (pagination, filters, sorter) => {
         console.log('Various parameters', pagination, filters, sorter);
@@ -33,6 +34,7 @@ export default function Product({routeProductID}) {
         if(routeProductID){
             routeProductID(value);
         }
+        showModal(value)
     }
     
     const clearFilters = () => {
@@ -51,6 +53,23 @@ export default function Product({routeProductID}) {
                 columnKey: 'price',
             }
         )
+    };
+
+    const [isModalVisible, setIsModalVisible] = useState(false);
+
+    const showModal = (data) => {
+        if(data){
+            valueContext.getDataProduct(setDataSelect, data)
+        }
+        setIsModalVisible(true);
+    };
+
+    const handleOk = () => {
+        setIsModalVisible(false);
+    };
+
+    const handleCancel = () => {
+        setIsModalVisible(false);
     };
 
     const columns = [
@@ -91,15 +110,15 @@ export default function Product({routeProductID}) {
           sortOrder: sortedInfo.columnKey === 'category' && sortedInfo.order,
           ellipsis: true,
         },
-        // {
-        //     title: '',
-        //     dataIndex: 'id',
-        //     key: 'id',
-        //     // sorter: (a, b) => a.id - b.id,
-        //     // sortOrder: sortedInfo.columnKey === 'id' && sortedInfo.order,
-        //     // ellipsis: true,
-        //     render: text =><Button type="primary" onClick={()=>{handleRepairInfo(text)}}>{"Sửa"}</Button>,
-        //   },
+        {
+            title: '',
+            dataIndex: 'id',
+            key: 'id',
+            // sorter: (a, b) => a.id - b.id,
+            // sortOrder: sortedInfo.columnKey === 'id' && sortedInfo.order,
+            // ellipsis: true,
+            render: text =><Button type="primary" onClick={()=>{handleRepairInfo(text)}}>{"Sửa"}</Button>,
+          },
       ];
     
     useEffect(()=>{
@@ -108,6 +127,12 @@ export default function Product({routeProductID}) {
         }
         
     },[]);
+
+    useEffect(()=>{
+        if(dataSelect){
+            console.log("Product select")
+        }
+    }, [dataSelect])
 
     // useEffect(()=>{
     //     if(data){
@@ -118,7 +143,7 @@ export default function Product({routeProductID}) {
     return <div className="contentProductAdmin">
         <div className="content">
         <>
-        <Space style={{ marginBottom: 16 }}>
+            <Space style={{ marginBottom: 16 }}>
             {/* <Button onClick={setPriceSort}>Sort age</Button> */}
             {/* <Button onClick={clearFilters}>Clear filters</Button> */}
             </Space>
@@ -127,11 +152,14 @@ export default function Product({routeProductID}) {
                 ? <Table columns={columns} dataSource={data.data ? data.data : []} onChange={handleChange} />
                 : <></>
             }
+
+            <Modal title="Basic Modal" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+                <h2>Sửa thông tin</h2>
+                <ProductCreate></ProductCreate>
+            </Modal>
             
         </>
         </div>
-
-
 
         <style jsx>{`
             .contentProductAdmin{

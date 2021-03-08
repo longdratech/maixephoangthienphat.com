@@ -50,7 +50,7 @@ export default function MainContentProvider( {children}){
         let res = await ApiCall({
           path: `/products/${id}`
         });
-        if (res.data) {
+        if (res) {
             await FunctionnCb(res);
         }
     }
