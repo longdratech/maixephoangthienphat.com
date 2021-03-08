@@ -1,10 +1,10 @@
 import TitleCopy from "components/website/title/TitleCopy"
-import { Form, Input, InputNumber, Button, Radio, message } from 'antd';
+import { Form, Input, InputNumber, Button, Radio, message, Modal } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import { useState, useEffect, useContext } from "react";
 import { MainContent } from "components/website/contexts/MainContent";
 import Link from "next/link";
-
+import UploadImages from  "components/website/content-page-admin/UploadImages";
 
 /* eslint-disable no-template-curly-in-string */
 const validateMessages = {
@@ -30,21 +30,19 @@ export default function ProductCreate({ id = null, dataProductSelect, closeModal
     const [data, setData] = useState(null);
     const [formRepair] = Form.useForm();
 
-    const onFinish = (values) => {
-        console.log("Submit : ", values);
-        valueContext.postDataProduct(success, values)
+    const onFinish = async (values) => {
+        await valueContext.postDataProduct(success, values)
     };
 
-    const onFinishHadID = (values) => {
-        console.log("Submit onFinishHadID: ", values);
-        valueContext.patchDataProduct(success, id, values);
+    const onFinishHadID = async (values) => {
+        await valueContext.patchDataProduct(success, id, values);
         if(closeModal){
             closeModal();
         }
     };
 
-    const success =  () => {
-        message.success('Tạo sản phẩm thành công 123!', 4);
+    const success = async () => {
+       await message.success('Tạo sản phẩm thành công!', 0.5);
     };
 
     const [previewVisible, setPreviewVisible] = useState(false)
@@ -52,6 +50,21 @@ export default function ProductCreate({ id = null, dataProductSelect, closeModal
     const [previewTitle, setPreviewTitle] = useState('')
     const [fileList, setFileList] = useState([])
 
+    const [isModalVisible, setIsModalVisible] = useState(false);
+
+    const showModal = async (value) => {
+        if(value){
+            await setIsModalVisible(true);
+        }
+    };
+
+    const handleOk = () => {
+        setIsModalVisible(false);
+    };
+
+    const handleCancelModal = () => {
+        setIsModalVisible(false);
+    };
 
     const getBase64 = (file) => {
         return new Promise((resolve, reject) => {
@@ -181,7 +194,7 @@ export default function ProductCreate({ id = null, dataProductSelect, closeModal
                                                 },
                                             ]}
                                         >
-                                            <Input placeholder="Url images" style={{ width: "80%" }} />
+                                            <Input onClick={()=>showModal("1")} placeholder="Url images" style={{ width: "80%" }} />
                                             {/* <span
                                                 onClick={() => null}
                                                 style={{ width: "16%" }}
@@ -219,6 +232,12 @@ export default function ProductCreate({ id = null, dataProductSelect, closeModal
                     </Button>
                     </Form.Item>
                 </Form>
+                <Modal 
+                title={(<h2>Thêm ảnh</h2>)} width={1000} 
+                visible={isModalVisible} onOk={handleOk} 
+                onCancel={handleCancelModal}>
+                    <UploadImages showBtnChoose={true}></UploadImages>
+                </Modal>
             </div>
             <style jsx>{`
                 .contentProductAdmin{
@@ -283,6 +302,7 @@ export default function ProductCreate({ id = null, dataProductSelect, closeModal
                                         <Form.Item
                                             {...field}
                                             validateTrigger={['onChange', 'onBlur']}
+
                                             rules={[
                                                 {
                                                     required: true,
@@ -290,7 +310,7 @@ export default function ProductCreate({ id = null, dataProductSelect, closeModal
                                                 },
                                             ]}
                                         >
-                                            <Input placeholder="Url images" style={{ width: "80%" }} />
+                                            <Input onClick={()=>showModal("1")} placeholder="Url images" style={{ width: "80%" }} />
                                             {/* <span
                                                 onClick={() => null}
                                                 style={{ width: "16%" }}
@@ -328,6 +348,11 @@ export default function ProductCreate({ id = null, dataProductSelect, closeModal
                     </Button>
                     </Form.Item>
                 </Form>
+                <Modal title={(<h2>Thêm ảnh</h2>)} width={1000} 
+                visible={isModalVisible} onOk={handleOk} onCancel={handleCancelModal}>
+                    <h2>Tạo mới</h2>
+                    <UploadImages ></UploadImages>
+                </Modal>
             </div>
             <style jsx>{`
                 .contentProductAdmin{
