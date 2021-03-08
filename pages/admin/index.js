@@ -86,8 +86,8 @@ const AdminIndex = ({ user }) => {
                 return <ProductCreate id={idProduct}></ProductCreate>
 
             case routingContent.PORTFOLIO.LITS:
-                return <div>Chưa có data</div>
-                // return <Portfolios routePortfolioID={handleRepairPortfolio} ></Portfolios>
+                // return <div>Chưa có data</div>
+                return <Portfolios routePortfolioID={handleRepairPortfolio} ></Portfolios>
 
             case routingContent.PORTFOLIO.CREATE:
                 return <div>Chưa có data</div>

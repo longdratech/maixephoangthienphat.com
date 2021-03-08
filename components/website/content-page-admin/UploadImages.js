@@ -7,7 +7,7 @@ import Link from "next/link";
 import { inferTo } from "@react-spring/core";
 import CONFIG from "web.config";
 
-export default function UploadImages({handleClickOutSite, showBtnChoose}) {
+export default function UploadImages({handleClickOutSite, showBtnChoose, handleCloseModal}) {
 
     const valueContext = useContext(MainContent);
     const [data, setData] = useState(null);
@@ -21,20 +21,26 @@ export default function UploadImages({handleClickOutSite, showBtnChoose}) {
     const btnChooseRef = useRef();
     const inputSaveCopyRef = useRef();
 
-    const handleClickImage = (value) => {
+    const successCopy = () => {
+        message.success('Đã copy link ảnh', 3);
+    };
+
+    const handleClickImage = async(value) => {
         if(handleClickOutSite){
-            handleClickOutSite(value);
-            
+            await handleClickOutSite(value);
         }
-        const success = async () => {
-            message.success('Đã copy link ảnh', 3);
-        };
         if(btnChooseRef.current){
-            setValueCopy(value.url);
-            console.log("inputSaveCopyRef ", inputSaveCopyRef.current)
-            inputSaveCopyRef.current.select();
-            document.execCommand("copy");
-            success()
+            await setValueCopy(value.url);
+            console.log("inputSaveCopyRef ", inputSaveCopyRef.current);
+            await inputSaveCopyRef.current.focus();
+            await inputSaveCopyRef.current.select();
+            await document.execCommand("copy", true, valueCopy);
+            localStorage.setItem("linkImgCopy" , valueCopy);
+            await successCopy()
+
+        }
+        if(handleCloseModal){
+            handleCloseModal();
         }
     }
 

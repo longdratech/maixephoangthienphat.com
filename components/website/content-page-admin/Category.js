@@ -1,8 +1,9 @@
 import TitleCopy from "components/website/title/TitleCopy"
-import { Table, Button, Space } from 'antd';
+import { Table, Space, Modal, Button } from 'antd';
 import {useState, useEffect, useContext} from "react";
 import { MainContent } from "components/website/contexts/MainContent";
 import Link from "next/link";
+import CategoryCreate from "components/website/content-page-admin/CategoryCreate";
 const fetchData = [
     {
       key: '1',
@@ -26,6 +27,11 @@ export default function Category() {
     const [sortedInfo, setSortedInfo] = useState({});
 
     const [data, setData] = useState([]);
+
+    const [idSelect, setIdSelect] = useState("")
+    const [dataSelect, setDataSelect] = useState();
+
+    const [isModalVisible, setIsModalVisible] = useState(false);
       
     const handleChange = (pagination, filters, sorter) => {
         console.log('Various parameters', pagination, filters, sorter);
@@ -37,11 +43,6 @@ export default function Category() {
         setFilteredInfo(null)
     };
     
-    // const clearAll = () => {
-    //     setFilteredInfo(null)
-    //     setSortedInfo(null)
-    // };
-    
     const setPriceSort = () => {
         setSortedInfo(
             {
@@ -51,15 +52,39 @@ export default function Category() {
         )
     };
 
+    const handleRepairInfo = (value) => {
+        showModal(value)
+    }
+
+    const findCategory = (list, id) => {
+        return list.find((value, index)=>{
+            return value.id === id;
+        })
+    }
+
+    const showModal = async (value) => {
+        if(value){
+            await setIdSelect(value);
+            await setDataSelect(findCategory(data, value));
+            await setIsModalVisible(true);
+        }
+    };
+
+    const handleOk = async () => {
+        await setIsModalVisible(false);
+        valueContext.getDataCategories(setData)
+    };
+
+    const handleCancel = async () => {
+        await setIsModalVisible(false);
+        valueContext.getDataCategories(setData)
+    };
+
     const columns = [
         {
           title: 'Tên category',
           dataIndex: 'title',
           key: 'title',
-        //   filters: [
-        //     { text: 'Joe', value: 'Joe' },
-        //     { text: 'Jim', value: 'Jim' },
-        //   ],
           filteredValue: filteredInfo ? filteredInfo.title :  null,
           onFilter: (value, record) => record.title.includes(value),
           sorter: (a, b) => a.title.length - b.title.length,
@@ -67,14 +92,6 @@ export default function Category() {
           ellipsis: true,
           render: text => <Link href="">{text}</Link>,
         },
-        // {
-        //   title: 'Giá',
-        //   dataIndex: 'price',
-        //   key: 'price',
-        //   sorter: (a, b) => a.price - b.price,
-        //   sortOrder: sortedInfo.columnKey === 'price' && sortedInfo.order,
-        //   ellipsis: true,
-        // },
         {
           title: 'Category',
           dataIndex: 'category',
@@ -89,14 +106,14 @@ export default function Category() {
           sortOrder: sortedInfo.columnKey === 'category' && sortedInfo.order,
           ellipsis: true,
         },
+        {
+            title: '',
+            dataIndex: 'id',
+            key: 'id',
+            render: text =><Button type="primary" onClick={()=>{handleRepairInfo(text)}}>{"Sửa"}</Button>,
+          },
       ];
     
-    //   const transformData = (data) => {
-    //     return data.map((index, value)=>{
-    //         value.key = index;
-    //         return value;
-    //     })
-    //   }
 
     useEffect(()=>{
         if(valueContext && setData){
@@ -115,16 +132,27 @@ export default function Category() {
     return <div className="contentProductAdmin">
         <div className="content">
         <>
-        <Space style={{ marginBottom: 16 }}>
-            {/* <Button onClick={setPriceSort}>Sort age</Button> */}
-            {/* <Button onClick={clearFilters}>Clear filters</Button> */}
+            <Space style={{ marginBottom: 16 }}>
             </Space>
             {
                 data
                 ? <Table columns={columns} dataSource={data ? data : fetchData} onChange={handleChange} />
                 : <></>
             }
-            
+             <Modal 
+                footer={null}
+                title={(<h2>Sửa thông tin</h2>)}
+                width={1000} 
+                visible={isModalVisible} 
+                onOk={handleOk} 
+                onCancel={handleCancel}>
+                {
+                    idSelect && dataSelect 
+                    ?  <CategoryCreate closeModal={handleCancel} id={idSelect ? idSelect : 1} dataProductSelect={dataSelect ? dataSelect : null}></CategoryCreate>
+                    : <></>
+                }
+               
+            </Modal>
         </>
         </div>
 

@@ -59,6 +59,10 @@ export default function MainContentProvider( {children}){
         let res = await ApiCall({
           path: `/products/${id}`,
           method: "PATCH",
+          token: token,
+          headers:{
+            'Content-Type': 'application/x-www-form-urlencoded'
+          },
           data: data
         });
         if (res) {
@@ -109,6 +113,21 @@ export default function MainContentProvider( {children}){
         }
     }
 
+    const patchDataCategories = async (FunctionnCb, id ="", data) =>{
+        let res = await ApiCall({
+          path: `/categories/${id}`,
+          method: "PATCH",
+          token: token,
+          headers:{
+            'Content-Type': 'application/x-www-form-urlencoded'
+          },
+          data: data
+        });
+        if (res) {
+            await FunctionnCb(res);
+        }
+    }
+
     const getDataImages = async (FunctionnCb) =>{
         let res = await ApiCall({
           path: `/photos?page=1&limit=50`
@@ -143,6 +162,7 @@ export default function MainContentProvider( {children}){
                 getDataPortfolios: getDataPortfolios,
                 getDataPortfolio: getDataPortfolio,
                 getDataCategories: getDataCategories,
+                patchDataCategories: patchDataCategories,
                 getDataProduct :getDataProduct,
                 getDataImages: getDataImages,
                 deleteImage: deleteImage
