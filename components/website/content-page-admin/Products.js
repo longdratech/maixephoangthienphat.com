@@ -75,12 +75,12 @@ export default function Product({routeProductID}) {
 
     const handleOk = async () => {
         await setIsModalVisible(false);
-        valueContext.getDataProducts(setData);
+        // valueContext.getDataProducts(setData);
     };
 
     const handleCancel = async () => {
         await setIsModalVisible(false);
-        valueContext.getDataProducts(setData);
+        // valueContext.getDataProducts(setData);
     };
 
     const columns = [
@@ -131,7 +131,6 @@ export default function Product({routeProductID}) {
                     data={text}
                     handleOkOutSize={handleDeleteProduct}
                 > </PopupConfirm>
-                
             </>,
         },
       ];
@@ -142,21 +141,9 @@ export default function Product({routeProductID}) {
         }
     },[]);
 
-    useEffect(()=>{
-        valueContext.getDataProducts(setData);
-    }, [isModalVisible])
-
     // useEffect(()=>{
-    //     if(dataSelect){
-    //         console.log("Product select")
-    //     }
-    // }, [dataSelect])
-
-    // useEffect(()=>{
-    //     if(data){
-    //         console.log("DATA Products", data)
-    //     }
-    // }, [data])
+    //     valueContext.getDataProducts(setData);
+    // }, [isModalVisible])
 
     return <div className="contentProductAdmin">
         <div className="content">
@@ -179,9 +166,17 @@ export default function Product({routeProductID}) {
                 onOk={handleOk} 
                 onCancel={handleCancel}>
                 {
+
                     idProductSelect && dataSelect 
-                    ?  <ProductCreate closeModal={handleCancel} id={idProductSelect ? idProductSelect : 1} dataProductSelect={dataSelect ? dataSelect : null}></ProductCreate>
+
+                    ?  <ProductCreate 
+
+                        closeModal={handleCancel} 
+                        id={idProductSelect ? idProductSelect : 1} dataProductSelect={dataSelect ? dataSelect : null}>
+
+                        </ProductCreate>
                     : <></>
+
                 }
                
             </Modal>

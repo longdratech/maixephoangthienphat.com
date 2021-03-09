@@ -1,10 +1,10 @@
 import TitleCopy from "components/website/title/TitleCopy"
 import { Form, Input, InputNumber, Button, Radio, message, Modal } from 'antd';
-import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
+import { MinusCircleOutlined, PlusOutlined, AreaChartOutlined } from '@ant-design/icons';
 import { useState, useEffect, useContext } from "react";
 import { MainContent } from "components/website/contexts/MainContent";
 import Link from "next/link";
-import UploadImages from  "components/website/content-page-admin/UploadImages";
+import UploadImages from "components/website/content-page-admin/UploadImages";
 
 /* eslint-disable no-template-curly-in-string */
 const validateMessages = {
@@ -36,24 +36,19 @@ export default function ProductCreate({ id = null, dataProductSelect, closeModal
 
     const onFinishHadID = async (values) => {
         await valueContext.patchDataProduct(success, id, values);
-        if(closeModal){
+        if (closeModal) {
             closeModal();
         }
     };
 
     const success = async () => {
-       await message.success('Tạo sản phẩm thành công!', 0.5);
+        await message.success('Tạo sản phẩm thành công!', 0.5);
     };
-
-    const [previewVisible, setPreviewVisible] = useState(false)
-    const [previewImage, setPreviewImage] = useState('')
-    const [previewTitle, setPreviewTitle] = useState('')
-    const [fileList, setFileList] = useState([])
 
     const [isModalVisible, setIsModalVisible] = useState(false);
 
     const showModal = async (value) => {
-        if(value){
+        if (value) {
             await setIsModalVisible(true);
         }
     };
@@ -109,50 +104,43 @@ export default function ProductCreate({ id = null, dataProductSelect, closeModal
         }
     }, [])
 
-    // useEffect(() => {
-    //     if (data) {
-    //         console.log("DATA : ", data)
-    //     }
-    // }, [data]);
-    
-    useEffect(()=>{
-        if(dataProductSelect){
+    useEffect(() => {
+        if (dataProductSelect) {
             initValueForm(dataProductSelect);
         }
-    },[dataProductSelect]);
+    }, [dataProductSelect]);
 
     const initValueForm = async (dataProductSelect) => {
         console.log("dataProductSelect : ", dataProductSelect)
-        await formRepair.setFieldsValue({...dataProductSelect})
+        await formRepair.setFieldsValue({ ...dataProductSelect })
     }
 
     if (id && dataProductSelect) {
-        formRepair.setFieldsValue({...dataProductSelect})
         return <div className="contentProductAdmin">
-             <div className="content">
-                <Form 
-                form={formRepair}
-                name="dynamic_form_item" 
-                {...layout} onFinish={onFinishHadID} 
-                validateMessages={validateMessages}>
-                    <Form.Item 
+            <div className="content">
+                <Form
+                    form={formRepair}
+                    name="dynamic_form_item"
+                    {...layout} onFinish={onFinishHadID}
+                    validateMessages={validateMessages}>
+                    <Form.Item
                         name={['title']} label="Tên sản phẩm" rules={[{ required: true }]}>
                         <Input />
                     </Form.Item>
 
-                    <Form.Item name={[ 'price']} label="Giá sản phẩm" rules={[{ type: 'number', min: 0, required: true }]}>
-                        <InputNumber  style={{ width: "100%" }}  />
-                    </Form.Item>
-
-                    <Form.Item name={[ 'guarantee']} label="Bảo hành" rules={[{ type: 'number', min: 0 }]}>
-                        <InputNumber   style={{ width: "100%" }} />
-                    </Form.Item>
-
-                    <Form.Item name={[ 'sold']} label="Đã bán" rules={[{ type: 'number', min: 0 }]}>
+                    <Form.Item name={['price']} label="Giá sản phẩm" rules={[{ type: 'number', min: 0, required: true }]}>
                         <InputNumber style={{ width: "100%" }} />
                     </Form.Item>
 
-                    <Form.Item name={[ 'category']} label="Category" rules={[{ required: true }]}>
+                    <Form.Item name={['guarantee']} label="Bảo hành" rules={[{ type: 'number', min: 0 }]}>
+                        <InputNumber style={{ width: "100%" }} />
+                    </Form.Item>
+
+                    <Form.Item name={['sold']} label="Đã bán" rules={[{ type: 'number', min: 0 }]}>
+                        <InputNumber style={{ width: "100%" }} />
+                    </Form.Item>
+
+                    <Form.Item name={['category']} label="Category" rules={[{ required: true }]}>
                         <Radio.Group>
                             <Radio.Button value="Mái che">Mái che</Radio.Button>
                             <Radio.Button value="Mái xếp">Mái xếp</Radio.Button>
@@ -160,20 +148,20 @@ export default function ProductCreate({ id = null, dataProductSelect, closeModal
                             <Radio.Button value="Khác">Khác</Radio.Button>
                         </Radio.Group>
                     </Form.Item>
-                    <Form.Item name={[ 'description']} label="description">
+                    <Form.Item name={['description']} label="description">
                         <Input.TextArea />
                     </Form.Item>
-                    
+
                     <Form.List name={['images']}
                         rules={[
                             {
-                              validator: async (_, names) => {
-                                if (!names || names.length < 1) {
-                                  return Promise.reject(new Error('Cần thêm ít nhất 1 hình ảnh'));
-                                }
-                              },
+                                validator: async (_, names) => {
+                                    if (!names || names.length < 1) {
+                                        return Promise.reject(new Error('Cần thêm ít nhất 1 hình ảnh'));
+                                    }
+                                },
                             },
-                          ]}
+                        ]}
                     >
                         {(fields, { add, remove }, { errors }) => (
                             <>
@@ -194,14 +182,8 @@ export default function ProductCreate({ id = null, dataProductSelect, closeModal
                                                 },
                                             ]}
                                         >
-                                            <Input onClick={()=>showModal("1")} placeholder="Url images" style={{ width: "80%" }} />
-                                            {/* <span
-                                                onClick={() => null}
-                                                style={{ width: "16%" }}
-                                                icon={<PlusOutlined />}
-                                            >
-                                                Chọn ảnh
-                                            </span> */}
+                                            <Input placeholder="Url images" style={{ width: "80%" }} />
+
                                         </Form.Item>
                                         {fields.length > 1 ? (
                                             <MinusCircleOutlined
@@ -211,6 +193,7 @@ export default function ProductCreate({ id = null, dataProductSelect, closeModal
                                         ) : null}
                                     </Form.Item>
                                 ))}
+
                                 <Form.Item>
                                     <Button
                                         type="dashed"
@@ -222,6 +205,15 @@ export default function ProductCreate({ id = null, dataProductSelect, closeModal
                                     </Button>
                                     <Form.ErrorList errors={errors} />
                                 </Form.Item>
+
+                                <Button
+                                    type="primary"
+                                    onClick={() => showModal("1")}
+                                    style={{ width: "60%", display: "block", marginBottom: "20px", marginTop: "20px", marginLeft: "auto", marginRight: "auto" }}
+                                    icon={<AreaChartOutlined />}
+                                >
+                                    Lấy link hình ảnh cần chọn
+                                </Button>
                             </>
                         )}
                     </Form.List>
@@ -232,12 +224,15 @@ export default function ProductCreate({ id = null, dataProductSelect, closeModal
                     </Button>
                     </Form.Item>
                 </Form>
-                <Modal 
-                title={(<h2>Thêm ảnh</h2>)} width={1000} 
-                visible={isModalVisible} onOk={handleOk} 
-                onCancel={handleCancelModal}>
+                <Modal
+                    title={(<h2>Thêm ảnh</h2>)} width={1000}
+                    visible={isModalVisible}
+                    onOk={handleOk}
+                    onCancel={handleCancelModal}>
+
                     <UploadImages showBtnChoose={true}></UploadImages>
                 </Modal>
+
             </div>
             <style jsx>{`
                 .contentProductAdmin{
@@ -251,23 +246,23 @@ export default function ProductCreate({ id = null, dataProductSelect, closeModal
         return <div className="contentProductAdmin">
             <div className="content">
                 <Form name="dynamic_form_item" {...layout} onFinish={onFinish} validateMessages={validateMessages}>
-                    <Form.Item name={[ 'title']} label="Tên sản phẩm" rules={[{ required: true }]}>
+                    <Form.Item name={['title']} label="Tên sản phẩm" rules={[{ required: true }]}>
                         <Input />
                     </Form.Item>
 
-                    <Form.Item name={[ 'price']} label="Giá sản phẩm" rules={[{ type: 'number', min: 0, required: true }]}>
+                    <Form.Item name={['price']} label="Giá sản phẩm" rules={[{ type: 'number', min: 0, required: true }]}>
                         <InputNumber style={{ width: "100%" }} />
                     </Form.Item>
 
-                    <Form.Item name={[ 'guarantee']} label="Bảo hành" rules={[{ type: 'number', min: 0 }]}>
+                    <Form.Item name={['guarantee']} label="Bảo hành" rules={[{ type: 'number', min: 0 }]}>
                         <InputNumber style={{ width: "100%" }} />
                     </Form.Item>
 
-                    <Form.Item name={[ 'sold']} label="Đã bán" rules={[{ type: 'number', min: 0 }]}>
+                    <Form.Item name={['sold']} label="Đã bán" rules={[{ type: 'number', min: 0 }]}>
                         <InputNumber style={{ width: "100%" }} />
                     </Form.Item>
 
-                    <Form.Item name={[ 'category']} label="Category" rules={[{ required: true }]}>
+                    <Form.Item name={['category']} label="Category" rules={[{ required: true }]}>
                         <Radio.Group>
                             <Radio.Button value="Mái che">Mái che</Radio.Button>
                             <Radio.Button value="Mái xếp">Mái xếp</Radio.Button>
@@ -275,20 +270,20 @@ export default function ProductCreate({ id = null, dataProductSelect, closeModal
                             <Radio.Button value="Khác">Khác</Radio.Button>
                         </Radio.Group>
                     </Form.Item>
-                    <Form.Item name={[ 'description']} label="description">
+                    <Form.Item name={['description']} label="description">
                         <Input.TextArea />
                     </Form.Item>
-                    
+
                     <Form.List name={['images']}
                         rules={[
                             {
-                              validator: async (_, names) => {
-                                if (!names || names.length < 1) {
-                                  return Promise.reject(new Error('Cần thêm ít nhất 1 hình ảnh'));
-                                }
-                              },
+                                validator: async (_, names) => {
+                                    if (!names || names.length < 1) {
+                                        return Promise.reject(new Error('Cần thêm ít nhất 1 hình ảnh'));
+                                    }
+                                },
                             },
-                          ]}
+                        ]}
                     >
                         {(fields, { add, remove }, { errors }) => (
                             <>
@@ -310,14 +305,14 @@ export default function ProductCreate({ id = null, dataProductSelect, closeModal
                                                 },
                                             ]}
                                         >
-                                            <Input onClick={()=>showModal("1")} placeholder="Url images" style={{ width: "80%" }} />
-                                            {/* <span
-                                                onClick={() => null}
+                                            <Input placeholder="Url images" style={{ width: "80%" }} />
+                                            <span
+                                                onClick={() => showModal("1")}
                                                 style={{ width: "16%" }}
                                                 icon={<PlusOutlined />}
                                             >
                                                 Chọn ảnh
-                                            </span> */}
+                                            </span>
                                         </Form.Item>
                                         {fields.length > 1 ? (
                                             <MinusCircleOutlined
@@ -338,6 +333,14 @@ export default function ProductCreate({ id = null, dataProductSelect, closeModal
                                     </Button>
                                     <Form.ErrorList errors={errors} />
                                 </Form.Item>
+                                <Button
+                                    type="primary"
+                                    onClick={() => showModal("1")}
+                                    style={{ width: "60%", display: "block", marginBottom: "20px", marginTop: "20px", marginLeft: "auto", marginRight: "auto" }}
+                                    icon={<AreaChartOutlined />}
+                                >
+                                    Lấy link hình ảnh cần chọn
+                                </Button>
                             </>
                         )}
                     </Form.List>
@@ -348,8 +351,8 @@ export default function ProductCreate({ id = null, dataProductSelect, closeModal
                     </Button>
                     </Form.Item>
                 </Form>
-                <Modal title={(<h2>Thêm ảnh</h2>)} width={1000} 
-                visible={isModalVisible} onOk={handleOk} onCancel={handleCancelModal}>
+                <Modal title={(<h2>Thêm ảnh</h2>)} width={1000}
+                    visible={isModalVisible} onOk={handleOk} onCancel={handleCancelModal}>
                     <h2>Tạo mới</h2>
                     <UploadImages ></UploadImages>
                 </Modal>
