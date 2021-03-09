@@ -24,7 +24,7 @@ const Sider = ({
 
             <SubMenu key="sub2" icon={<AppstoreOutlined />} title="Sản Phẩm">
                 <Menu.Item title="Sản Phẩm" value="product-list" key="2">Danh sách</Menu.Item>
-                {/* <Menu.Item title="Sản Phẩm" value="product-create" key="3">Tạo mới</Menu.Item> */}
+                <Menu.Item title="Sản Phẩm" value="product-create" key="3">Tạo mới</Menu.Item>
                 
             </SubMenu>
 

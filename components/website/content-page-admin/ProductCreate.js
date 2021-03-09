@@ -230,7 +230,7 @@ export default function ProductCreate({ id = null, dataProductSelect, closeModal
                     onOk={handleOk}
                     onCancel={handleCancelModal}>
 
-                    <UploadImages showBtnChoose={true}></UploadImages>
+                    <UploadImages handleCloseModal={handleCancelModal} showBtnChoose={true}></UploadImages>
                 </Modal>
 
             </div>
@@ -306,13 +306,6 @@ export default function ProductCreate({ id = null, dataProductSelect, closeModal
                                             ]}
                                         >
                                             <Input placeholder="Url images" style={{ width: "80%" }} />
-                                            <span
-                                                onClick={() => showModal("1")}
-                                                style={{ width: "16%" }}
-                                                icon={<PlusOutlined />}
-                                            >
-                                                Chọn ảnh
-                                            </span>
                                         </Form.Item>
                                         {fields.length > 1 ? (
                                             <MinusCircleOutlined
@@ -354,7 +347,7 @@ export default function ProductCreate({ id = null, dataProductSelect, closeModal
                 <Modal title={(<h2>Thêm ảnh</h2>)} width={1000}
                     visible={isModalVisible} onOk={handleOk} onCancel={handleCancelModal}>
                     <h2>Tạo mới</h2>
-                    <UploadImages ></UploadImages>
+                    <UploadImages showBtnChoose={true} ></UploadImages>
                 </Modal>
             </div>
             <style jsx>{`
