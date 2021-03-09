@@ -132,7 +132,7 @@ export default function Product({routeProductID}) {
                     handleOkOutSize={handleDeleteProduct}
                 > </PopupConfirm>
                 
-            </> ,
+            </>,
         },
       ];
     

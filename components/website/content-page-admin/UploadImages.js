@@ -5,6 +5,7 @@ import { useState, useEffect, useContext, useRef } from "react";
 import { MainContent } from "components/website/contexts/MainContent";
 import Link from "next/link";
 import { inferTo } from "@react-spring/core";
+import copy from 'copy-to-clipboard';
 import CONFIG from "web.config";
 
 export default function UploadImages({handleClickOutSite, showBtnChoose, handleCloseModal}) {
@@ -21,6 +22,7 @@ export default function UploadImages({handleClickOutSite, showBtnChoose, handleC
     const btnChooseRef = useRef();
     const inputSaveCopyRef = useRef();
 
+
     const successCopy = () => {
         message.success('Đã copy link ảnh', 3);
     };
@@ -31,13 +33,8 @@ export default function UploadImages({handleClickOutSite, showBtnChoose, handleC
         }
         if(btnChooseRef.current){
             await setValueCopy(value.url);
-            console.log("inputSaveCopyRef ", inputSaveCopyRef.current);
-            await inputSaveCopyRef.current.focus();
-            await inputSaveCopyRef.current.select();
-            await document.execCommand("copy", true, valueCopy);
-            localStorage.setItem("linkImgCopy" , valueCopy);
-            await successCopy()
-
+            copy(value.url);
+            await successCopy();
         }
         if(handleCloseModal){
             handleCloseModal();
