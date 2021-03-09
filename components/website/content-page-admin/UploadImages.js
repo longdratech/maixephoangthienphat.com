@@ -24,7 +24,7 @@ export default function UploadImages({handleClickOutSite, showBtnChoose, handleC
 
 
     const successCopy = () => {
-        message.success('Đã copy link ảnh', 3);
+        message.success('Đã copy link ảnh', 2);
     };
 
     const handleClickImage = async(value) => {
