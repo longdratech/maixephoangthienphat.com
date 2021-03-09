@@ -70,33 +70,33 @@ export default function ProductCreate({ id = null, dataProductSelect, closeModal
         });
     }
 
-    const handleCancel = () => setPreviewVisible(false);
+    // const handleCancel = () => setPreviewVisible(false);
 
-    const handlePreview = async file => {
-        if (!file.url && !file.preview) {
-            file.preview = await getBase64(file.originFileObj);
-        }
-        setPreviewVisible(true);
-        setPreviewImage(file.url || file.preview);
-        setPreviewTitle(file.name || file.url.substring(file.url.lastIndexOf('/') + 1));
+    // const handlePreview = async file => {
+    //     if (!file.url && !file.preview) {
+    //         file.preview = await getBase64(file.originFileObj);
+    //     }
+    //     setPreviewVisible(true);
+    //     setPreviewImage(file.url || file.preview);
+    //     setPreviewTitle(file.name || file.url.substring(file.url.lastIndexOf('/') + 1));
 
-    };
+    // };
 
-    const handleChange = ({ fileList }) => {
-        console.log("fileList : ", fileList)
-        setFileList([...fileList]);
-    }
+    // const handleChange = ({ fileList }) => {
+    //     console.log("fileList : ", fileList)
+    //     setFileList([...fileList]);
+    // }
 
-    const formItemLayout = {
-        labelCol: {
-            labelCol: { span: 3 },
-            wrapperCol: { span: 18 },
-        },
-        wrapperCol: {
-            xs: { span: 24 },
-            sm: { span: 20 },
-        },
-    };
+    // const formItemLayout = {
+    //     labelCol: {
+    //         labelCol: { span: 3 },
+    //         wrapperCol: { span: 18 },
+    //     },
+    //     wrapperCol: {
+    //         xs: { span: 24 },
+    //         sm: { span: 20 },
+    //     },
+    // };
 
     useEffect(() => {
         if (valueContext && id) {
@@ -111,7 +111,7 @@ export default function ProductCreate({ id = null, dataProductSelect, closeModal
     }, [dataProductSelect]);
 
     const initValueForm = async (dataProductSelect) => {
-        console.log("dataProductSelect : ", dataProductSelect)
+        // console.log("dataProductSelect : ", dataProductSelect)
         await formRepair.setFieldsValue({ ...dataProductSelect })
     }
 

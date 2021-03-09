@@ -198,7 +198,7 @@ export default function UploadImages({handleClickOutSite, showBtnChoose, handleC
                 .listImg{
                     padding: 70px 35px 100px 40px;
                     display: grid;
-                    grid-template-columns: 1fr 1fr 1fr 1fr;
+                    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
                     column-gap: 20px;
                     row-gap: 20px;
                     justify-content: space-between;
