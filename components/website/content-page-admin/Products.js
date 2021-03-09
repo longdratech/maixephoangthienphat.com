@@ -1,4 +1,4 @@
-import { Table, Space, Modal, Button, Popconfirm, message } from 'antd';
+import { Table, Space, Modal, Button, Popconfirm, message, Spin } from 'antd';
 import {useState, useEffect, useContext} from "react";
 import { MainContent } from "components/website/contexts/MainContent";
 import Link from "next/link";
@@ -153,9 +153,9 @@ export default function Product({routeProductID}) {
             {/* <Button onClick={clearFilters}>Clear filters</Button> */}
             </Space>
             {
-                data
+                data.data
                 ? <Table columns={columns} dataSource={data.data ? data.data : []} onChange={handleChange} />
-                : <></>
+                :  <div className="containerSpin"><Spin size="large" /></div>
             }
 
             <Modal 
@@ -188,7 +188,12 @@ export default function Product({routeProductID}) {
             .contentProductAdmin{
                 width: 100%;
                 overflow: auto;
-                padding-left: 20px;
+                padding-left: 30px;
+            }
+            .containerSpin{
+                width: 100%;
+                padding: 20px;
+                text-align: center;
             }
         `}</style>
     </div>

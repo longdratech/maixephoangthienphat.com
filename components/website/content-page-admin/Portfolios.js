@@ -1,4 +1,4 @@
-import { Table, Space, Modal, Button, message } from 'antd';
+import { Table, Space, Modal, Button, message, Spin } from 'antd';
 import {useState, useEffect, useContext} from "react";
 import { MainContent } from "components/website/contexts/MainContent";
 import Link from "next/link";
@@ -143,9 +143,9 @@ export default function Portfolios({routeProductID}) {
             <Space style={{ marginBottom: 16 }}>
             </Space>
             {
-                data
+                data.data
                 ? <Table columns={columns} dataSource={data.data ? data.data : []} onChange={handleChange} />
-                : <></>
+                : <div className="containerSpin"><Spin size="large" /></div>
             }
 
             <Modal 
@@ -158,7 +158,7 @@ export default function Portfolios({routeProductID}) {
                 {
                     idProductSelect && dataSelect 
                     ?  <ProductCreate closeModal={handleCancel} id={idProductSelect ? idProductSelect : 1} dataProductSelect={dataSelect ? dataSelect : null}></ProductCreate>
-                    : <></>
+                    : <div className="containerSpin"><Spin size="large" /></div>
                 }
                
             </Modal>
@@ -171,6 +171,11 @@ export default function Portfolios({routeProductID}) {
                 width: 100%;
                 overflow: auto;
                 padding-left: 20px;
+            }
+            .containerSpin{
+                width: 100%;
+                padding: 20px;
+                text-align: center;
             }
         `}</style>
     </div>
