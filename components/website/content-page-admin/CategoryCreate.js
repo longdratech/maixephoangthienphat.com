@@ -44,12 +44,6 @@ export default function CategoryCreate({ id = null, dataProductSelect, closeModa
     const success = async () => {
        await message.success('Tạo sản phẩm thành công!', 0.5);
     };
-
-    const [previewVisible, setPreviewVisible] = useState(false)
-    const [previewImage, setPreviewImage] = useState('')
-    const [previewTitle, setPreviewTitle] = useState('')
-    const [fileList, setFileList] = useState([])
-
     const [isModalVisible, setIsModalVisible] = useState(false);
 
     const showModal = async (value) => {
@@ -108,12 +102,6 @@ export default function CategoryCreate({ id = null, dataProductSelect, closeModa
             // valueContext.getDataProduct(setData)
         }
     }, [])
-
-    // useEffect(() => {
-    //     if (data) {
-    //         console.log("DATA : ", data)
-    //     }
-    // }, [data]);
     
     useEffect(()=>{
         if(dataProductSelect){
