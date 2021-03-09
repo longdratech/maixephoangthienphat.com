@@ -41,7 +41,7 @@ export default function Product({routeProductID}) {
 
     const deleteSuccess = (data) => {
         console.log("delete success: ", data);
-        message
+        // message
     }
 
     const handleDeleteProduct = async (id) => {
