@@ -1,5 +1,5 @@
 import TitleCopy from "components/website/title/TitleCopy"
-import { Table, Space, Modal, Button } from 'antd';
+import { Table, Space, Modal, Button, Spin } from 'antd';
 import {useState, useEffect, useContext} from "react";
 import { MainContent } from "components/website/contexts/MainContent";
 import Link from "next/link";
@@ -137,7 +137,7 @@ export default function Category() {
             {
                 data
                 ? <Table columns={columns} dataSource={data ? data : fetchData} onChange={handleChange} />
-                : <></>
+                :  <div className="containerSpin"><Spin size="large" /></div>
             }
              <Modal 
                 footer={null}
@@ -149,7 +149,7 @@ export default function Category() {
                 {
                     idSelect && dataSelect 
                     ?  <CategoryCreate closeModal={handleCancel} id={idSelect ? idSelect : 1} dataProductSelect={dataSelect ? dataSelect : null}></CategoryCreate>
-                    : <></>
+                    : <div className="containerSpin"><Spin size="large" /></div>
                 }
                
             </Modal>
@@ -163,6 +163,11 @@ export default function Category() {
                 width: 100%;
                 overflow: auto;
                 padding-left: 20px;
+            }
+            .containerSpin{
+                width: 100%;
+                padding: 20px;
+                text-align: center;
             }
         `}</style>
     </div>
