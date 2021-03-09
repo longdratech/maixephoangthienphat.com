@@ -1,9 +1,10 @@
-import { Table, Space, Modal, Button, Popconfirm } from 'antd';
+import { Table, Space, Modal, Button, Popconfirm, message } from 'antd';
 import {useState, useEffect, useContext} from "react";
 import { MainContent } from "components/website/contexts/MainContent";
 import Link from "next/link";
 import ProductCreate from "components/website/content-page-admin/ProductCreate";
 import UploadImages from "components/website/content-page-admin/UploadImages";
+import PopupConfirm from "components/website/popup-confirm/PopupConfirm";
 const fetchData = [
     {
       key: '2',
@@ -37,18 +38,23 @@ export default function Product({routeProductID}) {
         showModal(value)
     }
 
-    const handleDeleteProduct = (value) => {
-       console.log("handleDeleteProduct: ", value)
+
+    const deleteSuccess = (data) => {
+        console.log("delete success: ", data);
+        message
+    }
+
+    const handleDeleteProduct = async (id) => {
+        if(id){
+            await valueContext.deleteDataProduct(deleteSuccess, id);
+            await message.success('Xoá thành công!', 0.2);
+            await valueContext.getDataProducts(setData);
+        }
     }
     
     const clearFilters = () => {
         setFilteredInfo(null)
     };
-    
-    // const clearAll = () => {
-    //     setFilteredInfo(null)
-    //     setSortedInfo(null)
-    // };
     
     const setPriceSort = () => {
         setSortedInfo(
@@ -58,31 +64,7 @@ export default function Product({routeProductID}) {
             }
         )
     };
-
-    const [visiblePopupConfirm, setVisiblePopupConfirm] = useState(false);
-    const [confirmLoading, setConfirmLoading] = useState(false);
-
-    const showPopconfirm = (value) => {
-        if(value){
-            handleDeleteProduct(value);
-            setVisiblePopupConfirm(true);
-        }
-        
-      };
-    
-      const handleOkPopupConfirm = () => {
-        setConfirmLoading(true);
-        setTimeout(() => {
-            setVisiblePopupConfirm(false);
-            setConfirmLoading(false);
-        }, 1000);
-      };
-    
-      const handleCancelPopupConfirm = () => {
-        console.log('Clicked cancel button');
-        setConfirmLoading(false);
-      };
-
+   
     const showModal = async (value) => {
         if(value){
             await setDataProductSelect(value);
@@ -145,16 +127,10 @@ export default function Product({routeProductID}) {
             key: 'id',
             render: text =><>
                 <Button type="primary" onClick={()=>{handleRepairInfo(text)}}>{"Sửa"}</Button>
-                {/* <Popconfirm
-                    title="Title"
-                    visible={visiblePopupConfirm}
-                    onConfirm={handleOkPopupConfirm}
-                    okButtonProps={{ loading: confirmLoading }}
-                    onCancel={handleCancelPopupConfirm}
-                >
-                    <Button style={{margin:"0 10px"}} type="primary" danger 
-                        onClick={()=>{showPopconfirm(text)}}>{"Xoá"}</Button>
-                </Popconfirm> */}
+                <PopupConfirm
+                    data={text}
+                    handleOkOutSize={handleDeleteProduct}
+                > </PopupConfirm>
                 
             </> ,
         },

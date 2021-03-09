@@ -70,6 +70,17 @@ export default function MainContentProvider( {children}){
         }
     }
 
+    const deleteDataProduct = async (FunctionnCb, id) =>{
+        let res = await ApiCall({
+            token: token,
+            path: `/products/${id}`,
+            method: "DELETE"
+        });
+        if (res) {
+            await FunctionnCb(res);
+        }
+    }
+
     const postDataProduct = async (FunctionnCb, data) =>{
         let res = await ApiCall({
             token: token,
@@ -159,6 +170,7 @@ export default function MainContentProvider( {children}){
                 getDataProducts: getDataProducts,
                 postDataProduct: postDataProduct,
                 patchDataProduct: patchDataProduct,
+                deleteDataProduct: deleteDataProduct,
                 getDataPortfolios: getDataPortfolios,
                 getDataPortfolio: getDataPortfolio,
                 getDataCategories: getDataCategories,
