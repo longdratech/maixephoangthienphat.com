@@ -1,9 +1,11 @@
-import { Table, Space, Modal, Button } from 'antd';
+import { Table, Space, Modal, Button, message } from 'antd';
 import {useState, useEffect, useContext} from "react";
 import { MainContent } from "components/website/contexts/MainContent";
 import Link from "next/link";
 import ProductCreate from "components/website/content-page-admin/ProductCreate";
 import UploadImages from "components/website/content-page-admin/UploadImages";
+import PopupConfirm from "components/website/popup-confirm/PopupConfirm";
+
 const fetchData = [
     {
       key: '2',
@@ -14,7 +16,7 @@ const fetchData = [
     },
 ];
 
-export default function Product({routeProductID}) {
+export default function Portfolios({routeProductID}) {
 
     const valueContext =  useContext(MainContent);
     
@@ -44,19 +46,13 @@ export default function Product({routeProductID}) {
         setFilteredInfo(null)
     };
     
-    // const clearAll = () => {
-    //     setFilteredInfo(null)
-    //     setSortedInfo(null)
-    // };
-    
-    const setPriceSort = () => {
-        setSortedInfo(
-            {
-                order: 'descend',
-                columnKey: 'price',
-            }
-        )
-    };
+    const handleDeletePortfolios = async (id) => {
+        if(id){
+            // await valueContext.deleteDataProduct(deleteSuccess, id);
+            await message.success('Xoá thành công!', 0.2);
+            // await valueContext.getDataProducts(setData);
+        }
+    }
 
     
 
@@ -120,41 +116,31 @@ export default function Product({routeProductID}) {
             title: '',
             dataIndex: 'id',
             key: 'id',
-            // sorter: (a, b) => a.id - b.id,
-            // sortOrder: sortedInfo.columnKey === 'id' && sortedInfo.order,
-            // ellipsis: true,
-            render: text =><Button type="primary" onClick={()=>{handleRepairInfo(text)}}>{"Sửa"}</Button>,
+            render: text =><>
+                <Button type="primary" onClick={()=>{handleRepairInfo(text)}}>{"Sửa"}</Button>
+                <PopupConfirm
+                    data={text}
+                    handleOkOutSize={handleDeletePortfolios}
+                > </PopupConfirm>
+            </>,
           },
       ];
     
     useEffect(()=>{
         if(valueContext && setData){
-            valueContext.getDataProducts(setData)
+            valueContext.getDataPortfolios(setData)
         }
     },[]);
 
     useEffect(()=>{
-        valueContext.getDataProducts(setData);
+        valueContext.getDataPortfolios(setData);
     }, [isModalVisible])
 
-    // useEffect(()=>{
-    //     if(dataSelect){
-    //         console.log("Product select")
-    //     }
-    // }, [dataSelect])
-
-    // useEffect(()=>{
-    //     if(data){
-    //         console.log("DATA Products", data)
-    //     }
-    // }, [data])
 
     return <div className="contentProductAdmin">
         <div className="content">
         <>
             <Space style={{ marginBottom: 16 }}>
-            {/* <Button onClick={setPriceSort}>Sort age</Button> */}
-            {/* <Button onClick={clearFilters}>Clear filters</Button> */}
             </Space>
             {
                 data

@@ -23,6 +23,7 @@ export default function PopupConfirm({
                 console.log("showPopconfirm value", data)
                 handleOkOutSize(data);
             }
+            
         }, 500);
 
     };
