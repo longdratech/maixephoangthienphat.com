@@ -156,8 +156,6 @@ export default function Category() {
         </>
         </div>
 
-
-
         <style jsx>{`
             .contentProductAdmin{
                 width: 100%;

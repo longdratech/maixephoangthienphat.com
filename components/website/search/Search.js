@@ -71,6 +71,7 @@ export default function Search({
             }
             label{
                 padding-left: 15px;
+                cursor: pointer;
             }
             .btn{
                 border: 0;

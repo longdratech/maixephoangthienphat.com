@@ -130,7 +130,10 @@ export default function UploadImages({handleClickOutSite, showBtnChoose, handleC
                                     {
                                         showBtnChoose == true
                                         ?   <>
-                                                <Button ref={btnChooseRef} type="primary" onClick={()=>handleClickImage(value)}>Copy link</Button>
+                                                <Button ref={btnChooseRef} type="primary" 
+                                                    onClick={()=>handleClickImage(value)}>
+                                                    Copy link
+                                                </Button>
                                                 <input style={{display:"none"}} ref={inputSaveCopyRef} value={valueCopy}/>
                                             </>
                                         :   <></>
