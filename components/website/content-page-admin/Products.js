@@ -70,6 +70,8 @@ export default function Product({routeProductID}) {
             await setDataProductSelect(value);
             await valueContext.getDataProduct(setDataSelect, value);
             await setIsModalVisible(true);
+        }else{
+            await setIsModalVisible(true);
         }
     };
 
@@ -80,7 +82,7 @@ export default function Product({routeProductID}) {
 
     const handleCancel = async () => {
         await setIsModalVisible(false);
-        // valueContext.getDataProducts(setData);
+        valueContext.getDataProducts(setData);
     };
 
     const columns = [
@@ -141,47 +143,45 @@ export default function Product({routeProductID}) {
         }
     },[]);
 
-    // useEffect(()=>{
-    //     valueContext.getDataProducts(setData);
-    // }, [isModalVisible])
-
     return <div className="contentProductAdmin">
         <div className="content">
-        <>
-            <Space style={{ marginBottom: 16 }}>
-            {/* <Button onClick={setPriceSort}>Sort age</Button> */}
-            {/* <Button onClick={clearFilters}>Clear filters</Button> */}
-            </Space>
-            {
-                data.data
-                ? <Table columns={columns} dataSource={data.data ? data.data : []} onChange={handleChange} />
-                :  <div className="containerSpin"><Spin size="large" /></div>
-            }
-
-            <Modal 
-                footer={null}
-                title={(<h2>Sửa thông tin</h2>)}
-                width={1000} 
-                visible={isModalVisible} 
-                onOk={handleOk} 
-                onCancel={handleCancel}>
+            <Button type="primary" 
+                style={{left: "100%", transform: "translate(-100%, 0)"}}
+                onClick={()=>{handleRepairInfo()}}>
+                Tạo mới
+            </Button>
+            <>
+                <Space style={{ marginBottom: 16 }}>
+                </Space>
                 {
-
-                    idProductSelect && dataSelect 
-
-                    ?  <ProductCreate 
-
-                        closeModal={handleCancel} 
-                        id={idProductSelect ? idProductSelect : 1} dataProductSelect={dataSelect ? dataSelect : null}>
-
-                        </ProductCreate>
-                    : <></>
-
+                    data.data
+                    ? <Table columns={columns} dataSource={data.data ? data.data : []} onChange={handleChange} />
+                    :  <div className="containerSpin"><Spin size="large" /></div>
                 }
-               
-            </Modal>
-            
-        </>
+
+                <Modal 
+                    footer={null}
+                    title={(<h2>Sửa thông tin</h2>)}
+                    width={1000} 
+                    visible={isModalVisible} 
+                    onOk={handleOk} 
+                    onCancel={handleCancel}>
+                    {
+
+                        idProductSelect && dataSelect 
+
+                        ?  <ProductCreate 
+
+                            closeModal={handleCancel} 
+                            id={idProductSelect ? idProductSelect : 1} dataProductSelect={dataSelect ? dataSelect : null}>
+
+                            </ProductCreate>
+                        : <ProductCreate closeModal={handleCancel} > </ProductCreate>
+                        }
+                
+                </Modal>
+                
+            </>
         </div>
 
         <style jsx>{`
