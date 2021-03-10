@@ -34,7 +34,10 @@ export default function ProductCreate({ id = null, dataProductSelect, closeModal
     const [indexImg, setIndexImg] = useState();// get index input to set value url img
 
     const onFinish = async (values) => {
-        await valueContext.postDataProduct(success, values)
+        await valueContext.postDataProduct(success, values);
+        if (closeModal) {
+            closeModal();
+        }
     };
 
     const onFinishHadID = async (values) => {
