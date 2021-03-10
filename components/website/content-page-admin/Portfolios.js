@@ -50,7 +50,7 @@ export default function Portfolios({routeProductID}) {
         if(id){
             // await valueContext.deleteDataProduct(deleteSuccess, id);
             await message.success('Xoá thành công!', 0.2);
-            // await valueContext.getDataProducts(setData);
+            // await valueContext.getDataPortfolios(setData);
         }
     }
 
@@ -66,12 +66,12 @@ export default function Portfolios({routeProductID}) {
 
     const handleOk = async () => {
         await setIsModalVisible(false);
-        valueContext.getDataProducts(setData);
+        valueContext.getDataPortfolios(setData);
     };
 
     const handleCancel = async () => {
         await setIsModalVisible(false);
-        valueContext.getDataProducts(setData);
+        valueContext.getDataPortfolios(setData);
     };
 
     const columns = [

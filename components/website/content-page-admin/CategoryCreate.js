@@ -4,7 +4,8 @@ import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import { useState, useEffect, useContext } from "react";
 import { MainContent } from "components/website/contexts/MainContent";
 import Link from "next/link";
-import UploadImages from  "components/website/content-page-admin/UploadImages";
+import UploadImages from "components/website/content-page-admin/UploadImages";
+import { from } from "bl";
 
 /* eslint-disable no-template-curly-in-string */
 const validateMessages = {
@@ -29,25 +30,30 @@ export default function CategoryCreate({ id = null, dataProductSelect, closeModa
     const valueContext = useContext(MainContent);
     const [data, setData] = useState(null);
     const [formRepair] = Form.useForm();
+    const [indexImg, setIndexImg] = useState();// get index input to set value url img
 
     const onFinish = async (values) => {
-        await valueContext.postDataProduct(success, values)
+        // await valueContext.postDataProduct(success, values);
+        if (closeModal) {
+            closeModal();
+        }
     };
 
     const onFinishHadID = async (values) => {
         await valueContext.patchDataCategories(success, id, values);
-        if(closeModal){
+        if (closeModal) {
             closeModal();
         }
     };
 
     const success = async () => {
-       await message.success('Tạo sản phẩm thành công!', 0.5);
+        await message.success('Tạo sản phẩm thành công!', 0.5);
     };
     const [isModalVisible, setIsModalVisible] = useState(false);
 
     const showModal = async (value) => {
-        if(value){
+        if (value) {
+            await setIndexImg(value)
             await setIsModalVisible(true);
         }
     };
@@ -60,75 +66,53 @@ export default function CategoryCreate({ id = null, dataProductSelect, closeModa
         setIsModalVisible(false);
     };
 
-    const getBase64 = (file) => {
-        return new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = () => resolve(reader.result);
-            reader.onerror = error => reject(error);
-        });
-    }
+    // const getBase64 = (file) => {
+    //     return new Promise((resolve, reject) => {
+    //         const reader = new FileReader();
+    //         reader.readAsDataURL(file);
+    //         reader.onload = () => resolve(reader.result);
+    //         reader.onerror = error => reject(error);
+    //     });
+    // }
 
-    const handleCancel = () => setPreviewVisible(false);
 
-    const handlePreview = async file => {
-        if (!file.url && !file.preview) {
-            file.preview = await getBase64(file.originFileObj);
-        }
-        setPreviewVisible(true);
-        setPreviewImage(file.url || file.preview);
-        setPreviewTitle(file.name || file.url.substring(file.url.lastIndexOf('/') + 1));
-
-    };
-
-    const handleChange = ({ fileList }) => {
-        console.log("fileList : ", fileList)
-        setFileList([...fileList]);
-    }
-
-    const formItemLayout = {
-        labelCol: {
-            labelCol: { span: 3 },
-            wrapperCol: { span: 18 },
-        },
-        wrapperCol: {
-            xs: { span: 24 },
-            sm: { span: 20 },
-        },
-    };
+    // useEffect(() => {
+    //     if (valueContext && id) {
+    //         // valueContext.getDataProduct(setData)
+    //     }
+    // }, [])
 
     useEffect(() => {
-        if (valueContext && id) {
-            // valueContext.getDataProduct(setData)
-        }
-    }, [])
-    
-    useEffect(()=>{
-        if(dataProductSelect){
+        if (dataProductSelect) {
             initValueForm(dataProductSelect);
         }
-    },[dataProductSelect]);
+    }, [dataProductSelect]);
 
     const initValueForm = async (dataProductSelect) => {
-        console.log("dataProductSelect : ", dataProductSelect)
-        await formRepair.setFieldsValue({...dataProductSelect})
+        await formRepair.setFieldsValue({ ...dataProductSelect })
+    }
+
+    const handleSetImgToInput = async (value) => {
+        console.log("handleSetImgToInput 1 =>>" , value, indexImg);
+        let cloneData = { ...formRepair.getFieldsValue() };
+        cloneData.image = value.url;
+        await formRepair.setFieldsValue({ ...cloneData });
     }
 
     if (id && dataProductSelect) {
-        formRepair.setFieldsValue({...dataProductSelect})
         return <div className="contentProductAdmin">
-             <div className="content">
-                <Form 
-                form={formRepair}
-                name="dynamic_form_item" 
-                {...layout} onFinish={onFinishHadID} 
-                validateMessages={validateMessages}>
-                    <Form.Item 
+            <div className="content">
+                <Form
+                    form={formRepair}
+                    name="dynamic_form_item"
+                    {...layout} onFinish={onFinishHadID}
+                    validateMessages={validateMessages}>
+                    <Form.Item
                         name={['title']} label="Tên sản phẩm" rules={[{ required: true }]}>
                         <Input />
                     </Form.Item>
 
-                    <Form.Item name={[ 'category']} label="Category" rules={[{ required: true }]}>
+                    <Form.Item name={['category']} label="Category" rules={[{ required: true }]}>
                         <Radio.Group>
                             <Radio.Button value="Mái che">Mái che</Radio.Button>
                             <Radio.Button value="Mái xếp">Mái xếp</Radio.Button>
@@ -136,30 +120,30 @@ export default function CategoryCreate({ id = null, dataProductSelect, closeModa
                             <Radio.Button value="Khác">Khác</Radio.Button>
                         </Radio.Group>
                     </Form.Item>
-                    <Form.Item name={[ 'description']} label="Thông tin thêm" rules={[{ required: true }]}>
+                    <Form.Item name={['description']} label="Thông tin thêm" rules={[{ required: true }]}>
                         <Input.TextArea />
                     </Form.Item>
                     <div className={"selectImage"}>
-                        <Form.Item 
+                        <Form.Item
                             name={['image']} label="Image" rules={[{ required: true }]}>
                             <Input />
                         </Form.Item>
                         <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
-                            <Button type="primary" onClick={()=>showModal("1")}>Chọn ảnh khác</Button>
+                            <Button type="primary" onClick={() => showModal("1")}>Chọn ảnh khác</Button>
                         </Form.Item>
                     </div>
-                    
+
                     <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
                         <Button type="primary" htmlType="submit">
                             Submit
                     </Button>
                     </Form.Item>
                 </Form>
-                <Modal 
-                title={(<h2>Thêm ảnh</h2>)} width={1000} 
-                visible={isModalVisible} onOk={handleOk} 
-                onCancel={handleCancelModal}>
-                    <UploadImages showBtnChoose={true}></UploadImages>
+                <Modal
+                    title={(<h2>Thêm ảnh</h2>)} width={1000}
+                    visible={isModalVisible} onOk={handleOk}
+                    onCancel={handleCancelModal}>
+                    <UploadImages handleClickOutSite={handleSetImgToInput} handleCloseModal={handleCancelModal} showBtnChoose={true}></UploadImages>
                 </Modal>
             </div>
             <style jsx>{`
@@ -173,11 +157,11 @@ export default function CategoryCreate({ id = null, dataProductSelect, closeModa
     } else {
         return <div className="contentProductAdmin">
             <div className="content">
-                <Form name="dynamic_form_item" {...layout} onFinish={onFinish} validateMessages={validateMessages}>
-                    <Form.Item name={[ 'title']} label="Tên sản phẩm" rules={[{ required: true }]}>
+                <Form form={formRepair} name="dynamic_form_item" {...layout} onFinish={onFinish} validateMessages={validateMessages}>
+                    <Form.Item name={['title']} label="Tên sản phẩm" rules={[{ required: true }]}>
                         <Input />
                     </Form.Item>
-                    <Form.Item name={[ 'category']} label="Category" rules={[{ required: true }]}>
+                    <Form.Item name={['category']} label="Category" rules={[{ required: true }]}>
                         <Radio.Group>
                             <Radio.Button value="Mái che">Mái che</Radio.Button>
                             <Radio.Button value="Mái xếp">Mái xếp</Radio.Button>
@@ -185,17 +169,17 @@ export default function CategoryCreate({ id = null, dataProductSelect, closeModa
                             <Radio.Button value="Khác">Khác</Radio.Button>
                         </Radio.Group>
                     </Form.Item>
-                    <Form.Item name={[ 'description']} label="Thông tin thêm" rules={[{ required: true }]}>
+                    <Form.Item name={['description']} label="Thông tin thêm" rules={[{ required: true }]}>
                         <Input.TextArea />
                     </Form.Item>
-                    
+
                     <div className={"selectImage"}>
-                        <Form.Item 
+                        <Form.Item
                             name={['image']} label="Image" rules={[{ required: true }]}>
                             <Input />
                         </Form.Item>
                         <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
-                            <Button type="primary" onClick={()=>showModal("1")}>Chọn ảnh khác</Button>
+                            <Button type="primary" onClick={() => showModal("1")}>Chọn ảnh khác</Button>
                         </Form.Item>
                     </div>
 
@@ -205,7 +189,7 @@ export default function CategoryCreate({ id = null, dataProductSelect, closeModa
                     </Button>
                     </Form.Item>
                 </Form>
-                <Modal title={(<h2>Thêm ảnh</h2>)} width={1000} 
+                <Modal title={(<h2>Thêm ảnh</h2>)} width={1000}
                     visible={isModalVisible} onOk={handleOk} onCancel={handleCancelModal}>
                     <UploadImages ></UploadImages>
                 </Modal>
