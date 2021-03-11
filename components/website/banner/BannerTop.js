@@ -1,9 +1,8 @@
-// import { useQuery } from "@apollo/client";
 import asset from "plugins/assets/asset";
 import React from "react";
 import Slider from "react-slick";
-// import { Loading } from "src/component/Loading/Loading";
 import Container from "components/website/elements/Container";
+import { useRouter } from "next/router";
 
 const fetchData = [
     {
@@ -21,6 +20,13 @@ const fetchData = [
 function BannerTop({
     dataList
 }) {
+
+    const router = useRouter();
+
+    const handleRoute = (value) => {
+        console.log("value : ", value);
+        router.push(`/category/${value.id}`)
+    }
   
     const settings = {
         dots: true,
@@ -51,9 +57,9 @@ function BannerTop({
                                         
                                         <h3>{data.title}</h3>
                                         <p>
-                                                {data.description}
+                                            {data.description}
                                         </p>
-                                        <span className="btn">Xem tất cả</span>
+                                        <span onClick={()=>handleRoute(data)} className="btn">Xem tất cả</span>
                                         
                                     </div>
                                   

@@ -5,12 +5,12 @@ export default function FooterCustom () {
   const router = useRouter();
     return <footer>
       <Container>
-        {/* <a href="tel:0972205133" className="icon-call">
+        <a href="tel:0879200700" className="icon-call">
           <img src={asset("/images/icon-phone-call.png")} />
           <h5 className="text">
-            Hotline : <b>097 220 5133</b>
+            <b>087.920.0700</b>
           </h5>
-        </a> */}
+        </a>
         <div className="contentFooter">
           <div className="logoInfo">
             <a onClick={()=>router.push("/")} target="_blank" className="logoFooter">
@@ -179,25 +179,34 @@ export default function FooterCustom () {
 
       .icon-call {
         .text {
-          opacity: 0;
-          right: 0%;
+          /* opacity: 0; */
+          /* left: 0%; */
+          left: 25px;
+          padding-top: 10px !important;
+          padding-bottom: 10px !important;
+          border-radius: 30px !important;
           position: absolute;
           width: 190px;
           font-family: Montserrat-Black;
-          background-color: rgba(255, 255, 255, 0.9);
+          background-color: rgba(242,0,0, 0.8);
           padding: 3px 5px;
           border-radius: 2px;
+          z-index: -1;
           text-align: center;
           b {
-            color: #ed1c24;
+            color: #fff;
             font-weight: bold;
             font-size: 16px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            border-radius: 30px;
           }
         }
         cursor: pointer;
         position: fixed;
         bottom: 120px;
-        right: 32px;
+        /* left: 32px; */
+        left: 25px;
         width: 50px;
         height: 50px;
         border-radius: 50%;
@@ -206,7 +215,7 @@ export default function FooterCustom () {
         align-items: center;
         z-index: 2;
         border-color: #00aff2;
-        background-color: rgba(0, 175, 242, 0.9);
+        background-color: rgba(242,0,0, 1);
         animation: play 2s ease infinite;
         -webkit-backface-visibility: hidden;
         -moz-backface-visibility: hidden;
@@ -222,7 +231,7 @@ export default function FooterCustom () {
         }
       }
       .icon-call:hover {
-        background-color: rgba(117, 235, 80, 1);
+        background-color: rgba(242,0,0, 1);
         animation: playHover 2s ease infinite;
         -webkit-backface-visibility: hidden;
         -moz-backface-visibility: hidden;
@@ -230,7 +239,7 @@ export default function FooterCustom () {
         backface-visibility: hidden;
       }
       .icon-call:hover .text {
-        right: 140%;
+        left: 140%;
         transition: 0.5s;
         opacity: 1;
       }
@@ -239,15 +248,15 @@ export default function FooterCustom () {
           transform: scale(1);
         }
         15% {
-          box-shadow: 0 0 0 5px rgba(0, 175, 242, 0.4);
+          box-shadow: 0 0 0 5px rgba(242,0,0, 0.4);
         }
         25% {
-          box-shadow: 0 0 0 10px rgba(0, 175, 242, 0.4),
-            0 0 0 20px rgba(0, 175, 242, 0.2);
+          box-shadow: 0 0 0 10px rgba(242,0,0, 0.4),
+            0 0 0 20px rgba(242,0,0, 0.2);
         }
         25% {
-          box-shadow: 0 0 0 15px rgba(0, 175, 242, 0.4),
-            0 0 0 30px rgba(0, 175, 242, 0.2);
+          box-shadow: 0 0 0 15px rgba(242,0,0, 0.4),
+            0 0 0 30px rgba(242,0,0, 0.2);
         }
       }
 
@@ -256,15 +265,15 @@ export default function FooterCustom () {
           transform: scale(1);
         }
         15% {
-          box-shadow: 0 0 0 5px rgba(117, 235, 80, 0.4);
+          box-shadow: 0 0 0 5px rgba(242,0,0, 0.4);
         }
         25% {
-          box-shadow: 0 0 0 10px rgba(117, 235, 80, 0.4),
-            0 0 0 20px rgba(117, 235, 80, 0.2);
+          box-shadow: 0 0 0 10px rgba(242,0,0, 0.4),
+            0 0 0 20px rgba(242,0,0, 0.2);
         }
         25% {
-          box-shadow: 0 0 0 15px rgba(117, 235, 80, 0.4),
-            0 0 0 30px rgba(117, 235, 80, 0.2);
+          box-shadow: 0 0 0 15px rgba(242,0,0, 0.4),
+            0 0 0 30px rgba(242,0,0, 0.2);
         }
       }
       @keyframes playCall {
