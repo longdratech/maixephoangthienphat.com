@@ -173,7 +173,8 @@ export default function Product({routeProductID}) {
                         ?  <ProductCreate 
 
                             closeModal={handleCancel} 
-                            id={idProductSelect ? idProductSelect : 1} dataProductSelect={dataSelect ? dataSelect : null}>
+                            id={idProductSelect ? idProductSelect : 1} 
+                            dataProductSelect={dataSelect ? dataSelect : null}>
 
                             </ProductCreate>
                         : <ProductCreate closeModal={handleCancel} > </ProductCreate>

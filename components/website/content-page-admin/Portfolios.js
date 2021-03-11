@@ -2,7 +2,7 @@ import { Table, Space, Modal, Button, message, Spin } from 'antd';
 import {useState, useEffect, useContext} from "react";
 import { MainContent } from "components/website/contexts/MainContent";
 import Link from "next/link";
-import ProductCreate from "components/website/content-page-admin/ProductCreate";
+import PortfoliosCreate from "components/website/content-page-admin/PortfoliosCreate";
 import UploadImages from "components/website/content-page-admin/UploadImages";
 import PopupConfirm from "components/website/popup-confirm/PopupConfirm";
 
@@ -45,12 +45,16 @@ export default function Portfolios({routeProductID}) {
     const clearFilters = () => {
         setFilteredInfo(null)
     };
+
+    const deleteSuccess = (data) => {
+        console.log("delete success: ", data);
+    }
     
     const handleDeletePortfolios = async (id) => {
         if(id){
-            // await valueContext.deleteDataProduct(deleteSuccess, id);
+            await valueContext.deleteDataPortfolio(deleteSuccess, id);
             await message.success('Xoá thành công!', 0.2);
-            // await valueContext.getDataPortfolios(setData);
+            await valueContext.getDataPortfolios(setData);
         }
     }
 
@@ -59,7 +63,9 @@ export default function Portfolios({routeProductID}) {
     const showModal = async (value) => {
         if(value){
             await setDataProductSelect(value);
-            await valueContext.getDataProduct(setDataSelect, value);
+            await valueContext.getDataPortfolio(setDataSelect, value);
+            await setIsModalVisible(true);
+        }else{
             await setIsModalVisible(true);
         }
     };
@@ -139,6 +145,11 @@ export default function Portfolios({routeProductID}) {
 
     return <div className="contentProductAdmin">
         <div className="content">
+        <Button type="primary" 
+                style={{left: "100%", transform: "translate(-100%, 0)"}}
+                onClick={()=>{handleRepairInfo()}}>
+                Tạo mới
+            </Button>
         <>
             <Space style={{ marginBottom: 16 }}>
             </Space>
@@ -157,8 +168,8 @@ export default function Portfolios({routeProductID}) {
                 onCancel={handleCancel}>
                 {
                     idProductSelect && dataSelect 
-                    ?  <ProductCreate closeModal={handleCancel} id={idProductSelect ? idProductSelect : 1} dataProductSelect={dataSelect ? dataSelect : null}></ProductCreate>
-                    : <div className="containerSpin"><Spin size="large" /></div>
+                    ?  <PortfoliosCreate closeModal={handleCancel} id={idProductSelect ? idProductSelect : 1} dataProductSelect={dataSelect ? dataSelect : null}></PortfoliosCreate>
+                    : <PortfoliosCreate closeModal={handleCancel} ></PortfoliosCreate>
                 }
                
             </Modal>

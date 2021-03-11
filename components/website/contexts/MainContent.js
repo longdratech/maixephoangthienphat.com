@@ -113,6 +113,44 @@ export default function MainContentProvider( {children}){
         }
     }
 
+    const patchDataPortfolio = async (FunctionnCb, id ="", data) =>{
+        let res = await ApiCall({
+          path: `/portfolio/${id}`,
+          method: "PATCH",
+          token: token,
+          headers:{
+            'Content-Type': 'application/x-www-form-urlencoded'
+          },
+          data: data
+        });
+        if (res) {
+            await FunctionnCb(res);
+        }
+    }
+
+    const deleteDataPortfolio = async (FunctionnCb, id) =>{
+        let res = await ApiCall({
+            token: token,
+            path: `/portfolios/${id}`,
+            method: "DELETE"
+        });
+        if (res) {
+            await FunctionnCb(res);
+        }
+    }
+
+    const postDataPortfolio = async (FunctionnCb, data) =>{
+        let res = await ApiCall({
+            token: token,
+            path: `/portfolios`,
+            method: "POST",
+            data: data
+        });
+        if (res) {
+            await FunctionnCb();
+        }
+    }
+    //
 
     const getDataCategories = async(FunctionnCb, page=1, limit=50) => {
         let res = await ApiCall({
@@ -139,6 +177,67 @@ export default function MainContentProvider( {children}){
         }
     }
 
+    // socials
+    // get all socials
+    const getDataSocials = async (FunctionnCb, page=1, limit=50) =>{
+        let res = await ApiCall({
+          path: `/socials?page=${page}&limit=${limit}`
+        });
+        if (res.data) {
+            await FunctionnCb(res);
+        }
+    }
+
+    // get Socials[id]
+    const getDataSocial = async (FunctionnCb, id ="") =>{
+        let res = await ApiCall({
+          path: `/socials/${id}`
+        });
+        if (res.data) {
+            await FunctionnCb(res);
+        }
+    }
+
+    const patchDataSocials = async (FunctionnCb, id ="", data) =>{
+        let res = await ApiCall({
+          path: `/social/${id}`,
+          method: "PATCH",
+          token: token,
+          headers:{
+            'Content-Type': 'application/x-www-form-urlencoded'
+          },
+          data: data
+        });
+        if (res) {
+            await FunctionnCb(res);
+        }
+    }
+
+    const deleteDataSocial = async (FunctionnCb, id) =>{
+        let res = await ApiCall({
+            token: token,
+            path: `/socials/${id}`,
+            method: "DELETE"
+        });
+        if (res) {
+            await FunctionnCb(res);
+        }
+    }
+
+    const postDataSocial = async (FunctionnCb, data) =>{
+        let res = await ApiCall({
+            token: token,
+            path: `/socials`,
+            method: "POST",
+            data: data
+        });
+        if (res) {
+            await FunctionnCb();
+        }
+    }
+    //
+
+
     const getDataImages = async (FunctionnCb) =>{
         let res = await ApiCall({
           path: `/photos?page=1&limit=50`
@@ -162,22 +261,39 @@ export default function MainContentProvider( {children}){
     return(
         <MainContent.Provider
             value = {{
+
                 dataUser : dataUser,
                 token: token,
+
                 setDataUser : setDataUser,
                 setToken: setToken,
                 logout: logout,
+
                 getDataProducts: getDataProducts,
                 postDataProduct: postDataProduct,
                 patchDataProduct: patchDataProduct,
                 deleteDataProduct: deleteDataProduct,
+                getDataProduct :getDataProduct,
+
                 getDataPortfolios: getDataPortfolios,
+                patchDataPortfolio: patchDataPortfolio,
+                deleteDataPortfolio: deleteDataPortfolio,
+                postDataPortfolio: postDataPortfolio,
                 getDataPortfolio: getDataPortfolio,
+
                 getDataCategories: getDataCategories,
                 patchDataCategories: patchDataCategories,
-                getDataProduct :getDataProduct,
+
+
+                getDataSocials: getDataSocials,
+                patchDataSocials: patchDataSocials,
+                deleteDataSocial: deleteDataSocial,
+                postDataSocial: postDataSocial,
+                getDataSocial: getDataSocial,
+
                 getDataImages: getDataImages,
                 deleteImage: deleteImage
+
             }}
         >
             {children}
