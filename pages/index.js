@@ -100,6 +100,7 @@ export default function Home(props) {
               ? dataProducts.data.map((data, index)=>{
                 // console.log(data)
                 return <ItemProductSmall
+                  key={index}
                   dataAPI={data}
                 ></ItemProductSmall>
               })

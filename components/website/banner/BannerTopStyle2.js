@@ -16,13 +16,13 @@ const fetchData = [
 function BannerTopStyle2({ data }) {
 
     const settings = {
-        dots: true,
-        infinite: true,
-        arrows: true,
+        dots: false,
+        infinite: false,
+        arrows: false,
         // centerMode: true,
         // centerPadding: 0,
         speed: 1000,
-        autoplay: true,
+        autoplay: false,
         autoplaySpeed: 3000,
         // fade: true,
         slidesToShow: 1,
@@ -38,8 +38,7 @@ function BannerTopStyle2({ data }) {
                         data.map((value, index) => {
                             return (
                                 <div key={index} className="itemCarousel">
-                                    <img src={asset(value.srcImg)} />
-
+                                    <img src={value.image ? value.image : asset(fetchData[0].srcImg)}/>
                                     <div className="infoItemCopy">
                                         <TitleCopy
                                             name={value.title}
