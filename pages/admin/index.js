@@ -12,6 +12,8 @@ import ProductCreate from "components/website/content-page-admin/ProductCreate";
 import CategoryCreate from "components/website/content-page-admin/CategoryCreate";
 import UploadImages from  "components/website/content-page-admin/UploadImages";
 import Portfolios from "components/website/content-page-admin/Portfolios";
+import PortfoliosCreate from "components/website/content-page-admin/PortfoliosCreate";
+
 const routingContent = {
 
     PROFILE :  "profile",
@@ -33,7 +35,12 @@ const routingContent = {
 
     IMAGES : {
         CREATE : "image-create"
-    }
+    },
+
+    SOCIALS  : {
+        CREATE : "socials-create",
+        LITS : "socials-list",
+    },
 
 }
 
@@ -86,12 +93,10 @@ const AdminIndex = ({ user }) => {
                 return <ProductCreate id={idProduct}></ProductCreate>
 
             case routingContent.PORTFOLIO.LITS:
-                // return <div>Chưa có data</div>
                 return <Portfolios routePortfolioID={handleRepairPortfolio} ></Portfolios>
 
             case routingContent.PORTFOLIO.CREATE:
-                return <div>Chưa có data</div>
-                // return <Category></Category>
+                return <PortfoliosCreate></PortfoliosCreate>
             
             case routingContent.IMAGES.CREATE: 
                 return <UploadImages showBtnChoose={true} handleClickOutSite={handleChooseImg}></UploadImages>
@@ -101,6 +106,12 @@ const AdminIndex = ({ user }) => {
 
             case routingContent.CATEGORIES.CREATE:
                 return <CategoryCreate id={null}></CategoryCreate>
+
+            case routingContent.SOCIALS.CREATE:
+                return <> Chưa có data</>
+
+            case routingContent.SOCIALS.LITS:
+                return <> Chưa có data list</>
 
             default:
                 return <></>;

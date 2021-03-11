@@ -40,6 +40,11 @@ const Sider = ({
                 {/* <Menu.Item title="Category" value="category-create" key="7">Tạo mới</Menu.Item> */}
             </SubMenu>
 
+            <SubMenu key="sub5" icon={<AppstoreOutlined />} title="Socials">
+                <Menu.Item title="Socials" value="socials-list" key="8">Danh sách</Menu.Item>
+                <Menu.Item title="Socials" value="socials-create" key="9">Tạo mới</Menu.Item>
+            </SubMenu>
+
         </Menu>
     );
 
