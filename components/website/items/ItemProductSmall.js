@@ -84,7 +84,7 @@ export default function ItemProductSmall({
             ?  <Slider {...settings}>
                     {
                         dataAPI.images.map((value, index) => {
-                            console.log(value)
+                            // console.log(value)
                             return (
                                 <div key={index} className="itemCarousel">
                                     <img src= {value} />
