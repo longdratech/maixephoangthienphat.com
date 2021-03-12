@@ -112,7 +112,7 @@ export default function MainContentProvider( {children}){
 
     // get portfolios[id]
     const getDataPortfolio = async (FunctionnCb, id ="") =>{
-        
+
         let res = await ApiCall({
           path: `/portfolios/${id}`
         });
@@ -128,7 +128,7 @@ export default function MainContentProvider( {children}){
 
     const patchDataPortfolio = async (FunctionnCb, id ="", data) =>{
         let res = await ApiCall({
-          path: `/portfolio/${id}`,
+          path: `/portfolios/${id}`,
           method: "PATCH",
           token: token,
           headers:{
@@ -196,7 +196,7 @@ export default function MainContentProvider( {children}){
         let res = await ApiCall({
           path: `/socials?page=${page}&limit=${limit}`
         });
-        if (res.data) {
+        if (res) {
             await FunctionnCb(res);
         }
     }
@@ -213,7 +213,7 @@ export default function MainContentProvider( {children}){
 
     const patchDataSocials = async (FunctionnCb, id ="", data) =>{
         let res = await ApiCall({
-          path: `/social/${id}`,
+          path: `/socials/${id}`,
           method: "PATCH",
           token: token,
           headers:{
