@@ -24,7 +24,7 @@ export default function UploadImages({handleClickOutSite, showBtnChoose, handleC
 
 
     const successCopy = () => {
-        message.success('Đã copy link ảnh', 2);
+        message.success('Đã chọn', 2);
     };
 
     const handleClickImage = async(value) => {
@@ -132,7 +132,7 @@ export default function UploadImages({handleClickOutSite, showBtnChoose, handleC
                                         ?   <>
                                                 <Button ref={btnChooseRef} type="primary" 
                                                     onClick={()=>handleClickImage(value)}>
-                                                    Copy link
+                                                    Chọn
                                                 </Button>
                                                 <input style={{display:"none"}} ref={inputSaveCopyRef} value={valueCopy}/>
                                             </>

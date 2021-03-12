@@ -1,7 +1,7 @@
 import TitleCopy from "components/website/title/TitleCopy"
 import { Form, Input, InputNumber, Button, Radio, message, Modal, Switch } from 'antd';
 import { MinusCircleOutlined, PlusOutlined, AreaChartOutlined } from '@ant-design/icons';
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, useRef } from "react";
 import { MainContent } from "components/website/contexts/MainContent";
 import Link from "next/link";
 import UploadImages from "components/website/content-page-admin/UploadImages";
@@ -24,14 +24,16 @@ const layout = {
 };
 
 
-export default function ProductCreate({ id = null, dataProductSelect, closeModal }) {
+export default function ProductCreate({ id = null, dataProductSelect, closeModal, create = false}) {
 
     const valueContext = useContext(MainContent);
     const [data, setData] = useState(null);
     const [formRepair] = Form.useForm();
+    const formRef = useRef();
 
     const [hotDeal, setHotDeal] = useState(false);  // set init value checkbox
     const [indexImg, setIndexImg] = useState();// get index input to set value url img
+    const [listImgs, setListImgs] = useState(); // get list img in form 
 
     const onFinish = async (values) => {
         await valueContext.postDataProduct(success, values);
@@ -84,20 +86,24 @@ export default function ProductCreate({ id = null, dataProductSelect, closeModal
     }, [])
 
     useEffect(() => {
-        if (dataProductSelect) {
+        if (dataProductSelect && create == false) {
             initValueForm(dataProductSelect);
+        }else{
+            resetInitValueForm();
         }
     }, [dataProductSelect]);
 
     const initValueForm = async (dataProductSelect) => {
-        // console.log("dataProductSelect : ", dataProductSelect)
         await formRepair.setFieldsValue({ ...dataProductSelect });
         await setHotDeal(dataProductSelect.isHotDeal);
     }
 
+    const resetInitValueForm = async () => {
+        await formRepair.resetFields();
+        await setHotDeal(false);
+    } 
+
     const handleSetImgToInput =  async (value) => {
-        // set url image to input
-        console.log("handleSetImgToInput" , value, indexImg);
         if(dataProductSelect){
             for(let key in dataProductSelect){
                 if(key === "images"){
@@ -108,17 +114,24 @@ export default function ProductCreate({ id = null, dataProductSelect, closeModal
         }else{
             let cloneData = {...formRepair.getFieldsValue()};
             cloneData.images[indexImg] = value.url;
-            console.log("cloneData ==> ", cloneData)
             await formRepair.setFieldsValue({ ...cloneData});
         }
        
     }
+    
+    useEffect(()=>{
+        if(formRepair){
+            // console.log("from Repair", formRepair.getFieldValue("images"));
+            setListImgs(formRepair.getFieldValue("images"))
+        }
+    }, [formRef.current, formRepair.getFieldValue("images")])
 
     if (id && dataProductSelect) {
         return <div className="contentProductAdmin">
             <div className="content">
                 <Form
                     form={formRepair}
+                    ref={formRef}
                     name="dynamic_form_item"
                     {...layout} onFinish={onFinishHadID}
                     validateMessages={validateMessages}>
@@ -149,14 +162,16 @@ export default function ProductCreate({ id = null, dataProductSelect, closeModal
                     </Form.Item>
 
                     <Form.Item name={['isHotDeal']} label="Hot Deal">
-                        <Switch checked={hotDeal} onChange={()=>setHotDeal(!hotDeal)}  />
+                        <Switch checked={hotDeal} onChange={()=>setHotDeal(!hotDeal)}/>
                     </Form.Item>
 
                     <Form.Item name={['description']} label="description">
                         <Input.TextArea />
                     </Form.Item>
 
-                    <Form.List name={['images']}
+                    
+                    
+                    <Form.List className="listInputImgs" name={['images']}
                         rules={[
                             {
                                 validator: async (_, names) => {
@@ -186,20 +201,29 @@ export default function ProductCreate({ id = null, dataProductSelect, closeModal
                                                 },
                                             ]}
                                         >
-                                            <Input placeholder="Url images" style={{ width: "80%"}} />
+                                            <Input className="input-hide" placeholder="Url images" style={{ width: "100%"}} />
 
                                         </Form.Item>
-                                        <Button type="primary" 
-                                            onClick={() => showModal(index.toString())} 
-                                            style={{ marginLeft: "auto", marginRight: "20px" }}
-                                            icon={<AreaChartOutlined />}>
-                                                Chọn ảnh
-                                        </Button>
-                                        {fields.length > 1 ? (
-                                            <Button type="primary" danger onClick={() => remove(field.name)}>
-                                                <MinusCircleOutlined className="dynamic-delete-button" />
+                                        <div className="listImgsRender" >
+                                            {
+                                                listImgs && listImgs.length > 0
+                                                ?   <img className="imgInForm" src={listImgs[index] ? listImgs[index] : ""}/>
+                                                :   <></>
+                                            }
+                                            <Button type="primary" 
+                                                key={index}
+                                                onClick={() => showModal(index.toString())} 
+                                                style={{ marginLeft: "auto", marginRight: "20px" }}
+                                                icon={<AreaChartOutlined />}>
+                                                    Chọn ảnh
                                             </Button>
-                                        ) : null}
+                                            {fields.length > 1 ? (
+                                                <Button type="primary" danger onClick={() => remove(field.name)}>
+                                                    <MinusCircleOutlined className="dynamic-delete-button" />
+                                                </Button>
+                                            ) : null}
+                                        </div>
+                                        
                                     </Form.Item>
                                 ))}
 
@@ -207,7 +231,7 @@ export default function ProductCreate({ id = null, dataProductSelect, closeModal
                                     <Button
                                         type="dashed"
                                         onClick={() => add()}
-                                        style={{ width: "50%", marginLeft : "120px"}}
+                                        style={{ width: "100%", marginLeft : "120px"}}
                                         icon={<PlusOutlined />}
                                     >
                                         Thêm ảnh
@@ -215,14 +239,6 @@ export default function ProductCreate({ id = null, dataProductSelect, closeModal
                                     <Form.ErrorList errors={errors} />
                                 </Form.Item>
 
-                                {/* <Button
-                                    type="primary"
-                                    onClick={() => showModal("1")}
-                                    style={{ width: "60%", display: "block", marginBottom: "20px", marginTop: "20px", marginLeft: "auto", marginRight: "auto" }}
-                                    icon={<AreaChartOutlined />}
-                                >
-                                    Lấy link hình ảnh cần chọn
-                                </Button> */}
                             </>
                         )}
                     </Form.List>
@@ -249,6 +265,24 @@ export default function ProductCreate({ id = null, dataProductSelect, closeModal
                     overflow: auto;
                     padding-left: 20px;
                 }
+                .imgInForm{
+                    width: 100px;
+                    height: 70px;
+                    object-fit: cover;
+                }
+                .listImgsRender{
+                    width: 100%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    flex-wrap: wrap;
+                    padding: 5px;
+                    padding-bottom: 10px;
+                }
+                .imgInForm{
+                    margin: 0 10px;
+                }
+                
             `}</style>
         </div>
     } else {
@@ -319,40 +353,40 @@ export default function ProductCreate({ id = null, dataProductSelect, closeModal
                                                 },
                                             ]}
                                         >
-                                            <Input placeholder="Url images" style={{ width: "80%" }} />
+                                            <Input placeholder="Url images" style={{ width: "100%" }} />
                                         </Form.Item>
-                                        <Button type="primary" 
-                                            onClick={() => showModal(index.toString())} 
-                                            style={{ marginLeft: "auto", marginRight: "20px" }}
-                                            icon={<AreaChartOutlined />}>
-                                                Chọn ảnh
-                                        </Button>
-                                        {fields.length > 1 ? (
-                                            <Button type="primary" danger onClick={() => remove(field.name)}>
-                                                <MinusCircleOutlined className="dynamic-delete-button" />
+                                        <div className="listImgsRender" >
+                                            {
+                                                listImgs && listImgs.length > 0
+                                                ?   <img className="imgInForm" src={listImgs[index] ? listImgs[index] : ""}/>
+                                                :   <></>
+                                            }
+                                            <Button type="primary" 
+                                                key={index}
+                                                onClick={() => showModal(index.toString())} 
+                                                style={{ marginLeft: "auto", marginRight: "20px" }}
+                                                icon={<AreaChartOutlined />}>
+                                                    Chọn ảnh
                                             </Button>
-                                        ) : null}
+                                            {fields.length > 1 ? (
+                                                <Button type="primary" danger onClick={() => remove(field.name)}>
+                                                    <MinusCircleOutlined className="dynamic-delete-button" />
+                                                </Button>
+                                            ) : null}
+                                        </div>
                                     </Form.Item>
                                 ))}
                                 <Form.Item>
                                     <Button
                                         type="dashed"
                                         onClick={() => add()}
-                                        style={{ width: "50%", marginLeft : "120px"}}
+                                        style={{ width: "100%", marginLeft : "120px"}}
                                         icon={<PlusOutlined />}
                                     >
                                         Thêm ảnh
                                     </Button>
                                     <Form.ErrorList errors={errors} />
                                 </Form.Item>
-                                {/* <Button
-                                    type="primary"
-                                    onClick={() => showModal("1")}
-                                    style={{ width: "60%", display: "block", marginBottom: "20px", marginTop: "20px", marginLeft: "auto", marginRight: "auto" }}
-                                    icon={<AreaChartOutlined />}
-                                >
-                                    Lấy link hình ảnh cần chọn
-                                </Button> */}
                             </>
                         )}
                     </Form.List>
@@ -374,6 +408,23 @@ export default function ProductCreate({ id = null, dataProductSelect, closeModal
                     width: 100%;
                     overflow: auto;
                     padding-left: 20px;
+                }
+                .imgInForm{
+                    width: 100px;
+                    height: 70px;
+                    object-fit: cover;
+                }
+                .listImgsRender{
+                    width: 100%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    flex-wrap: wrap;
+                    padding: 5px;
+                    padding-bottom: 10px;
+                }
+                .imgInForm{
+                    margin: 0 10px;
                 }
             `}</style>
         </div>

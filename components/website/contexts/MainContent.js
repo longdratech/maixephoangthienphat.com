@@ -50,8 +50,15 @@ export default function MainContentProvider( {children}){
         let res = await ApiCall({
           path: `/products/${id}`
         });
+        
         if (res) {
-            await FunctionnCb(res);
+            if(res.error){
+                console.log("error ",res.error);
+                FunctionnCb();
+            }else{
+                await FunctionnCb(res);
+            }
+           
         }
     }
     // repair product[id]
@@ -105,11 +112,17 @@ export default function MainContentProvider( {children}){
 
     // get portfolios[id]
     const getDataPortfolio = async (FunctionnCb, id ="") =>{
+        
         let res = await ApiCall({
           path: `/portfolios/${id}`
         });
-        if (res.data) {
-            await FunctionnCb(res);
+
+        if (res) {
+            if(res.error){
+                await FunctionnCb();
+            }else{
+                await FunctionnCb(res);
+            }
         }
     }
 
