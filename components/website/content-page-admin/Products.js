@@ -157,7 +157,6 @@ export default function Product({routeProductID}) {
                 }
 
                 {
-
                     idProductSelect !=="" && dataSelect
                     ?<Modal 
                         footer={null}
@@ -184,8 +183,6 @@ export default function Product({routeProductID}) {
                     </Modal>
 
                 }
-                
-                
             </>
         </div>
 

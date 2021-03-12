@@ -1,5 +1,5 @@
 import TitleCopy from "components/website/title/TitleCopy"
-import { Form, Input, InputNumber, Button, Radio, message, Modal } from 'antd';
+import { Form, Input, InputNumber, Button, Radio, message, Modal, Switch } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import { useState, useEffect, useContext, useRef } from "react";
 import { MainContent } from "components/website/contexts/MainContent";
@@ -25,7 +25,7 @@ const layout = {
 };
 
 
-export default function CategoryCreate({ id = null, dataProductSelect, closeModal }) {
+export default function SocialsCreate({ id = null, dataSelect, closeModal }) {
 
     const valueContext = useContext(MainContent);
     // const [data, setData] = useState(null);
@@ -34,22 +34,24 @@ export default function CategoryCreate({ id = null, dataProductSelect, closeModa
     const [listImgs, setListImgs] = useState(); // get list img in form 
     const formRef = useRef();
 
+    const [isShow, setIsShow] = useState(false);  // set init value checkbox
+
     const onFinish = async (values) => {
-        // await valueContext.postDataProduct(success, values);
+        await valueContext.postDataSocial(success, values);
         if (closeModal) {
             closeModal();
         }
     };
 
     const onFinishHadID = async (values) => {
-        await valueContext.patchDataCategories(success, id, values);
+        await valueContext.patchDataSocials(success, id, values);
         if (closeModal) {
             closeModal();
         }
     };
 
     const success = async () => {
-        await message.success('Tạo sản phẩm thành công!', 0.5);
+        await message.success('Tạo sản phẩm thành công!', 1);
     };
     const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -68,24 +70,44 @@ export default function CategoryCreate({ id = null, dataProductSelect, closeModa
         setIsModalVisible(false);
     };
 
-    // const getBase64 = (file) => {
-    //     return new Promise((resolve, reject) => {
-    //         const reader = new FileReader();
-    //         reader.readAsDataURL(file);
-    //         reader.onload = () => resolve(reader.result);
-    //         reader.onerror = error => reject(error);
-    //     });
-    // }
-
     useEffect(() => {
-        if (dataProductSelect) {
-            initValueForm(dataProductSelect);
+        if (dataSelect) {
+            initValueForm(dataSelect);
+           
+        }else{
+            resetInitValueForm
         }
-    }, [dataProductSelect]);
+    }, [dataSelect]);
 
-    const initValueForm = async (dataProductSelect) => {
-        await formRepair.setFieldsValue({ ...dataProductSelect })
+    const checkTransformData = (data) => {
+        switch (data) {
+
+            case "true":
+                return true;
+
+            case true:
+                return true;
+
+            case "false":
+                return false;
+
+            case false:
+                return false;
+        
+            default:
+                return false;
+        }
     }
+
+    const initValueForm = async (dataSelect) => {
+        await formRepair.setFieldsValue({ ...dataSelect })
+        await setIsShow(checkTransformData(dataSelect.isShow));
+    }
+
+    const resetInitValueForm = async () => {
+        await formRepair.resetFields();
+        await setIsShow(false);
+    } 
 
     const handleSetImgToInput = async (value) => {
         console.log("handleSetImgToInput 1 =>>", value, indexImg);
@@ -96,12 +118,11 @@ export default function CategoryCreate({ id = null, dataProductSelect, closeModa
 
     useEffect(()=>{
         if(formRepair){
-            // console.log("from Repair", formRepair.getFieldValue("images"));
             setListImgs(formRepair.getFieldValue("image"))
         }
     }, [formRef.current, formRepair.getFieldValue("image")])
 
-    if (id && dataProductSelect) {
+    if (id && dataSelect) {
         return <div className="contentProductAdmin">
             <div className="content">
                 <Form
@@ -111,28 +132,24 @@ export default function CategoryCreate({ id = null, dataProductSelect, closeModa
                     {...layout} onFinish={onFinishHadID}
                     validateMessages={validateMessages}>
                     <Form.Item
-                        name={['title']} label="Tên sản phẩm" rules={[{ required: true }]}>
+                        name={['name']} label="Tên" rules={[{ required: true }]}>
                         <Input />
                     </Form.Item>
-
-                    <Form.Item name={['category']} label="Category" rules={[{ required: true }]}>
-                        <Radio.Group>
-                            <Radio.Button value="Mái che">Mái che</Radio.Button>
-                            <Radio.Button value="Mái xếp">Mái xếp</Radio.Button>
-                            <Radio.Button value="Mái hiên">Mái hiên</Radio.Button>
-                            <Radio.Button value="Khác">Khác</Radio.Button>
-                        </Radio.Group>
+                    <Form.Item
+                        name={['link']} label="Link" rules={[{ required: true }]}>
+                        <Input />
                     </Form.Item>
-                    <Form.Item name={['description']} label="Thông tin thêm" rules={[{ required: true }]}>
-                        <Input.TextArea />
+                    <Form.Item name={['isShow']} label="Hiển thị">
+                        <Switch checked={isShow} onChange={()=>setIsShow(!isShow)}/>
                     </Form.Item>
-                    <div className={"selectImage"}>
+                    
+                    {/* <div className={"selectImage"}>
                         <Form.Item
                             name={['image']} label="Image" rules={[{ required: true }]}>
                             <Input />
                         </Form.Item>
                         <Form.Item >
-                            {/* <Button type="primary" onClick={() => showModal("1")}>Chọn ảnh khác</Button> */}
+                            
                             <div className="listImgsRender" >
                                 <Button type="primary" onClick={() => showModal("1")}>Chọn ảnh</Button>
                                 {
@@ -142,7 +159,7 @@ export default function CategoryCreate({ id = null, dataProductSelect, closeModa
                                 }
                             </div>
                         </Form.Item>
-                    </div>
+                    </div> */}
 
                     <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
                         <Button type="primary" htmlType="submit">
@@ -188,22 +205,19 @@ export default function CategoryCreate({ id = null, dataProductSelect, closeModa
                 <Form form={formRepair} 
                     ref={formRef}
                     name="dynamic_form_item" {...layout} onFinish={onFinish} validateMessages={validateMessages}>
-                    <Form.Item name={['title']} label="Tên sản phẩm" rules={[{ required: true }]}>
+                    <Form.Item
+                        name={['name']} label="Tên" rules={[{ required: true }]}>
                         <Input />
                     </Form.Item>
-                    <Form.Item name={['category']} label="Category" rules={[{ required: true }]}>
-                        <Radio.Group>
-                            <Radio.Button value="Mái che">Mái che</Radio.Button>
-                            <Radio.Button value="Mái xếp">Mái xếp</Radio.Button>
-                            <Radio.Button value="Mái hiên">Mái hiên</Radio.Button>
-                            <Radio.Button value="Khác">Khác</Radio.Button>
-                        </Radio.Group>
+                    <Form.Item
+                        name={['link']} label="Link" rules={[{ required: true }]}>
+                        <Input />
                     </Form.Item>
-                    <Form.Item name={['description']} label="Thông tin thêm" rules={[{ required: true }]}>
-                        <Input.TextArea />
+                    <Form.Item name={['isShow']} label="Hiển thị">
+                        <Switch checked={isShow} onChange={()=>setIsShow(!isShow)}/>
                     </Form.Item>
 
-                    <div className={"selectImage"}>
+                    {/* <div className={"selectImage"}>
                         <Form.Item
                             name={['image']} label="Image" rules={[{ required: true }]}>
                             <Input />
@@ -221,7 +235,7 @@ export default function CategoryCreate({ id = null, dataProductSelect, closeModa
 
                             </div>
                         </Form.Item>
-                    </div>
+                    </div> */}
 
                     <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
                         <Button type="primary" htmlType="submit">

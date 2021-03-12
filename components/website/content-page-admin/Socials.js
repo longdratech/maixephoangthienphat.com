@@ -3,23 +3,17 @@ import { Table, Space, Modal, Button, Spin } from 'antd';
 import {useState, useEffect, useContext} from "react";
 import { MainContent } from "components/website/contexts/MainContent";
 import Link from "next/link";
-import CategoryCreate from "components/website/content-page-admin/CategoryCreate";
+import SocialsCreate from "components/website/content-page-admin/SocialsCreate";
 const fetchData = [
     {
       key: '1',
       title: 'test 1',
       price: 32,
       category: 'New York No. 1 Lake Park',
-    },
-    {
-      key: '2',
-      title: 'test 2',
-      price: 42,
-      category: 'London No. 1 Lake Park',
-    },
+    }
 ];
 
-export default function Category() {
+export default function Socials() {
 
     const valueContext =  useContext(MainContent);
     
@@ -37,19 +31,6 @@ export default function Category() {
         console.log('Various parameters', pagination, filters, sorter);
         setFilteredInfo(filters)
         setSortedInfo(sorter)
-    };
-    
-    const clearFilters = () => {
-        setFilteredInfo(null)
-    };
-    
-    const setPriceSort = () => {
-        setSortedInfo(
-            {
-                order: 'descend',
-                columnKey: 'price',
-            }
-        )
     };
 
     const handleRepairInfo = (value) => {
@@ -76,38 +57,43 @@ export default function Category() {
 
     const handleOk = async () => {
         await setIsModalVisible(false);
-        valueContext.getDataCategories(setData)
+        valueContext.getDataSocials(setData)
     };
 
     const handleCancel = async () => {
         await setIsModalVisible(false);
-        valueContext.getDataCategories(setData)
+        valueContext.getDataSocials(setData)
     };
 
     const columns = [
         {
-          title: 'Tên category',
-          dataIndex: 'title',
-          key: 'title',
-          filteredValue: filteredInfo ? filteredInfo.title :  null,
-          onFilter: (value, record) => record.title.includes(value),
-          sorter: (a, b) => a.title.length - b.title.length,
-          sortOrder: sortedInfo.columnKey === 'title' && sortedInfo.order,
-          ellipsis: true,
-          render: text => <Link href="">{text}</Link>,
+            title: 'Id',
+            dataIndex: 'id',
+            key: 'id',
+            filteredValue: filteredInfo ? filteredInfo.id :  null,
+            onFilter: (value, record) => record.id.includes(value),
+            sorter: (a, b) => a.id.length - b.id.length,
+            sortOrder: sortedInfo.columnKey === 'id' && sortedInfo.order,
+            ellipsis: true,
         },
         {
-          title: 'Category',
-          dataIndex: 'category',
-          key: 'category',
-        //   filters: [
-        //     { text: 'London', value: 'London' },
-        //     { text: 'New York', value: 'New York' },
-        //   ],
-          filteredValue: filteredInfo ? filteredInfo.category  :  null,
-          onFilter: (value, record) => record.category.includes(value),
-          sorter: (a, b) => a.category.length - b.category.length,
-          sortOrder: sortedInfo.columnKey === 'category' && sortedInfo.order,
+          title: 'Tên',
+          dataIndex: 'name',
+          key: 'name',
+          filteredValue: filteredInfo ? filteredInfo.name :  null,
+          onFilter: (value, record) => record.name.includes(value),
+          sorter: (a, b) => a.name.length - b.name.length,
+          sortOrder: sortedInfo.columnKey === 'title' && sortedInfo.order,
+          ellipsis: true,
+        },
+        {
+          title: 'Link',
+          dataIndex: 'link',
+          key: 'link',
+          filteredValue: filteredInfo ? filteredInfo.link  :  null,
+          onFilter: (value, record) => record.link.includes(value),
+          sorter: (a, b) => a.link.length - b.link.length,
+          sortOrder: sortedInfo.columnKey === 'link' && sortedInfo.order,
           ellipsis: true,
         },
         {
@@ -121,17 +107,18 @@ export default function Category() {
 
     useEffect(()=>{
         if(valueContext && setData){
-            valueContext.getDataCategories(setData)
+            valueContext.getDataSocials(setData)
         }
-        
     },[]);
 
-    useEffect(()=>{
-        if(data){
-            console.log("DATA Category ", data)
-            // transformData(data)
-        }
-    }, [data])
+   useEffect(()=>{
+       if(dataSelect){
+            console.log("dataSelect: ", dataSelect)
+       }
+       if(idSelect){
+           console.log("idSelect: ", idSelect)
+       }
+   },[dataSelect, idSelect])
 
     return <div className="contentProductAdmin">
         <div className="content">
@@ -153,7 +140,7 @@ export default function Category() {
                     visible={isModalVisible} 
                     onOk={handleOk} 
                     onCancel={handleCancel}>
-                    <CategoryCreate closeModal={handleCancel} id={idSelect ? idSelect : 1} dataProductSelect={dataSelect ? dataSelect : null}></CategoryCreate>
+                    <SocialsCreate closeModal={handleCancel} id={idSelect ? idSelect : 1} dataSelect={dataSelect ? dataSelect : null}></SocialsCreate>
                     
                 </Modal>
                 :<Modal 
