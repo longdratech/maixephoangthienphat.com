@@ -38,6 +38,10 @@ export default function Product({routeProductID}) {
         showModal(value)
     }
 
+    const handleCreateInfo = async () => {
+        await showModal("")
+    }
+
 
     const deleteSuccess = (data) => {
         console.log("delete success: ", data);
@@ -71,6 +75,8 @@ export default function Product({routeProductID}) {
             await valueContext.getDataProduct(setDataSelect, value);
             await setIsModalVisible(true);
         }else{
+            await setDataProductSelect("");
+            await valueContext.getDataProduct(setDataSelect, "");
             await setIsModalVisible(true);
         }
     };
@@ -90,16 +96,11 @@ export default function Product({routeProductID}) {
           title: 'Tên sản phẩm',
           dataIndex: 'title',
           key: 'title',
-            //   filters: [
-            //     { text: '1', value: '1' },
-            //     { text: '2', value: '2' },
-            //   ],
           filteredValue: filteredInfo ? filteredInfo.title :  null,
           onFilter: (value, record) => record.title.includes(value),
           sorter: (a, b) => a.title.length - b.title.length,
           sortOrder: sortedInfo.columnKey === 'title' && sortedInfo.order,
           ellipsis: true,
-        //   render: text => <Link href="">{text}</Link>,
         },
         {
           title: 'Giá',
@@ -113,10 +114,6 @@ export default function Product({routeProductID}) {
           title: 'Category',
           dataIndex: 'category',
           key: 'category',
-        //   filters: [
-        //     { text: 'London', value: 'London' },
-        //     { text: 'New York', value: 'New York' },
-        //   ],
           filteredValue: filteredInfo ? filteredInfo.category  :  null,
           onFilter: (value, record) => record.category.includes(value),
           sorter: (a, b) => a.category.length - b.category.length,
@@ -147,7 +144,7 @@ export default function Product({routeProductID}) {
         <div className="content">
             <Button type="primary" 
                 style={{left: "100%", transform: "translate(-100%, 0)"}}
-                onClick={()=>{handleRepairInfo()}}>
+                onClick={()=>{handleCreateInfo()}}>
                 Tạo mới
             </Button>
             <>
@@ -159,28 +156,35 @@ export default function Product({routeProductID}) {
                     :  <div className="containerSpin"><Spin size="large" /></div>
                 }
 
-                <Modal 
-                    footer={null}
-                    title={(<h2>Sửa thông tin</h2>)}
-                    width={1000} 
-                    visible={isModalVisible} 
-                    onOk={handleOk} 
-                    onCancel={handleCancel}>
-                    {
+                {
 
-                        idProductSelect && dataSelect 
-
-                        ?  <ProductCreate 
-
+                    idProductSelect !=="" && dataSelect
+                    ?<Modal 
+                        footer={null}
+                        title={(<h2>Sửa thông tin</h2>)}
+                        width={1000} 
+                        visible={isModalVisible} 
+                        onOk={handleOk} 
+                        onCancel={handleCancel}>
+                        <ProductCreate 
                             closeModal={handleCancel} 
                             id={idProductSelect ? idProductSelect : 1} 
                             dataProductSelect={dataSelect ? dataSelect : null}>
+                        </ProductCreate>
+                    </Modal>
+                    :<Modal 
+                        footer={null}
+                        title={(<h2>Tạo mới</h2>)}
+                        width={1000} 
+                        visible={isModalVisible} 
+                        onOk={handleOk} 
+                        onCancel={handleCancel}>
+                        <ProductCreate create={true} closeModal={handleCancel} id={null} dataProductSelect={null} > </ProductCreate>
+                        
+                    </Modal>
 
-                            </ProductCreate>
-                        : <ProductCreate closeModal={handleCancel} > </ProductCreate>
-                        }
+                }
                 
-                </Modal>
                 
             </>
         </div>
