@@ -1,5 +1,12 @@
 import { Menu } from 'antd';
-import { AppstoreOutlined, UserOutlined } from '@ant-design/icons';
+import { 
+    AppstoreOutlined,
+    UserOutlined,
+    AreaChartOutlined, 
+    FacebookOutlined, 
+    OrderedListOutlined,
+    BankOutlined
+} from '@ant-design/icons';
 
 const { SubMenu } = Menu;
 
@@ -28,22 +35,22 @@ const Sider = ({
                 
             </SubMenu>
 
-            <SubMenu key="sub3" icon={<AppstoreOutlined />} title="Dự án">
+            <SubMenu key="sub3" icon={<BankOutlined />} title="Dự án">
                 <Menu.Item title="Dự án" value="portfolio-list" key="4">Danh sách</Menu.Item>
-                <Menu.Item title="Dự án" value="portfolio-create" key="5">Tạo mới</Menu.Item>
+                {/* <Menu.Item title="Dự án" value="portfolio-create" key="5">Tạo mới</Menu.Item> */}
             </SubMenu>
 
-            <Menu.Item title="Hình ảnh upload" value="image-create" icon={<AppstoreOutlined />} key="7">Tải ảnh lên</Menu.Item>
-
-            <SubMenu key="sub4" icon={<AppstoreOutlined />} title="Category">
+            <SubMenu key="sub4" icon={<OrderedListOutlined />} title="Category">
                 <Menu.Item title="Category" value="category-list" key="6">Danh sách</Menu.Item>
                 {/* <Menu.Item title="Category" value="category-create" key="7">Tạo mới</Menu.Item> */}
             </SubMenu>
 
-            <SubMenu key="sub5" icon={<AppstoreOutlined />} title="Socials">
+            <SubMenu key="sub5" icon={<FacebookOutlined />} title="Socials">
                 <Menu.Item title="Socials" value="socials-list" key="8">Danh sách</Menu.Item>
                 <Menu.Item title="Socials" value="socials-create" key="9">Tạo mới</Menu.Item>
             </SubMenu>
+
+            <Menu.Item title="Hình ảnh upload" value="image-create" icon={<AreaChartOutlined />} key="7">Tải ảnh lên</Menu.Item>
 
         </Menu>
     );

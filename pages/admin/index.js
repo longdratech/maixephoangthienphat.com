@@ -13,6 +13,8 @@ import CategoryCreate from "components/website/content-page-admin/CategoryCreate
 import UploadImages from  "components/website/content-page-admin/UploadImages";
 import Portfolios from "components/website/content-page-admin/Portfolios";
 import PortfoliosCreate from "components/website/content-page-admin/PortfoliosCreate";
+import Socials from "components/website/content-page-admin/Socials";
+import SocialsCreate from "components/website/content-page-admin/SocialsCreate";
 
 const routingContent = {
 
@@ -108,10 +110,10 @@ const AdminIndex = ({ user }) => {
                 return <CategoryCreate id={null}></CategoryCreate>
 
             case routingContent.SOCIALS.CREATE:
-                return <> Chưa có data</>
+                return <SocialsCreate></SocialsCreate>
 
             case routingContent.SOCIALS.LITS:
-                return <> Chưa có data list</>
+                return <Socials></Socials>
 
             default:
                 return <></>;
