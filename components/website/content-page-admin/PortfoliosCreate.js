@@ -1,7 +1,7 @@
 import TitleCopy from "components/website/title/TitleCopy"
 import { Form, Input, InputNumber, Button, Radio, message, Modal, Switch } from 'antd';
 import { MinusCircleOutlined, PlusOutlined, AreaChartOutlined } from '@ant-design/icons';
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, useRef } from "react";
 import { MainContent } from "components/website/contexts/MainContent";
 import Link from "next/link";
 import UploadImages from "components/website/content-page-admin/UploadImages";
@@ -24,14 +24,16 @@ const layout = {
 };
 
 
-export default function ProductCreate({ id = null, dataSelect, closeModal }) {
+export default function PortfoliosCreate({ id = null, dataSelect, closeModal }) {
 
     const valueContext = useContext(MainContent);
     const [data, setData] = useState(null);
     const [formRepair] = Form.useForm();
+    const formRef = useRef();
 
-    const [hotDeal, setHotDeal] = useState(false);  // set init value checkbox
+    // const [hotDeal, setHotDeal] = useState(false);  // set init value checkbox
     const [indexImg, setIndexImg] = useState();// get index input to set value url img
+    const [listImgs, setListImgs] = useState(); // get list img in form 
 
     const onFinish = async (values) => {
         await valueContext.postDataPortfolio(success, values);
@@ -68,37 +70,36 @@ export default function ProductCreate({ id = null, dataSelect, closeModal }) {
         setIsModalVisible(false);
     };
 
-    const getBase64 = (file) => {
-        return new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = () => resolve(reader.result);
-            reader.onerror = error => reject(error);
-        });
-    }
-
-    useEffect(() => {
-        if (valueContext && id) {
-            // valueContext.getDataProduct(setData)
-        }
-    }, [])
+    // const getBase64 = (file) => {
+    //     return new Promise((resolve, reject) => {
+    //         const reader = new FileReader();
+    //         reader.readAsDataURL(file);
+    //         reader.onload = () => resolve(reader.result);
+    //         reader.onerror = error => reject(error);
+    //     });
+    // }
 
     useEffect(() => {
         if (dataSelect) {
             initValueForm(dataSelect);
+        }else{
+            resetInitValueForm()
         }
     }, [dataSelect]);
 
     const initValueForm = async (dataSelect) => {
         // console.log("dataSelect : ", dataSelect)
         await formRepair.setFieldsValue({ ...dataSelect });
-        // await setHotDeal(dataSelect.isHotDeal);
     }
 
+
+    const resetInitValueForm = async () => {
+        await formRepair.resetFields();
+    } 
+
     const handleSetImgToInput =  async (value) => {
-        // set url image to input
-        // console.log("handleSetImgToInput" , value, indexImg);
-        if(dataSelect){
+        console.log(" images cloneData ==> ", value, indexImg)
+        if(dataSelect["images"]){
             for(let key in dataSelect){
                 if(key === "images"){
                     dataSelect[key][parseInt(indexImg)]=value.url
@@ -108,16 +109,23 @@ export default function ProductCreate({ id = null, dataSelect, closeModal }) {
         }else{
             let cloneData = {...formRepair.getFieldsValue()};
             cloneData.images[indexImg] = value.url;
-            // console.log("cloneData ==> ", cloneData)
+            console.log("cloneData ==> ", cloneData)
             await formRepair.setFieldsValue({ ...cloneData});
         }
-       
     }
+
+    useEffect(()=>{
+        if(formRepair){
+            console.log("from Repair", formRepair.getFieldValue("images"));
+            setListImgs(formRepair.getFieldValue("images"))
+        }
+    }, [formRef.current, formRepair.getFieldValue("images")])
 
     if (id && dataSelect) {
         return <div className="contentProductAdmin">
             <div className="content">
                 <Form
+                    ref ={formRef}
                     form={formRepair}
                     name="dynamic_form_item"
                     {...layout} onFinish={onFinishHadID}
@@ -168,20 +176,28 @@ export default function ProductCreate({ id = null, dataSelect, closeModal }) {
                                                 },
                                             ]}
                                         >
-                                            <Input placeholder="Url images" style={{ width: "80%"}} />
+                                            <Input placeholder="Url images" style={{ width: "100%"}} />
 
                                         </Form.Item>
-                                        <Button type="primary" 
-                                            onClick={() => showModal(index.toString())} 
-                                            style={{ marginLeft: "auto", marginRight: "20px" }}
-                                            icon={<AreaChartOutlined />}>
-                                                Chọn ảnh
-                                        </Button>
-                                        {fields.length > 1 ? (
-                                            <Button type="primary" danger onClick={() => remove(field.name)}>
-                                                <MinusCircleOutlined className="dynamic-delete-button" />
+                                        <div className="listImgsRender" >
+                                            {
+                                                listImgs && listImgs.length > 0
+                                                ?   <img className="imgInForm" src={listImgs[index] ? listImgs[index] : ""}/>
+                                                :   <></>
+                                            }
+                                            <Button type="primary" 
+                                                key={index}
+                                                onClick={() => showModal(index.toString())} 
+                                                style={{ marginLeft: "auto", marginRight: "20px" }}
+                                                icon={<AreaChartOutlined />}>
+                                                    Chọn ảnh
                                             </Button>
-                                        ) : null}
+                                            {fields.length > 1 ? (
+                                                <Button type="primary" danger onClick={() => remove(field.name)}>
+                                                    <MinusCircleOutlined className="dynamic-delete-button" />
+                                                </Button>
+                                            ) : null}
+                                        </div>
                                     </Form.Item>
                                 ))}
 
@@ -189,7 +205,7 @@ export default function ProductCreate({ id = null, dataSelect, closeModal }) {
                                     <Button
                                         type="dashed"
                                         onClick={() => add()}
-                                        style={{ width: "50%", marginLeft : "120px"}}
+                                        style={{ width: "100%", marginLeft : "120px"}}
                                         icon={<PlusOutlined />}
                                     >
                                         Thêm ảnh
@@ -222,12 +238,32 @@ export default function ProductCreate({ id = null, dataSelect, closeModal }) {
                     overflow: auto;
                     padding-left: 20px;
                 }
+                .imgInForm{
+                    width: 100px;
+                    height: 70px;
+                    object-fit: cover;
+                }
+                .listImgsRender{
+                    width: 100%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    flex-wrap: wrap;
+                    padding: 5px;
+                    padding-bottom: 10px;
+                }
+                .imgInForm{
+                    margin: 0 10px;
+                }
             `}</style>
         </div>
     } else {
         return <div className="contentProductAdmin">
             <div className="content">
-                <Form form={formRepair} name="dynamic_form_item" {...layout} onFinish={onFinish} validateMessages={validateMessages}>
+                <Form ref ={formRef} 
+                    form={formRepair} 
+                    name="dynamic_form_item" {...layout} 
+                    onFinish={onFinish} validateMessages={validateMessages}>
                     <Form.Item name={['title']} label="Tên dự án" rules={[{ required: true }]}>
                         <Input />
                     </Form.Item>
@@ -275,26 +311,34 @@ export default function ProductCreate({ id = null, dataSelect, closeModal }) {
                                                 },
                                             ]}
                                         >
-                                            <Input placeholder="Url images" style={{ width: "80%" }} />
+                                            <Input placeholder="Url images" style={{ width: "100%" }} />
                                         </Form.Item>
-                                        <Button type="primary" 
-                                            onClick={() => showModal(index.toString())} 
-                                            style={{ marginLeft: "auto", marginRight: "20px" }}
-                                            icon={<AreaChartOutlined />}>
-                                                Chọn ảnh
-                                        </Button>
-                                        {fields.length > 1 ? (
-                                            <Button type="primary" danger onClick={() => remove(field.name)}>
-                                                <MinusCircleOutlined className="dynamic-delete-button" />
+                                        <div className="listImgsRender" >
+                                            {
+                                                listImgs && listImgs.length > 0
+                                                ?   <img className="imgInForm" src={listImgs[index] ? listImgs[index] : ""}/>
+                                                :   <></>
+                                            }
+                                            <Button type="primary" 
+                                                key={index}
+                                                onClick={() => showModal(index.toString())} 
+                                                style={{ marginLeft: "auto", marginRight: "20px" }}
+                                                icon={<AreaChartOutlined />}>
+                                                    Chọn ảnh
                                             </Button>
-                                        ) : null}
+                                            {fields.length > 1 ? (
+                                                <Button type="primary" danger onClick={() => remove(field.name)}>
+                                                    <MinusCircleOutlined className="dynamic-delete-button" />
+                                                </Button>
+                                            ) : null}
+                                        </div>
                                     </Form.Item>
                                 ))}
                                 <Form.Item>
                                     <Button
                                         type="dashed"
                                         onClick={() => add()}
-                                        style={{ width: "50%", marginLeft : "120px"}}
+                                        style={{ width: "100%", marginLeft : "120px"}}
                                         icon={<PlusOutlined />}
                                     >
                                         Thêm ảnh
@@ -322,6 +366,23 @@ export default function ProductCreate({ id = null, dataSelect, closeModal }) {
                     width: 100%;
                     overflow: auto;
                     padding-left: 20px;
+                }
+                .imgInForm{
+                    width: 100px;
+                    height: 70px;
+                    object-fit: cover;
+                }
+                .listImgsRender{
+                    width: 100%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    flex-wrap: wrap;
+                    padding: 5px;
+                    padding-bottom: 10px;
+                }
+                .imgInForm{
+                    margin: 0 10px;
                 }
             `}</style>
         </div>

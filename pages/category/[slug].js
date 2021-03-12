@@ -27,7 +27,7 @@ export async function getServerSideProps(context) {
           slug,
         },
       };
-  }
+}
   
 
 const fetchData = [
@@ -98,7 +98,7 @@ export default function HomeCategory(props) {
 
   return (
     <MasterPageBasic hidePrevButton header="Home Page">
-      <Header active="/"></Header>
+      <Header active="san-pham"></Header>
       <main id="pHome">
         
         <BannerTopStyle2 data={dataBanner}></BannerTopStyle2>

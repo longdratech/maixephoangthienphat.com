@@ -24,30 +24,27 @@ export default function Portfolios({routeProductID}) {
     const [sortedInfo, setSortedInfo] = useState({});
 
     const [data, setData] = useState([]);
-    const [idProductSelect, setDataProductSelect] = useState("")
+    const [idSelect, setIdSelect] = useState("")
     const [dataSelect, setDataSelect] = useState();
     const [isModalVisible, setIsModalVisible] = useState(false);
 
       
-    const handleChange = (pagination, filters, sorter) => {
-        console.log('Various parameters', pagination, filters, sorter);
+    const handleChange = (pagination, filters, sorter) => {s
         setFilteredInfo(filters)
         setSortedInfo(sorter)
     };
 
     const handleRepairInfo = (value) => {
-        // if(routeProductID){
-        //     routeProductID(value);
-        // }
         showModal(value)
     }
+
+    const handleCreateInfo = async () => {
+        await showModal("")
+    }
     
-    const clearFilters = () => {
-        setFilteredInfo(null)
-    };
 
     const deleteSuccess = (data) => {
-        console.log("delete success: ", data);
+        // console.log("delete success: ", data);
     }
     
     const handleDeletePortfolios = async (id) => {
@@ -58,14 +55,14 @@ export default function Portfolios({routeProductID}) {
         }
     }
 
-    
-
     const showModal = async (value) => {
         if(value){
-            await setDataProductSelect(value);
+            await setIdSelect(value);
             await valueContext.getDataPortfolio(setDataSelect, value);
             await setIsModalVisible(true);
         }else{
+            await setIdSelect("");
+            await valueContext.getDataPortfolio(setDataSelect, "");
             await setIsModalVisible(true);
         }
     };
@@ -85,37 +82,20 @@ export default function Portfolios({routeProductID}) {
           title: 'Tên sản phẩm',
           dataIndex: 'title',
           key: 'title',
-            //   filters: [
-            //     { text: '1', value: '1' },
-            //     { text: '2', value: '2' },
-            //   ],
           filteredValue: filteredInfo ? filteredInfo.title :  null,
           onFilter: (value, record) => record.title.includes(value),
           sorter: (a, b) => a.title.length - b.title.length,
           sortOrder: sortedInfo.columnKey === 'title' && sortedInfo.order,
           ellipsis: true,
-        //   render: text => <Link href="">{text}</Link>,
         },
         {
-          title: 'Giá',
-          dataIndex: 'price',
-          key: 'price',
-          sorter: (a, b) => a.price - b.price,
-          sortOrder: sortedInfo.columnKey === 'price' && sortedInfo.order,
-          ellipsis: true,
-        },
-        {
-          title: 'Category',
-          dataIndex: 'category',
-          key: 'category',
-        //   filters: [
-        //     { text: 'London', value: 'London' },
-        //     { text: 'New York', value: 'New York' },
-        //   ],
-          filteredValue: filteredInfo ? filteredInfo.category  :  null,
-          onFilter: (value, record) => record.category.includes(value),
-          sorter: (a, b) => a.category.length - b.category.length,
-          sortOrder: sortedInfo.columnKey === 'category' && sortedInfo.order,
+          title: 'Description',
+          dataIndex: 'description',
+          key: 'description',
+          filteredValue: filteredInfo ? filteredInfo.description  :  null,
+          onFilter: (value, record) => record.description.includes(value),
+          sorter: (a, b) => a.description.length - b.description.length,
+          sortOrder: sortedInfo.columnKey === 'description' && sortedInfo.order,
           ellipsis: true,
         },
         {
@@ -139,6 +119,10 @@ export default function Portfolios({routeProductID}) {
     },[]);
 
     useEffect(()=>{
+        console.log("dataSelect: ", dataSelect)
+    },[dataSelect])
+
+    useEffect(()=>{
         valueContext.getDataPortfolios(setData);
     }, [isModalVisible])
 
@@ -147,7 +131,7 @@ export default function Portfolios({routeProductID}) {
         <div className="content">
         <Button type="primary" 
                 style={{left: "100%", transform: "translate(-100%, 0)"}}
-                onClick={()=>{handleRepairInfo()}}>
+                onClick={()=>{handleCreateInfo("")}}>
                 Tạo mới
             </Button>
         <>
@@ -159,20 +143,28 @@ export default function Portfolios({routeProductID}) {
                 : <div className="containerSpin"><Spin size="large" /></div>
             }
 
-            <Modal 
-                footer={null}
-                title={(<h2>Sửa thông tin</h2>)}
-                width={1000} 
-                visible={isModalVisible} 
-                onOk={handleOk} 
-                onCancel={handleCancel}>
-                {
-                    idProductSelect && dataSelect 
-                    ?  <PortfoliosCreate closeModal={handleCancel} id={idProductSelect ? idProductSelect : 1} dataProductSelect={dataSelect ? dataSelect : null}></PortfoliosCreate>
-                    : <PortfoliosCreate closeModal={handleCancel} ></PortfoliosCreate>
-                }
-               
-            </Modal>
+            {
+                idSelect && dataSelect
+                ? <Modal 
+                    footer={null}
+                    title={(<h2>Sửa thông tin</h2>)}
+                    width={1000} 
+                    visible={isModalVisible} 
+                    onOk={handleOk} 
+                    onCancel={handleCancel}>
+                    <PortfoliosCreate closeModal={handleCancel} id={idSelect ? idSelect : 1} dataSelect ={ dataSelect ? dataSelect : null}></PortfoliosCreate>
+                    
+                </Modal>
+                :<Modal 
+                    footer={null}
+                    title={(<h2>Tạo mới</h2>)}
+                    width={1000} 
+                    visible={isModalVisible} 
+                    onOk={handleOk} 
+                    onCancel={handleCancel}>
+                        <PortfoliosCreate dataSelect={null} id={null}  closeModal={handleCancel} ></PortfoliosCreate>
+                </Modal>
+            }
             
         </>
         </div>
