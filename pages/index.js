@@ -16,7 +16,7 @@ import ItemProductBig from "components/website/items/ItemProductBig";
 
 import ItemTextInfo from "components/website/items/ItemTextInfo";
 import LayoutGrid from "components/website/elements/LayoutGrid";
-
+import ApiCall from "modules/ApiCall";
 // import { Pagination } from "antd";
 
 const fetchDataBannerBottom = {
@@ -26,7 +26,7 @@ const fetchDataBannerBottom = {
         price : "1.300.000 đ",
 }
 
-import ApiCall from "modules/ApiCall";
+
 
 export default function Home(props) {
 
@@ -55,7 +55,7 @@ export default function Home(props) {
 
   const getDataProducts = async () =>{
     let res = await ApiCall({
-      path: `/products?page=1&limit=10`
+      path: `/products?page=1&limit=7`
     });
     if (res) {
       setDataProducts(res);

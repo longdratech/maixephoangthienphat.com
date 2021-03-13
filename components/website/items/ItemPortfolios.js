@@ -11,7 +11,7 @@ const fetchData =
     }
 
 
-export default function ItemProductBigStyle2({
+export default function ItemPortfolios({
     name,
     description,
     price, 
@@ -74,7 +74,7 @@ export default function ItemProductBigStyle2({
         prevArrow: <SamplePrevArrow />
     };
 
-    return <div className="itemProductBigStyle2">
+    return <div className="ItemPortfolios">
         {
             dataAPI 
             ?  <Slider {...settings}>
@@ -144,14 +144,14 @@ export default function ItemProductBigStyle2({
                 border-radius: 5px;
             }
             
-            .itemProductBigStyle2{
+            .ItemPortfolios{
                 overflow: hidden;
                 border-radius: 20px;
                 position: relative;
                 transition: 0.3s;
                 cursor: pointer;
             }
-            .itemProductBigStyle2:hover .itemCarousel img{
+            .ItemPortfolios:hover .itemCarousel img{
                
             }
             .itemCarousel{
@@ -231,7 +231,7 @@ export default function ItemProductBigStyle2({
                     top: unset;
                     transform: unset;
                 }
-                .itemProductBigStyle2{
+                .ItemPortfolios{
                     -webkit-box-shadow: 0 10px 6px -6px #7777771f;
                     -moz-box-shadow: 0 10px 6px -6px #7777771f;
                     box-shadow: 0 10px 6px -6px #7777771f;

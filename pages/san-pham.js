@@ -1,6 +1,7 @@
 // import CONFIG from "web.config";
 import MasterPageBasic from "components/website/master/MasterPageBasic";
-// import { useRouter } from "next/router";
+import { useRouter } from "next/router";
+import {useState, useEffect} from "react";
 import Header from "components/website/header/Header";
 import FooterCustom from "components/website/footer/FooterCustom";
 import Container from "components/website/elements/Container";
@@ -13,6 +14,8 @@ import ItemProductBig from "components/website/items/ItemProductBig";
 // import ItemProductBigStyle2 from "components/website/items/ItemProductBigStyle2";
 // import ItemTextInfo from "components/website/items/ItemTextInfo";
 import LayoutGrid from "components/website/elements/LayoutGrid";
+import ApiCall from "modules/ApiCall";
+import { Pagination } from "antd";
 
 const fetchData = [
   {
@@ -24,7 +27,48 @@ const fetchData = [
 
 
 export default function Home(props) {
-  // const router = useRouter();
+
+  const router = useRouter();
+
+  const limitDefault = 7;
+  const totalList = 10;
+
+  const [currentPage, setCurrentPage] = useState();
+  const [total, setTotal] = useState();
+  const [dataProducts, setDataProducts] = useState([]);
+
+  const onChangePage = (page)=>{
+    setCurrentPage(page);
+  }
+
+  const handleClickProduct = (id) => {
+
+    router.push(`/chi-tiet-san-pham/${id}`);
+
+  }
+
+  const getDataProducts = async (page=1) =>{
+    let res = await ApiCall({
+      path: `/products?page=${page}&limit=${limitDefault}`
+    });
+    if (res) {
+      setDataProducts(res);
+      setCurrentPage(res.page)
+      setTotal(res.totalCount)
+    }
+  }
+
+  useEffect(()=>{
+
+    getDataProducts();
+  
+  }, []);
+
+  useEffect(()=>{
+    if(currentPage){
+      getDataProducts(currentPage);
+    }
+}, [currentPage])
 
   return (
     <MasterPageBasic hidePrevButton pageName="Sản phẩm">
@@ -39,28 +83,82 @@ export default function Home(props) {
         </Container> */}
         <Container>
 
-          <LayoutGrid paddingTop={70}>
-            <ItemProductSmall></ItemProductSmall>
-            <ItemProductSmall></ItemProductSmall>
-            <ItemProductSmall></ItemProductSmall>
-          </LayoutGrid>
-
-          <LayoutGrid itemBig={true}>
-            <ItemProductSmall></ItemProductSmall>
-            <ItemProductBig></ItemProductBig>
-          </LayoutGrid>
-
-          <LayoutGrid>
-            <ItemProductSmall></ItemProductSmall>
-            <ItemProductSmall></ItemProductSmall>
-            <ItemProductSmall></ItemProductSmall>
+        <LayoutGrid itemBig={true} paddingTop={70}>
+            {
+              dataProducts.data 
+              ? dataProducts.data.map((data, index)=>{
+                  if(index <=1) {
+                    if(index == 1){
+                      return <ItemProductBig handleClick={()=>handleClickProduct(data.id)}
+                      key={index}
+                      dataAPI={data}
+                      ></ItemProductBig>
+                    }else{
+                      return <ItemProductSmall handleClick={()=>handleClickProduct(data.id)}
+                        key={index}
+                        dataAPI={data}
+                      ></ItemProductSmall>
+                    }
+                    
+                  }else{
+                    return <></>
+                  }
+              })
+              :<></>
+            }
           </LayoutGrid>
 
           <LayoutGrid itemBig={true} revert={true}>
-            <ItemProductBig></ItemProductBig>
-            <ItemProductSmall></ItemProductSmall>
+          {
+              dataProducts.data 
+              ? dataProducts.data.map((data, index)=>{
+                  if(index > 1 && index <= 2) {
+                    if(index==5){
+                      return <ItemProductBig handleClick={()=>handleClickProduct(data.id)}
+                      key={index}
+                      dataAPI={data}></ItemProductBig>
+                    }else{
+                      return <ItemProductSmall handleClick={()=>handleClickProduct(data.id)}
+                        key={index}
+                        dataAPI={data}></ItemProductSmall>
+                    }
+                  }else{
+                    return <></>
+                  }
+              })
+              :<></>
+            }
+            {/* <ItemProductBig></ItemProductBig>
+            <ItemProductSmall></ItemProductSmall> */}
           </LayoutGrid>
 
+          <LayoutGrid>
+          {
+              dataProducts.data 
+              ? dataProducts.data.map((data, index)=>{
+                  if(index >1 && index <= 4) {
+                    return <ItemProductSmall handleClick={()=>handleClickProduct(data.id)}
+                    key={index}
+                    dataAPI={data}
+                    ></ItemProductSmall>
+                  }else{
+                    return <></>
+                  }
+              })
+              :<></>
+            }
+          </LayoutGrid>
+
+
+        </Container>
+        <Container className="center">
+          <Pagination
+                onChange={onChangePage}
+                defaultPageSize={limitDefault}
+                current={ currentPage || 1}
+                defaultCurrent={1}
+                total={total || totalList }
+              />
         </Container>
       </main>
 
