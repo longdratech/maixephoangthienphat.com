@@ -38,7 +38,7 @@ const fetchData = [
     }
 ]
 
-const limitDefault = 1;
+const limitDefault = 10;
 const totalList = 10;
 
 import ApiCall from "modules/ApiCall";

@@ -265,3 +265,15 @@ body {
     }
   }
 }
+
+.layoutGrid.flex{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  .itemProductBig{
+    width: 60%;
+  }
+  .itemProductSmall{
+    width: 38%;
+  }
+}

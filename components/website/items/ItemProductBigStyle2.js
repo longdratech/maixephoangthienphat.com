@@ -14,13 +14,20 @@ const fetchData =
 export default function ItemProductBigStyle2({
     name,
     description,
-    price
+    price, 
+    dataAPI,
+    handleClick,
 }){
 
     const router = useRouter();
 
     const handleClickTitle = (e) =>{
-        router.push("/chi-tiet-san-pham/"+fetchData.id);
+       
+        if(handleClick){
+            handleClick();
+        }else{
+            router.push("/chi-tiet-san-pham/"+fetchData.id);
+        }
     }
 
     function SampleNextArrow(props) {
@@ -71,8 +78,20 @@ export default function ItemProductBigStyle2({
 
     return <div className="itemProductBigStyle2">
         {
-            fetchData.srcImgs
-                ? <Slider {...settings}>
+            dataAPI 
+            ?  <Slider {...settings}>
+                    {
+                        dataAPI.images.map((value, index) => {
+                            // console.log(value)
+                            return (
+                                <div key={index} className="itemCarousel">
+                                    <img src= {value} />
+                                </div>
+                            )
+                        })
+                    }
+                </Slider>
+            :<Slider {...settings}>
                     {
                         fetchData.srcImgs.map((value, index) => {
                             return (
@@ -82,20 +101,19 @@ export default function ItemProductBigStyle2({
                             )
                         })
                     }
-                </Slider>
-                : <></>
+            </Slider>
         }
        
         <div className="infoItemProductBigStyle2">
 
-            <h4 onClick={handleClickTitle}>{fetchData.title}</h4>
+            <h4 onClick={handleClickTitle}>{dataAPI ?  dataAPI.title :fetchData.title}</h4>
 
             <p className="priceItemProductBigStyle2">
-                {`Giá: `} <span>{fetchData.price}</span>
+                {`Giá: `} <span>{dataAPI ?  dataAPI.price+"đ": fetchData.price}</span>
             </p>
 
             <p>
-                {`Bảo hành: `} <span>{`5 tháng`}</span>
+                {`Bảo hành: `} <span>{ dataAPI ?  dataAPI.guarantee +" tháng" : `12 tháng`} </span>
             </p>
 
             <div className="infoTracking">
@@ -107,15 +125,15 @@ export default function ItemProductBigStyle2({
                 </svg> */}
                 {/* <p>{`1.000`}</p> */}
                 <span>
-                    Đã bán: 100
+                    Đã bán: { dataAPI ?  dataAPI.sold : `1.000`}
                 </span>
             </div>
 
         </div>
+        {dataAPI && dataAPI.isHotDeal == true ? <span className="priceSale">Hot deal</span> : <></>}
+       
 
-        <span className="priceSale">Hot deal</span>
-
-        <style jsx>{`
+        <style jsx>{` 
             .priceSale{
                 position: absolute;
                 top: 0;

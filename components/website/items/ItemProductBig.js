@@ -15,13 +15,21 @@ const fetchData =
 export default function ItemProductBig({
     name,
     description,
-    price
+    price,
+    guarantee,
+    images,
+    dataAPI,
+    handleClick,
 }){
 
     const router = useRouter();
     
     const handleClickTitle = (e) =>{
-        router.push("/chi-tiet-san-pham/"+fetchData.id);
+        if(handleClick){
+            handleClick();
+        }else{
+            router.push("/chi-tiet-san-pham/"+fetchData.id);
+        }
     }
 
     function SampleNextArrow(props) {
@@ -72,8 +80,20 @@ export default function ItemProductBig({
 
     return <div className="itemProductBig">
         {
-            fetchData.srcImgs
-                ? <Slider {...settings}>
+            dataAPI 
+            ?  <Slider {...settings}>
+                    {
+                        dataAPI.images.map((value, index) => {
+                            // console.log(value)
+                            return (
+                                <div key={index} className="itemCarousel">
+                                    <img src= {value} />
+                                </div>
+                            )
+                        })
+                    }
+                </Slider>
+            :   <Slider {...settings}>
                     {
                         fetchData.srcImgs.map((value, index) => {
                             return (
@@ -84,15 +104,14 @@ export default function ItemProductBig({
                         })
                     }
                 </Slider>
-                : <></>
         }
-        <span className="priceSale">Giá sốc</span>
+        {dataAPI && dataAPI.isHotDeal == true ?  <span className="priceSale">Giá sốc</span> : <></>}
         <div className="infoItemProductBig">
 
-            <h4 onClick={handleClickTitle}> {fetchData.title} </h4>
-            <span>{fetchData.price}</span>
+            <h4 onClick={handleClickTitle}>{dataAPI ?  dataAPI.title :fetchData.title} </h4>
+            <span>{dataAPI ?  dataAPI.price+"đ": fetchData.price}</span>
             <p>
-                {`Bảo hành: 12 tháng`}
+                Bảo hành: { dataAPI ?  dataAPI.guarantee +" tháng" : `12 tháng`} 
             </p>
 
             <div className="infoTracking">
@@ -102,9 +121,9 @@ export default function ItemProductBig({
                         <path id="Path_33" data-name="Path 33" d="M157.929,154.725a2.832,2.832,0,1,0,3.207,2.807A3.031,3.031,0,0,0,157.929,154.725Zm0,4.678a1.888,1.888,0,1,1,2.138-1.871A2.02,2.02,0,0,1,157.929,159.4Z" transform="translate(-5277.127 1379.625)" fill="#707070"/>
                     </g>
                 </svg>
-                <p>{`1.000`}</p>
+                <p>{ dataAPI ?  dataAPI.views : `1.000`}</p>
                 <span>
-                    Đã bán: 100
+                    Đã bán: { dataAPI ?  dataAPI.sold : `1.000`}
                 </span>
             </div>
 
