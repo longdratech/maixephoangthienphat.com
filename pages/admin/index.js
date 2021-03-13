@@ -116,7 +116,7 @@ const AdminIndex = ({ user }) => {
                 return <Socials></Socials>
 
             default:
-                return <>Chưa có dữ liệu</>;
+                return <></>;
         }
     } 
 

@@ -30,6 +30,13 @@ export default function LayoutGrid({
                 padding-bottom: ${paddingBottom + "px"};
                 padding-top: ${paddingTop + "px"};
             }
+            .layoutGrid.flex{
+                display: flex;
+                grid-template-columns: repeat(${column}, 1fr);
+                grid-gap: ${gridGap + "px"};
+                padding-bottom: ${paddingBottom + "px"};
+                padding-top: ${paddingTop + "px"};
+            }
 
             .layoutGridBig{
                 display: grid;

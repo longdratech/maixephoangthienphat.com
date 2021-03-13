@@ -9,6 +9,9 @@ import BannerTopStyle2 from "components/website/banner/BannerTopStyle2";
 import ItemProductBigStyle2 from "components/website/items/ItemProductBigStyle2";
 import LayoutGrid from "components/website/elements/LayoutGrid";
 
+import {useContext, useEffect, useState, } from "react";
+import { MainContent } from "components/website/contexts/MainContent";
+import { Spin } from 'antd';
 const fetchData = [
     {
         title: "Mái che di động",
@@ -16,8 +19,37 @@ const fetchData = [
         description: "Mái che  di động, nắng mưa nay đã không còn là nỗi lo."
     }
   ]
+
+export async function getServerSideProps(context) {
+  
+    const params = context.params;
+    const query = context.query;
+    const slug = context.params.slug;
+   
+      return {
+        props: {
+          params,
+          query,
+          slug,
+        },
+      };
+}
 export default function ProductDetail(props) {
     // const router = useRouter();
+    const valueContext = useContext(MainContent);
+    const [data, setData] = useState();
+
+    useEffect(() => {
+        if(valueContext){
+            valueContext.getDataProduct(setData, props.query.slug);
+        }
+    }, []);
+
+    useEffect(()=>{
+        if(data){
+            console.log("data API, " , data);
+        }
+    },[data])
 
     return (
         <MasterPageBasic hidePrevButton pageName="Chi tiết sản phẩm">
@@ -32,7 +64,12 @@ export default function ProductDetail(props) {
                 <Container>
 
                     <LayoutGrid column={1} paddingTop={80}>
-                        <ItemProductBigStyle2></ItemProductBigStyle2>
+                        {
+                            data 
+                            ? <ItemProductBigStyle2 dataAPI={data}></ItemProductBigStyle2>
+                            : <Spin></Spin>
+                        }
+                        
                     </LayoutGrid>
 
                     
