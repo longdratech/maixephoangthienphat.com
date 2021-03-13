@@ -192,7 +192,7 @@ export default function MainContentProvider( {children}){
 
     // socials
     // get all socials
-    const getDataSocials = async (FunctionnCb, page=1, limit=50) =>{
+    const getDataSocials = async (FunctionnCb, page=1, limit=5) =>{
         let res = await ApiCall({
           path: `/socials?page=${page}&limit=${limit}`
         });
@@ -300,7 +300,7 @@ export default function MainContentProvider( {children}){
 
                 getDataSocials: getDataSocials,
                 patchDataSocials: patchDataSocials,
-                deleteDataSocial: deleteDataSocial,
+                // deleteDataSocial: deleteDataSocial,
                 postDataSocial: postDataSocial,
                 getDataSocial: getDataSocial,
 

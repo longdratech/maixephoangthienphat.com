@@ -47,7 +47,7 @@ const Sider = ({
 
             <SubMenu key="sub5" icon={<FacebookOutlined />} title="Socials">
                 <Menu.Item title="Socials" value="socials-list" key="8">Danh sách</Menu.Item>
-                <Menu.Item title="Socials" value="socials-create" key="9">Tạo mới</Menu.Item>
+                {/* <Menu.Item title="Socials" value="socials-create" key="9">Tạo mới</Menu.Item> */}
             </SubMenu>
 
             <Menu.Item title="Hình ảnh upload" value="image-create" icon={<AreaChartOutlined />} key="7">Tải ảnh lên</Menu.Item>
