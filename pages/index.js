@@ -35,13 +35,14 @@ export default function Home(props) {
   const [dataProducts, setDataProducts] = useState([]);
 
   const [currentPage, setCurrentPage] = useState(1);
+
   // const limitDefault = 10;
   // const totalList = 200;
 
-  const onChangePage = (page)=>{
-    console.log("Page : ", page);
-    setCurrentPage(page);
-  }
+  // const onChangePage = (page)=>{
+  //   console.log("Page : ", page);
+  //   setCurrentPage(page);
+  // }
 
   const getDataBanner = async() => {
     let res = await ApiCall({
@@ -62,12 +63,16 @@ export default function Home(props) {
     }
   }
 
+  const handleClickProduct = (id) => {
+    router.push(`/chi-tiet-san-pham/${id}`);
+  }
+
   useEffect(()=>{
     
       getDataBanner();
       getDataProducts();
     
-  }, [])
+  }, []);
 
   return (
     <MasterPageBasic hidePrevButton header="Home Page">
@@ -93,51 +98,83 @@ export default function Home(props) {
 
         <Container>
 
-          <LayoutGrid>
-
+          <LayoutGrid itemBig={true}>
             {
               dataProducts.data 
               ? dataProducts.data.map((data, index)=>{
-                // console.log(data)
-                return <ItemProductSmall
-                  key={index}
-                  dataAPI={data}
-                ></ItemProductSmall>
+                  if(index <=1) {
+                    if(index == 1){
+                      return <ItemProductBig handleClick={()=>handleClickProduct(data.id)}
+                      key={index}
+                      dataAPI={data}
+                      ></ItemProductBig>
+                    }else{
+                      return <ItemProductSmall handleClick={()=>handleClickProduct(data.id)}
+                        key={index}
+                        dataAPI={data}
+                      ></ItemProductSmall>
+                    }
+                    
+                  }else{
+                    return <></>
+                  }
               })
               :<></>
             }
-            
-            <ItemProductSmall></ItemProductSmall>
-            <ItemProductSmall></ItemProductSmall>
-          </LayoutGrid>
-
-          <LayoutGrid itemBig={true}>
-            <ItemProductSmall></ItemProductSmall>
-            <ItemProductBig></ItemProductBig>
           </LayoutGrid>
 
           <LayoutGrid>
-            <ItemProductSmall></ItemProductSmall>
-            <ItemProductSmall></ItemProductSmall>
-            <ItemProductSmall></ItemProductSmall>
+          {
+              dataProducts.data 
+              ? dataProducts.data.map((data, index)=>{
+                  if(index >1 && index <= 4) {
+                    return <ItemProductSmall handleClick={()=>handleClickProduct(data.id)}
+                    key={index}
+                    dataAPI={data}
+                    ></ItemProductSmall>
+                  }else{
+                    return <></>
+                  }
+              })
+              :<></>
+            }
           </LayoutGrid>
 
           <LayoutGrid itemBig={true} revert={true}>
-            <ItemProductBig></ItemProductBig>
-            <ItemProductSmall></ItemProductSmall>
+          {
+              dataProducts.data 
+              ? dataProducts.data.map((data, index)=>{
+                  if(index >4 && index <= 6) {
+                    if(index==5){
+                      return <ItemProductBig handleClick={()=>handleClickProduct(data.id)}
+                      key={index}
+                      dataAPI={data}></ItemProductBig>
+                    }else{
+                      return <ItemProductSmall handleClick={()=>handleClickProduct(data.id)}
+                        key={index}
+                        dataAPI={data}></ItemProductSmall>
+                    }
+                  }else{
+                    return <></>
+                  }
+              })
+              :<></>
+            }
+            {/* <ItemProductBig></ItemProductBig>
+            <ItemProductSmall></ItemProductSmall> */}
           </LayoutGrid>
           
         </Container>
 
-        <Container className="center">
-          {/* <Pagination
+        {/* <Container className="center">
+          <Pagination
                 onChange={onChangePage}
                 defaultPageSize={limitDefault}
                 current={currentPage}
                 defaultCurrent={1}
                 total={totalList}
-              /> */}
-        </Container>
+              />
+        </Container> */}
 
         <Container>
 

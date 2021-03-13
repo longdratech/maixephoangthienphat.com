@@ -47,29 +47,51 @@ function BannerTop({
         {
             dataList
                 ? <Slider {...settings}>
-                    {
-                        dataList.map((data, index) => {
-                            return (
-                                <div key={index} className="itemCarousel">
-                                    <img src= {data.image} />
-                                   
-                                        <div className="infoItemCopy">
-                                        
-                                        <h3>{data.title}</h3>
-                                        <p>
-                                            {data.description}
-                                        </p>
-                                        <span onClick={()=>handleRoute(data)} className="btn">Xem tất cả</span>
+                        {
+                            dataList.map((data, index) => {
+                                return (
+                                    <div key={index} className="itemCarousel">
+                                        <img src= {data.image} />
+                                    
+                                            <div className="infoItemCopy">
+                                            
+                                            <h3>{data.title}</h3>
+                                            <p>
+                                                {data.description}
+                                            </p>
+                                            <span onClick={()=>handleRoute(data)} className="btn">Xem tất cả</span>
+                                            
+                                        </div>
+                                    
                                         
                                     </div>
-                                  
+                                )
+                            })
+                        }
+                    </Slider>
+                :   <Slider {...settings}>
+                        {
+                            fetchData.map((data, index) => {
+                                return (
+                                    <div key={index} className="itemCarousel">
+                                        <img src= {data.srcImg} />
                                     
-                                </div>
-                            )
-                        })
-                    }
-                </Slider>
-                : <></>
+                                            <div className="infoItemCopy">
+                                            
+                                            <h3>{data.title}</h3>
+                                            <p>
+                                                {data.description}
+                                            </p>
+                                            <span className="btn">Xem tất cả</span>
+                                            
+                                        </div>
+                                    
+                                        
+                                    </div>
+                                )
+                            })
+                        }
+                    </Slider>
         }
 
         <style jsx>{`

@@ -106,10 +106,11 @@ export default function ItemProductSmall({
                     }
                 </Slider>
         }
+        {dataAPI && dataAPI.isHotDeal == true ?  <span className="priceSale">Giá sốc</span> : <></>}
         <div className="infoItemProductSmall">
 
             <h4 onClick={handleClickTitle}>{dataAPI ?  dataAPI.title :fetchData.title}</h4>
-            <span>{dataAPI ?  dataAPI.price : fetchData.price}</span>
+            <span>{dataAPI ?  dataAPI.price+"đ": fetchData.price}</span>
             <p>
                 Bảo hành: { dataAPI ?  dataAPI.guarantee +" tháng" : `12 tháng`} 
             </p>
@@ -131,8 +132,20 @@ export default function ItemProductSmall({
 
         <style jsx>{`
 
+            .priceSale{
+                position: absolute;
+                top: 15px;
+                left: 15px;
+                padding: 8px 10px;
+                background-color: #ff1600;
+                font-family: "Montserrat-SemiBold";
+                color: #fff;
+                border-radius: 5px;
+            }
+
             .itemProductSmall{
                 /* width: 30vw; */
+                position: relative;
                 overflow: hidden;
                 background-color: #fff;
                 border-radius: 20px;
