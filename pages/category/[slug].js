@@ -69,14 +69,12 @@ export default function HomeCategory(props) {
       path: `/products/?page=${page}&limit=${limitDefault}&category=${name}`
     });
     if (res) {
-        console.log("ress ", res)
+        console.log("ress ", res);
         setTotal(res.totalCount)
         setDataProducts(res);
         setCurrentPage(res.page);
     }
   }
-
-
 
   useEffect(()=>{
     console.log("id : ", props.query["slug"]);
