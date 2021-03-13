@@ -18,7 +18,7 @@ const DefaultStyles = {
   container: {
     maxWidthXS: 350,
     maxWidthSM: 550,
-    maxWidthMD: 728,
+    maxWidthMD: 900,
     maxWidthLG: 1230,
   },
 };

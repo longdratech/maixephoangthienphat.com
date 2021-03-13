@@ -18,6 +18,7 @@ const validateMessages = {
     },
 };
 /* eslint-enable no-template-curly-in-string */
+
 const layout = {
     labelCol: { span: 3 },
     wrapperCol: { span: 18 },
@@ -70,20 +71,20 @@ export default function ProductCreate({ id = null, dataProductSelect, closeModal
         setIsModalVisible(false);
     };
 
-    const getBase64 = (file) => {
-        return new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = () => resolve(reader.result);
-            reader.onerror = error => reject(error);
-        });
-    }
+    // const getBase64 = (file) => {
+    //     return new Promise((resolve, reject) => {
+    //         const reader = new FileReader();
+    //         reader.readAsDataURL(file);
+    //         reader.onload = () => resolve(reader.result);
+    //         reader.onerror = error => reject(error);
+    //     });
+    // }
 
-    useEffect(() => {
-        if (valueContext && id) {
-            // valueContext.getDataProduct(setData)
-        }
-    }, [])
+    // useEffect(() => {
+    //     if (valueContext && id) {
+    //         valueContext.getDataProduct(setData)
+    //     }
+    // }, [])
 
     useEffect(() => {
         if (dataProductSelect && create == false) {

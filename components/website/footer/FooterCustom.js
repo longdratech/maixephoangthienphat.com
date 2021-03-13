@@ -1,24 +1,85 @@
 import asset from "plugins/assets/asset";
 import Container from "components/website/elements/Container";
-import {useRouter} from "next/router"
-export default function FooterCustom () {
+import { useRouter } from "next/router";
+import { useState, useEffect, useContext } from "react";
+import { MainContent } from "components/website/contexts/MainContent";
+export default function FooterCustom() {
+
   const router = useRouter();
-    return <footer>
-      <Container>
-        <a href="tel:0879200700" className="icon-call">
-          <img src={asset("/images/icon-phone-call.png")} />
-          <h5 className="text">
-            <b>087.920.0700</b>
-          </h5>
-        </a>
-        <div className="contentFooter">
-          <div className="logoInfo">
-            <a onClick={()=>router.push("/")} target="_blank" className="logoFooter">
-                <img src={asset("/images/logo.jpg")} />
-                <h5 >Chất lượng đến tùng chi tiết</h5>
-            </a>
-            <div className="listConnect">
-              <a href="#" target="_blank">
+  const valueContext = useContext(MainContent);
+
+  const [dataSocials, setDataSocials] = useState();
+
+  useEffect(() => {
+    if (valueContext) {
+      valueContext.getDataSocials(setDataSocials)
+    }
+  }, [])
+
+  return <footer>
+    <Container>
+      <a href="tel:0879200700" className="icon-call">
+        <img src={asset("/images/icon-phone-call.png")} />
+        <h5 className="text">
+          <b>087.920.0700</b>
+        </h5>
+      </a>
+      <div className="contentFooter">
+        <div className="logoInfo">
+          <a onClick={() => router.push("/")} target="_blank" className="logoFooter">
+            <img src={asset("/images/logo.jpg")} />
+            <h5 >Chất lượng đến tùng chi tiết</h5>
+          </a>
+          <div className="listConnect">
+            {
+              dataSocials
+
+                ? dataSocials.map((value, index) => {
+
+                  if (value.name === "facebook") {
+                    if (value.isShow == true) {
+                      return <a key={index} href={value.link} target="_blank">
+                        <img src={asset("/images/icon-fb.png")} />
+                      </a>
+                    } else {
+                      return <></>
+                    }
+                  }
+
+                  if (value.name === "youtube") {
+                    if (value.isShow == true) {
+                      return <a key={index} href={value.link} target="_blank">
+                        <img src={asset("/images/icon-youtube.png")} />
+                      </a>
+                    } else {
+                      return <></>
+                    }
+                  }
+
+                  if (value.name === "zalo") {
+                    if (value.isShow == true) {
+                      return <a key={index} href={value.link} target="_blank">
+                        <img src={asset("/images/icon-zalo.png")} />
+                      </a>
+                    } else {
+                      return <></>
+                    }
+                  }
+
+                  if (value.name === "instagram") {
+                    if (value.isShow == true) {
+                      return <a key={index} href={value.link} target="_blank">
+                        <img src={asset("/images/icon-inst.png")} />
+                      </a>
+                    } else {
+                      return <></>
+                    }
+                  }
+
+                })
+                : <></>
+            }
+            {/* <a href="#" target="_blank">
                 <img src={asset("/images/icon-youtube.png")} />
               </a>
               <a href="#" target="_blank">
@@ -29,46 +90,46 @@ export default function FooterCustom () {
               </a>
               <a href="#" target="_blank">
                 <img src={asset("/images/icon-inst.png")} />
-              </a>
-            </div>
-          </div>
-          <div className="listInfoFooter">
-            <div className="itemInfo">
-              <h4>Hoàng Thiên Phát</h4>
-              <p>Chủ đầu tư: Trần Tiến Hải</p>
-              <p>Ngân hàng: MB bank</p>
-              <p>Số tài khoản: 0970134839999</p>
-            </div>
-            <div className="itemInfo">
-              <h4>Trụ sở chính</h4>
-              <p>Địa chỉ: 168 Chòm sao, <br /> Hưng Định Thuận An, Bình Dương</p>
-              
-            </div>
-            <div className="itemInfo">
-              <h4>Liên kết</h4>
-              <p><a href="https://www.maixephoangthienphat.com" target="_blank">www.maixephoangthienphat.com</a></p>
-              <p><a href="https://www.maixephoangthienphat.net" target="_blank">www.maixephoangthienphat.net</a></p>
-              
-            </div>
-            <div className="itemInfo">
-              <h4>Hỗ trợ</h4>
-              <p>maixephoangthienphat@gmail.com</p>
-              <p>Hotline: 0879.200.700</p>
-              
-            </div>
+              </a> */}
           </div>
         </div>
-      </Container>
-      <Container>
-        <div className="endFooter">
-            <h5>Copyright © 2021 - Hoàng Thiên Phát. All Rights Reserved.</h5>
-            <a href="https://kmasoft.vn/" target="_blank">
-              <img src={asset("/images/icon-cm.png")} />
-              <h5>KMASoft</h5>
-            </a>
+        <div className="listInfoFooter">
+          <div className="itemInfo">
+            <h4>Hoàng Thiên Phát</h4>
+            <p>Chủ đầu tư: Trần Tiến Hải</p>
+            <p>Ngân hàng: MB bank</p>
+            <p>Số tài khoản: 0970134839999</p>
+          </div>
+          <div className="itemInfo">
+            <h4>Trụ sở chính</h4>
+            <p>Địa chỉ: 168 Chòm sao, <br /> Hưng Định Thuận An, Bình Dương</p>
+
+          </div>
+          <div className="itemInfo">
+            <h4>Liên kết</h4>
+            <p><a href="https://www.maixephoangthienphat.com" target="_blank">www.maixephoangthienphat.com</a></p>
+            <p><a href="https://www.maixephoangthienphat.net" target="_blank">www.maixephoangthienphat.net</a></p>
+
+          </div>
+          <div className="itemInfo">
+            <h4>Hỗ trợ</h4>
+            <p>maixephoangthienphat@gmail.com</p>
+            <p>Hotline: 0879.200.700</p>
+
+          </div>
         </div>
-      </Container>
-    
+      </div>
+    </Container>
+    <Container>
+      <div className="endFooter">
+        <h5>Copyright © 2021 - Hoàng Thiên Phát. All Rights Reserved.</h5>
+        <a href="https://kmasoft.vn/" target="_blank">
+          <img src={asset("/images/icon-cm.png")} />
+          <h5>KMASoft</h5>
+        </a>
+      </div>
+    </Container>
+
     <style jsx>{`
       footer{
         margin-top: 60px;
@@ -340,5 +401,5 @@ export default function FooterCustom () {
       }
 
     `}</style>
-  </footer>  
+  </footer>
 }
