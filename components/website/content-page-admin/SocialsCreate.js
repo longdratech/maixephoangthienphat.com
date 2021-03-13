@@ -73,35 +73,15 @@ export default function SocialsCreate({ id = null, dataSelect, closeModal }) {
     useEffect(() => {
         if (dataSelect) {
             initValueForm(dataSelect);
-           
         }else{
-            resetInitValueForm
+            resetInitValueForm()
         }
     }, [dataSelect]);
 
-    const checkTransformData = (data) => {
-        switch (data) {
-
-            case "true":
-                return true;
-
-            case true:
-                return true;
-
-            case "false":
-                return false;
-
-            case false:
-                return false;
-        
-            default:
-                return false;
-        }
-    }
-
     const initValueForm = async (dataSelect) => {
         await formRepair.setFieldsValue({ ...dataSelect })
-        await setIsShow(checkTransformData(dataSelect.isShow));
+        console.log("dataSelect.isShow: ", dataSelect.isShow)
+        await setIsShow(dataSelect.isShow);
     }
 
     const resetInitValueForm = async () => {
@@ -133,7 +113,7 @@ export default function SocialsCreate({ id = null, dataSelect, closeModal }) {
                     validateMessages={validateMessages}>
                     <Form.Item
                         name={['name']} label="Tên" rules={[{ required: true }]}>
-                        <Input />
+                        <Input disabled={true} />
                     </Form.Item>
                     <Form.Item
                         name={['link']} label="Link" rules={[{ required: true }]}>
