@@ -1,10 +1,12 @@
 import { useRef, useEffect, useState } from "react"
 import { useForm, Controller } from "react-hook-form";
 import asset from "plugins/assets/asset";
+import {useRouter} from "next/router"
 export default function Search({
     handleSearch,
 }) {
 
+    const router = useRouter();
     const [status, setStatus] = useState(false);
     // const searchRef = useRef();
     let defaultValue = {
@@ -19,6 +21,7 @@ export default function Search({
             handleSearch()
         } else {
             console.log("Submit ==> value search: ", data);
+            router.push(`/ket-qua-tim-kiem/${data.valueSearch}`)
             reset({...defaultValue});
         }
         handleClick();
