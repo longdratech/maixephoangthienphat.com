@@ -20,7 +20,7 @@ export default function PopupConfirm({
             setConfirmLoading(false);
 
             if (handleOkOutSize) {
-                console.log("showPopconfirm value", data)
+                // console.log("showPopconfirm value", data)
                 handleOkOutSize(data);
             }
             
@@ -35,7 +35,7 @@ export default function PopupConfirm({
     return (
         <>
             <Popconfirm
-                title="Title"
+                title=""
                 visible={visible}
                 onConfirm={handleOk}
                 okButtonProps={{ loading: confirmLoading }}

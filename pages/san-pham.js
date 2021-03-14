@@ -30,7 +30,7 @@ export default function Home(props) {
 
   const router = useRouter();
 
-  const limitDefault = 7;
+  const limitDefault = 30;
   const totalList = 10;
 
   const [currentPage, setCurrentPage] = useState();
@@ -108,39 +108,58 @@ export default function Home(props) {
             }
           </LayoutGrid>
 
-          <LayoutGrid itemBig={true} revert={true}>
+        <LayoutGrid itemBig={false} >
           {
               dataProducts.data 
               ? dataProducts.data.map((data, index)=>{
-                  if(index > 1 && index <= 2) {
-                    if(index==5){
-                      return <ItemProductBig handleClick={()=>handleClickProduct(data.id)}
-                      key={index}
-                      dataAPI={data}></ItemProductBig>
-                    }else{
+                  if(index > 1 && index <= 4) {
+                   
                       return <ItemProductSmall handleClick={()=>handleClickProduct(data.id)}
                         key={index}
                         dataAPI={data}></ItemProductSmall>
-                    }
+                   
                   }else{
                     return <></>
                   }
               })
               :<></>
             }
-            {/* <ItemProductBig></ItemProductBig>
-            <ItemProductSmall></ItemProductSmall> */}
-          </LayoutGrid>
+        </LayoutGrid>
 
-          <LayoutGrid>
+        <LayoutGrid itemBig={true}>
           {
               dataProducts.data 
               ? dataProducts.data.map((data, index)=>{
-                  if(index >1 && index <= 4) {
-                    return <ItemProductSmall handleClick={()=>handleClickProduct(data.id)}
+                if(index > 4 && index <=6) {
+                  if(index == 6){
+                    return <ItemProductBig handleClick={()=>handleClickProduct(data.id)}
                     key={index}
                     dataAPI={data}
+                    ></ItemProductBig>
+                  }else{
+                    return <ItemProductSmall handleClick={()=>handleClickProduct(data.id)}
+                      key={index}
+                      dataAPI={data}
                     ></ItemProductSmall>
+                  }
+                  
+                }else{
+                  return <></>
+                }
+              })
+              :<></>
+            }
+          </LayoutGrid>
+        
+        <LayoutGrid>
+          {
+              dataProducts.data 
+              ? dataProducts.data.map((data, index)=>{
+                  if(index > 6) {
+                    return <ItemProductSmall handleClick={()=>handleClickProduct(data.id)}
+                      key={index}
+                      dataAPI={data} >
+                    </ItemProductSmall>
                   }else{
                     return <></>
                   }
