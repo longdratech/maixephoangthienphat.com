@@ -12,9 +12,7 @@ const fetchData =
 
 
 export default function ItemPortfolios({
-    name,
-    description,
-    price, 
+   
     dataAPI,
     handleClick,
 }){
@@ -101,36 +99,21 @@ export default function ItemPortfolios({
                     }
             </Slider>
         }
+
+        {dataAPI && dataAPI.isHotDeal == true ? <span className="priceSale">Hot deal</span> : <></>}
        
         <div className="infoItemProductBigStyle2">
 
             <h4 onClick={handleClickTitle}>{dataAPI ?  dataAPI.title :fetchData.title}</h4>
 
-            <p className="priceItemProductBigStyle2">
-                {`Giá: `} <span>{dataAPI ?  dataAPI.price+"đ": fetchData.price}</span>
-            </p>
-
             <p>
-                {`Bảo hành: `} <span>{ dataAPI ?  dataAPI.guarantee +" tháng" : `12 tháng`} </span>
+                { dataAPI ?  dataAPI.description : ""}
             </p>
-
-            <div className="infoTracking">
-                {/* <svg xmlns="http://www.w3.org/2000/svg" width="18.604" height="10.344" viewBox="0 0 17.604 10.344">
-                    <g id="view_icon" data-name="view icon" transform="translate(5128 -1531.985)">
-                        <path id="Path_32" data-name="Path 32" d="M17.493,97.691c-.157-.2-3.9-4.856-8.691-4.856S.269,97.493.112,97.691a.5.5,0,0,0,0,.632c.157.2,3.9,4.856,8.691,4.856s8.533-4.658,8.691-4.856A.5.5,0,0,0,17.493,97.691ZM8.8,102.109c-3.525,0-6.579-3.092-7.483-4.1.9-1.012,3.95-4.1,7.483-4.1s6.578,3.091,7.483,4.1C15.382,99.019,12.335,102.109,8.8,102.109Z" transform="translate(-5128 1439.15)" fill="#707070"/>
-                        <path id="Path_33" data-name="Path 33" d="M157.929,154.725a2.832,2.832,0,1,0,3.207,2.807A3.031,3.031,0,0,0,157.929,154.725Zm0,4.678a1.888,1.888,0,1,1,2.138-1.871A2.02,2.02,0,0,1,157.929,159.4Z" transform="translate(-5277.127 1379.625)" fill="#707070"/>
-                    </g>
-                </svg> */}
-                {/* <p>{`1.000`}</p> */}
-                <span>
-                    Đã bán: { dataAPI ?  dataAPI.sold : `1.000`}
-                </span>
-            </div>
 
         </div>
-        {dataAPI && dataAPI.isHotDeal == true ? <span className="priceSale">Hot deal</span> : <></>}
-       
 
+        
+       
         <style jsx>{` 
             .priceSale{
                 position: absolute;
@@ -158,6 +141,7 @@ export default function ItemPortfolios({
                 overflow: hidden;
                 border-radius: 20px;
                 z-index: 2;
+                border: solid 1px rgba(0,0,0,0.1);
                 img{
                     transition: 0.3s;
                     width: 35%;
@@ -166,12 +150,11 @@ export default function ItemPortfolios({
                     border-radius: 20px;
                     object-fit: cover;
                 }
+                
             }
             .infoItemProductBigStyle2{
-                display: flex;
-                flex-direction: row;
-                justify-content: space-evenly;
-                flex-wrap: wrap;
+                display: block;
+                height: 94%;
                 padding: 20px 15px;
                 position: absolute;
                 width: 55%;
@@ -186,14 +169,15 @@ export default function ItemPortfolios({
                     color: #103C55;
                     flex: 1;
                     padding-bottom: 20px;
+                    width: 80%;
                 }
                 span{
                     font-family: "Montserrat-SemiBold";
                     /* font-size: 16px; */
-                    color: #707070;
+                    /* color: #707070; */
                 }
                 p{
-                    font-size: 18px;
+                    font-size: 14px;
                     width: 100%;
                     padding: 5px 0;
                 }
