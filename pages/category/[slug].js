@@ -76,6 +76,12 @@ export default function HomeCategory(props) {
     }
   }
 
+  const handleClickProduct = (id) => {
+
+    router.push(`/chi-tiet-san-pham/${id}`);
+
+  }
+
   useEffect(()=>{
     console.log("id : ", props.query["slug"]);
     getDataBanner(router.query.slug);
@@ -110,6 +116,7 @@ export default function HomeCategory(props) {
               ? dataProducts.data.map((data, index)=>{
                 // console.log(data)
                 return <ItemProductSmall
+                    handleClick={()=>handleClickProduct(data.id)}
                     key={index}
                     dataAPI={data}
                 ></ItemProductSmall>
