@@ -5,9 +5,14 @@ import FooterCustom from "components/website/footer/FooterCustom";
 import Container from "components/website/elements/Container";
 import BannerTopStyle2 from "components/website/banner/BannerTopStyle2";
 import LayoutGrid from "components/website/elements/LayoutGrid";
-import ItemProductBigStyle2 from "components/website/items/ItemProductBigStyle2";
+// import ItemProductBigStyle2 from "components/website/items/ItemProductBigStyle2";
 import { Pagination } from "antd";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import ItemPortfolios from "components/website/items/ItemPortfolios";
+import { useRouter } from "next/router";
+import ApiCall from "modules/ApiCall";
+
+
 const fetchData = [
   {
       title: "Công trình",
@@ -17,35 +22,48 @@ const fetchData = [
 ]
 
 export default function Home(props) {
-  // const router = useRouter();
 
-  const [currentPage, setCurrentPage] = useState(1);
+  const router = useRouter();
+
   const limitDefault = 10;
-  const totalList = 200;
+  const totalList = 10;
 
-
-  function itemRender(current, type, originalElement) {
-    if (type === "prev") {
-      return (
-        <div>
-          <p name="prev-white-fill" />
-        </div>
-      );
-    }
-    if (type === "next") {
-      return (
-        <div>
-          <p name="next-white-fill" />
-        </div>
-      );
-    }
-    return originalElement;
-  }
+  const [currentPage, setCurrentPage] = useState();
+  const [total, setTotal] = useState();
+  const [dataPortfolios, setDataPortfolios] = useState([]);
 
   const onChangePage = (page)=>{
-    console.log("Page : ", page);
     setCurrentPage(page);
   }
+
+  const handleClickPortfolios = (id) => {
+
+    router.push(`/cong-trinh/${id}`);
+
+  }
+
+  const getDataPortfolios = async (page=1) =>{
+    let res = await ApiCall({
+      path: `/portfolios?page=${page}&limit=${limitDefault}`
+    });
+    if (res) {
+      setDataPortfolios(res);
+      setCurrentPage(res.page)
+      setTotal(res.totalCount)
+    }
+  }
+
+  useEffect(()=>{
+
+    getDataPortfolios();
+  
+  }, []);
+
+  useEffect(()=>{
+    if(currentPage){
+      getDataPortfolios(currentPage);
+    }
+}, [currentPage])
 
 
 
@@ -55,29 +73,37 @@ export default function Home(props) {
       <main id="pConstructions">
         <BannerTopStyle2 data={fetchData}></BannerTopStyle2>
 
-
         <Container>
 
           <LayoutGrid column={1} paddingTop={80}>
-            <ItemProductBigStyle2></ItemProductBigStyle2>
-            <ItemProductBigStyle2></ItemProductBigStyle2>
-            <ItemProductBigStyle2></ItemProductBigStyle2>
-            <ItemProductBigStyle2></ItemProductBigStyle2>
-            <ItemProductBigStyle2></ItemProductBigStyle2>
+            {
+                dataPortfolios.data 
+                ? dataPortfolios.data.map((data, index)=>{
+                   
+                      return <ItemPortfolios handleClick={()=>handleClickPortfolios(data.id)}
+                        key={index}
+                        dataAPI={data} >
+                      </ItemPortfolios>
+                   
+                })
+                :<></>
+              }
           </LayoutGrid>
+
         </Container>
+
         <Container className="center">
           <Pagination
-                // size="small"
-                // itemRender={itemRender}
                 onChange={onChangePage}
                 defaultPageSize={limitDefault}
-                current={currentPage}
+                current={ currentPage || 1}
                 defaultCurrent={1}
-                total={totalList}
+                total={total || totalList }
               />
         </Container>
+
       </main>
+
       <FooterCustom></FooterCustom>
 
     </MasterPageBasic>
