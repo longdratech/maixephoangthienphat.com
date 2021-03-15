@@ -23,6 +23,10 @@ const Menu = (props) => {
         <span role="img" aria-label="Trang chủ"></span>
             Trang chủ
         </a>
+      <a onClick={() => router.push("/gioi-thieu")}>
+        <span role="img" aria-label="Giới thiệu"></span>
+            Giới thiệu
+        </a>
       <a onClick={() => router.push("/san-pham")}>
         <span role="img" aria-label="Sản phẩm"></span>
             Sản phẩm
@@ -31,14 +35,11 @@ const Menu = (props) => {
         <span role="img" aria-label="Dịch vụ"></span>
             Dịch vụ
         </a>
-      <a onClick={() => router.push("/bang-gia")}>
-        <span role="img" aria-label="Bảng giá"></span>
-            Bảng giá
+      <a onClick={() => router.push("/cong-trinh")}>
+        <span role="img" aria-label="Công trình"></span>
+          Công trình
         </a>
-      <a onClick={() => router.push("/gioi-thieu")}>
-        <span role="img" aria-label="Giới thiệu"></span>
-            Giới thiệu
-        </a>
+      
       <a onClick={() => router.push("/lien-he")}>
         <span role="img" aria-label="Liên hệ"></span>
             Liên hệ

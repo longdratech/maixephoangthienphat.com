@@ -67,9 +67,9 @@ const AdminIndex = ({ user }) => {
        
     }
 
-    useEffect(()=>{
-        setIdProduct()
-    },[])
+    // useEffect(()=>{
+    //     setIdProduct()
+    // },[])
 
     const handleRepairProduct = (id) => {
         console.log("repair ID", id);
@@ -85,7 +85,7 @@ const AdminIndex = ({ user }) => {
         console.log("Click Img", value);
     }
 
-    const handleContain = ( slug )=>{
+    const handleContainer = ( slug )=>{
 
         switch (slug) {
             case routingContent.PRODUCTS.LITS:
@@ -98,7 +98,7 @@ const AdminIndex = ({ user }) => {
                 return <Portfolios routePortfolioID={handleRepairPortfolio} ></Portfolios>
 
             case routingContent.PORTFOLIO.CREATE:
-                return <PortfoliosCreate></PortfoliosCreate>
+                return <PortfoliosCreate id={""}></PortfoliosCreate>
             
             case routingContent.IMAGES.CREATE: 
                 return <UploadImages showBtnChoose={true} handleClickOutSite={handleChooseImg}></UploadImages>
@@ -149,9 +149,8 @@ const AdminIndex = ({ user }) => {
             <div className="contentPage">
                 <Navbar handleClick={handleClickMenu}></Navbar>
                 {
-                    handleContain(slug)
+                    handleContainer(slug)
                 }
-                
             </div>
 
             <style jsx>{`
