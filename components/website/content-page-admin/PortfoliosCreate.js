@@ -81,6 +81,7 @@ export default function PortfoliosCreate({ id = null, dataSelect, closeModal }) 
 
     useEffect(() => {
         if (dataSelect) {
+            console.log("data SELECT" , dataSelect)
             initValueForm(dataSelect);
         }else{
             resetInitValueForm()
@@ -92,14 +93,13 @@ export default function PortfoliosCreate({ id = null, dataSelect, closeModal }) 
         await formRepair.setFieldsValue({ ...dataSelect });
     }
 
-
     const resetInitValueForm = async () => {
         await formRepair.resetFields();
     } 
 
     const handleSetImgToInput =  async (value) => {
         console.log(" images cloneData ==> ", value, indexImg)
-        if(dataSelect["images"]){
+        if(dataSelect && dataSelect["images"]){
             for(let key in dataSelect){
                 if(key === "images"){
                     dataSelect[key][parseInt(indexImg)]=value.url
