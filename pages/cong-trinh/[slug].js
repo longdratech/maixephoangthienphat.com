@@ -54,9 +54,14 @@ export default function PortfoliosDetail(props) {
         }
     }, []);
 
+    useEffect(()=>{
+        valueContext.getDataPortfolio(setData, props.query.slug);
+        valueContext.getDataPortfolios(setDataAll);
+    }, [props.query.slug])
+
     useEffect(() => {
         if (dataAll && data) {
-            console.log("dataAll API, ", dataAll.data);
+            // console.log("dataAll API, ", dataAll.data);
             setDataRender(findDataRender(data.id, dataAll.data))
         }
     }, [dataAll, data]);
