@@ -56,7 +56,7 @@ export default function HomeCategory(props) {
 
   const getDataProducts = async (name, page=1) =>{
     let res = await ApiCall({
-      path: `/products/?page=${page}&limit=${limitDefault}&name=${name}`
+      path: `/products/?page=${page}&limit=${limitDefault}&search=${name}`
     });
     if (res) {
         setTotal(res.totalCount)
