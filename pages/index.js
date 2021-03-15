@@ -1,49 +1,29 @@
 import CONFIG from "web.config";
 import MasterPageBasic from "components/website/master/MasterPageBasic";
 import { useRouter } from "next/router";
-import {useState, useEffect} from "react";
+import {useState, useEffect, useContext} from "react";
 import Header from "components/website/header/Header";
 import Container from "components/website/elements/Container";
 import FooterCustom from "components/website/footer/FooterCustom";
 import BannerTop from "components/website/banner/BannerTop";
-// import BannerTopStyle2 from "components/website/banner/BannerTopStyle2";
 import BannerBottom from "components/website/banner/BannerBottom";
 import TitleCopy from "components/website/title/TitleCopy";
-
 import ItemProductSmall from "components/website/items/ItemProductSmall";
 import ItemProductBig from "components/website/items/ItemProductBig";
-// import ItemProductBigStyle2 from "components/website/items/ItemProductBigStyle2";
-
+import { Spin } from 'antd';
+import { MainContent } from "components/website/contexts/MainContent";
 import ItemTextInfo from "components/website/items/ItemTextInfo";
 import LayoutGrid from "components/website/elements/LayoutGrid";
 import ApiCall from "modules/ApiCall";
-// import { Pagination } from "antd";
-
-const fetchDataBannerBottom = {
-        title: "Thi công mái hiên tại Bình Quới",
-        srcImgs : ["/images/demo/banner-bottom.jpg", "/images/demo/banner-02.jpg"],
-        description : "Thi công mái hiên di động tại Đà Nẵng Thi công mái hiên di động tại Đà Nẵng đã và đang đáp ứng nhu cầu đông đảo cho người sử dụng trên địa bàn khi muốn gia tăng diện tích",
-        price : "1.300.000 đ",
-}
-
-
 
 export default function Home(props) {
 
   const router = useRouter();
+  const valueContext = useContext(MainContent)
   const [dataBanner, setDataBanner] = useState([]);
   const [dataProducts, setDataProducts] = useState([]);
-
-  const [currentPage, setCurrentPage] = useState(1);
-
-  // const limitDefault = 10;
-  // const totalList = 200;
-
-  // const onChangePage = (page)=>{
-  //   console.log("Page : ", page);
-  //   setCurrentPage(page);
-  // }
-
+  const [dataPortfolio, setDataPortfolio] = useState();
+ 
   const getDataBanner = async() => {
     let res = await ApiCall({
       path: "/categories"
@@ -59,7 +39,6 @@ export default function Home(props) {
     });
     if (res) {
       setDataProducts(res);
-      setCurrentPage(res.page)
     }
   }
 
@@ -71,15 +50,18 @@ export default function Home(props) {
     
       getDataBanner();
       getDataProducts();
-    
+      valueContext.getDataPortfolio(setDataPortfolio, "1");
+
   }, []);
+
+  const handleRouterPortfolio = (id) => {
+    router.push(`/cong-trinh/${id}`);
+  }
 
   return (
     <MasterPageBasic hidePrevButton header="Home Page">
       <Header active="/"></Header>
       <main id="pHome">
-        
-        {/* <BannerTop></BannerTop> */}
 
         {
           dataBanner 
@@ -160,21 +142,9 @@ export default function Home(props) {
               })
               :<></>
             }
-            {/* <ItemProductBig></ItemProductBig>
-            <ItemProductSmall></ItemProductSmall> */}
           </LayoutGrid>
           
         </Container>
-
-        {/* <Container className="center">
-          <Pagination
-                onChange={onChangePage}
-                defaultPageSize={limitDefault}
-                current={currentPage}
-                defaultCurrent={1}
-                total={totalList}
-              />
-        </Container> */}
 
         <Container>
 
@@ -204,7 +174,6 @@ export default function Home(props) {
               index="03"></ItemTextInfo>
           </LayoutGrid>
           
-
         </Container>
 
         <Container>
@@ -214,9 +183,11 @@ export default function Home(props) {
             positionLine={"CENTER"}
           ></TitleCopy>
 
-          <BannerBottom
-            data={fetchDataBannerBottom}
-          ></BannerBottom>
+          {
+            dataPortfolio
+            ?   <BannerBottom handleRoute={handleRouterPortfolio} data={dataPortfolio}></BannerBottom>
+            : <Spin></Spin>
+          }
 
         </Container>
         
