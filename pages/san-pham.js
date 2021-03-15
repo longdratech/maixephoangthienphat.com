@@ -123,7 +123,7 @@ export default function Home(props) {
                   }
               })
               :<></>
-            }
+          }
         </LayoutGrid>
 
         <LayoutGrid itemBig={true}>
@@ -166,7 +166,7 @@ export default function Home(props) {
               })
               :<></>
             }
-          </LayoutGrid>
+        </LayoutGrid>
 
 
         </Container>
