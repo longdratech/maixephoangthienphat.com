@@ -19,7 +19,9 @@ const fetchData = [
     },
 ];
 
-export default function Category() {
+export default function Category({
+   
+}) {
 
     const valueContext =  useContext(MainContent);
     
@@ -153,7 +155,11 @@ export default function Category() {
                     visible={isModalVisible} 
                     onOk={handleOk} 
                     onCancel={handleCancel}>
-                    <CategoryCreate closeModal={handleCancel} id={idSelect ? idSelect : 1} dataProductSelect={dataSelect ? dataSelect : null}></CategoryCreate>
+                    <CategoryCreate 
+                        closeModal={handleCancel} 
+                        id={idSelect ? idSelect : 1} 
+                        dataProductSelect={dataSelect ? dataSelect : null}>
+                    </CategoryCreate>
                     
                 </Modal>
                 :<Modal 

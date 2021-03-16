@@ -20,7 +20,7 @@ export default function BannerBottom({
             </svg>
         </div>
         );
-      }
+    }
       
     function SamplePrevArrow(props) {
         const { className, style, onClick } = props;
@@ -43,9 +43,9 @@ export default function BannerBottom({
         dots: false,
         infinite: true,
         arrows: true,
-        speed: 1200,
-        autoplay: true,
-        autoplaySpeed: 5000,
+        speed: 500,
+        autoplay: false,
+        // autoplaySpeed: 1000,
         slidesToShow: 1,
         slidesToScroll: 1,
         fade: true,
@@ -55,7 +55,7 @@ export default function BannerBottom({
 
     const _handleRoute = (id) =>{
         if(handleRoute){
-            console.log("ID", id)
+            // console.log("ID", id)
             handleRoute(id);
         }
     }
@@ -65,28 +65,25 @@ export default function BannerBottom({
             data 
                 ? <Slider {...settings}>
                     {
-                        data.images
-                        ? data.images.map((value, index) => {
+                         data.map((value, index) => {
                             return (
-                                <div key={index} className="itemCarousel" onClick={() => _handleRoute(data.id)}>
-                                    <img src= {value} />
+                                <div key={index} className="itemCarousel" onClick={() => _handleRoute(value.id)}>
+                                    <img src= {value.images[0]} />
                                     <div className="infoItemBannerBottom">
-                                        <h4>{data.title}</h4>
+                                        <h4>{value.title}</h4>
                                         <p className="descriptionItemBannerBottom">
-                                            {data.description}
+                                            {value.description}
                                         </p>
 
                                     </div>
                                 </div>
                             )
                         })
-                        : <></>
                     }
                 </Slider>
                 : <></>
         }
         {/* <span className="priceSale">Giá sốc</span> */}
-
         
 
         <style jsx>{`
