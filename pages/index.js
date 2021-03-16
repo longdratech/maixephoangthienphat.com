@@ -22,7 +22,7 @@ export default function Home(props) {
   const valueContext = useContext(MainContent)
   const [dataBanner, setDataBanner] = useState([]);
   const [dataProducts, setDataProducts] = useState([]);
-  const [dataPortfolio, setDataPortfolio] = useState();
+  const [dataPortfolios, setDataPortfolios] = useState();
  
   const getDataBanner = async() => {
     let res = await ApiCall({
@@ -50,7 +50,7 @@ export default function Home(props) {
     
       getDataBanner();
       getDataProducts();
-      valueContext.getDataPortfolio(setDataPortfolio, "1");
+      valueContext.getDataPortfolios(setDataPortfolios);
 
   }, []);
 
@@ -184,9 +184,9 @@ export default function Home(props) {
           ></TitleCopy>
 
           {
-            dataPortfolio
-            ?   <BannerBottom handleRoute={handleRouterPortfolio} data={dataPortfolio}></BannerBottom>
-            : <Spin></Spin>
+            dataPortfolios
+            ?   <BannerBottom handleRoute={handleRouterPortfolio} data={dataPortfolios.data}></BannerBottom>
+            :   <Spin></Spin>
           }
 
         </Container>

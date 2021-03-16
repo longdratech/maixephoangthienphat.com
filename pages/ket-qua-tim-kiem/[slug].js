@@ -39,7 +39,7 @@ const fetchData = [
 ]
 
 const limitDefault = 5;
-const totalList = 10;
+const totalList = 5;
 
 import ApiCall from "modules/ApiCall";
 
@@ -70,8 +70,12 @@ export default function HomeCategory(props) {
   }, []);
 
   useEffect(()=>{
+    getDataProducts(router.query.slug);
+  },[router.query.slug])
+
+  useEffect(()=>{
       if(currentPage){
-        getDataProducts(router.query.slug, currentPage)
+        getDataProducts(router.query.slug, currentPage);
       }
   }, [currentPage])
 
