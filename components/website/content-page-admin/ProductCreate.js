@@ -175,7 +175,9 @@ export default function ProductCreate({ id = null, dataProductSelect, closeModal
                         <Input.TextArea />
                     </Form.Item>
 
-                    
+                    <Form.Item name={['specifications']} label="Thông số kỹ thuật" >
+                        <Input.TextArea />
+                    </Form.Item>
                     
                     <Form.List className="listInputImgs" name={['images']}
                         rules={[
@@ -325,6 +327,10 @@ export default function ProductCreate({ id = null, dataProductSelect, closeModal
                     </Form.Item>
 
                     <Form.Item name={['description']} label="Description">
+                        <Input.TextArea />
+                    </Form.Item>
+
+                    <Form.Item name={['specifications']} label="Thông số kỹ thuật" >
                         <Input.TextArea />
                     </Form.Item>
 
