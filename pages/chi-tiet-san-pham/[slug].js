@@ -11,9 +11,11 @@ import LayoutGrid from "components/website/elements/LayoutGrid";
 
 import {useContext, useEffect, useState, } from "react";
 import { MainContent } from "components/website/contexts/MainContent";
-import { Spin } from 'antd';
+import { Spin, Tabs } from 'antd';
 import TitleCopy from "components/website/title/TitleCopy";
 import ItemProductSmall from "components/website/items/ItemProductSmall";
+
+const { TabPane } = Tabs;
 
 const fetchData = [
     {
@@ -73,7 +75,9 @@ export default function ProductDetail(props) {
         valueContext.getDataProducts(setDataAll);
     }, [props.query.slug]);
 
-    
+    function callback(key) {
+        console.log(key);
+      }
 
     return (
         <MasterPageBasic hidePrevButton pageName="Chi tiết sản phẩm">
@@ -97,6 +101,43 @@ export default function ProductDetail(props) {
                     </LayoutGrid>
 
                     
+                </Container>
+
+                <Container className="ContentInfoProduct">
+                    <Tabs defaultActiveKey="1" onChange={callback}>
+                        <TabPane tab={"Mô tả"} key="1">
+                            <div className="Description tabsContentInfoProduct">
+                                {
+                                    data && data.description
+                                    ? data.description
+                                    : "Chưa có thông tin" 
+                                }
+                            </div>
+                        </TabPane>
+                        <TabPane tab="Thông số kỹ thuật" key="2">
+                            <div className="Specifications tabsContentInfoProduct">
+                                {
+                                    data && data.specifications
+                                    ? data.specifications
+                                    : "Chưa có thông tin" 
+                                }
+                            </div>
+                        </TabPane>
+                        <TabPane tab="Hình ảnh thực tế" key="3">
+                            <div className="tabsContentInfoProduct">
+                            {
+                                data && data.images
+                                ? data.images.map((value)=>{
+                                    return <div className="contentImages">
+                                        <img src={value}/>
+                                    </div> 
+                                })
+                                : "Chưa có thông tin" 
+                            }
+                            </div>
+                            
+                        </TabPane>
+                    </Tabs>
                 </Container>
 
                 <Container>
