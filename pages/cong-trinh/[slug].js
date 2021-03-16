@@ -61,7 +61,6 @@ export default function PortfoliosDetail(props) {
 
     useEffect(() => {
         if (dataAll && data) {
-            // console.log("dataAll API, ", dataAll.data);
             setDataRender(findDataRender(data.id, dataAll.data))
         }
     }, [dataAll, data]);
@@ -71,8 +70,8 @@ export default function PortfoliosDetail(props) {
     }
 
     const findDataRender = (id, list) => {
-        return list.find((value, index) => {
-            if (value.id != id) return value;
+        return list.filter((value, index) => {
+            return value.id != id;
         })
     }
 

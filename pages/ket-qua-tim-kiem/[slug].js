@@ -39,7 +39,7 @@ const fetchData = [
 ]
 
 const limitDefault = 5;
-const totalList = 10;
+const totalList = 5;
 
 import ApiCall from "modules/ApiCall";
 
@@ -70,8 +70,12 @@ export default function HomeCategory(props) {
   }, []);
 
   useEffect(()=>{
+    getDataProducts(router.query.slug);
+  },[router.query.slug])
+
+  useEffect(()=>{
       if(currentPage){
-        getDataProducts(router.query.slug, currentPage)
+        getDataProducts(router.query.slug, currentPage);
       }
   }, [currentPage])
 
@@ -85,16 +89,15 @@ export default function HomeCategory(props) {
         <Container>
 
           <LayoutGrid paddingTop={50} paddingBottom={50}>
-
             {
-              dataProducts.data 
+              dataProducts.data && dataProducts.data.length !== 0 
               ? dataProducts.data.map((data, index)=>{
                 return <ItemProductSmall
                     key={index}
                     dataAPI={data}
                 ></ItemProductSmall>
               })
-              :<></>
+              :<p style={{textAlign:"center", width:"100%"}}>Không tìm thấy sản phẩm phù hợp</p>
             }
           </LayoutGrid>
           

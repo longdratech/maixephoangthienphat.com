@@ -15,6 +15,7 @@ export default function ItemPortfolios({
    
     dataAPI,
     handleClick,
+
 }){
 
     const router = useRouter();
@@ -39,7 +40,7 @@ export default function ItemPortfolios({
             </svg>
         </div>
         );
-      }
+    }
       
     function SamplePrevArrow(props) {
         const { className, style, onClick } = props;
@@ -113,7 +114,6 @@ export default function ItemPortfolios({
         </div>
 
         
-       
         <style jsx>{` 
             .priceSale{
                 position: absolute;

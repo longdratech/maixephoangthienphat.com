@@ -5,7 +5,8 @@ import { useState, useEffect, useContext, useRef } from "react";
 import { MainContent } from "components/website/contexts/MainContent";
 import Link from "next/link";
 import UploadImages from "components/website/content-page-admin/UploadImages";
-import { from } from "bl";
+// import { from } from "bl";
+import Loading from "components/website/loading/Loading";
 
 /* eslint-disable no-template-curly-in-string */
 const validateMessages = {
@@ -25,7 +26,7 @@ const layout = {
 };
 
 
-export default function CategoryCreate({ id = null, dataProductSelect, closeModal }) {
+export default function CategoryCreate({ id = null, dataProductSelect, closeModal, onLoading, offLoading }) {
 
     const valueContext = useContext(MainContent);
     // const [data, setData] = useState(null);
@@ -38,13 +39,16 @@ export default function CategoryCreate({ id = null, dataProductSelect, closeModa
         // await valueContext.postDataProduct(success, values);
         if (closeModal) {
             closeModal();
+            await valueContext.setStatusLoading(false)
         }
     };
 
     const onFinishHadID = async (values) => {
+        await valueContext.setStatusLoading(true);
         await valueContext.patchDataCategories(success, id, values);
         if (closeModal) {
             closeModal();
+            await valueContext.setStatusLoading(false)
         }
     };
 
@@ -156,6 +160,7 @@ export default function CategoryCreate({ id = null, dataProductSelect, closeModa
                     onCancel={handleCancelModal}>
                     <UploadImages handleClickOutSite={handleSetImgToInput} handleCloseModal={handleCancelModal} showBtnChoose={true}></UploadImages>
                 </Modal>
+                <Loading status={valueContext.statusLoading}></Loading>
             </div>
             <style jsx>{`
                 .contentProductAdmin{
@@ -233,6 +238,7 @@ export default function CategoryCreate({ id = null, dataProductSelect, closeModa
                     visible={isModalVisible} onOk={handleOk} onCancel={handleCancelModal}>
                     <UploadImages ></UploadImages>
                 </Modal>
+                <Loading status={valueContext.statusLoading}></Loading>
             </div>
             <style jsx>{`
                 .contentProductAdmin{

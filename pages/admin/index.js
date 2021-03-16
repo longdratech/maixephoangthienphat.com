@@ -53,15 +53,12 @@ const AdminIndex = ({ user }) => {
     const [title, setTitle] = useState("Dashboard");
     const [slug, setSlug] = useState("profile");
     const [idProduct , setIdProduct] = useState()
-    
 
     const handleClickMenu = (e) => {
         // console.log("DATA CLICK : ", e);
         // console.log("SLUG : ", e.item.props.value);
         if(e){
             e.item.props.title ?  setTitle(e.item.props.title) : setTitle("Dashboard");
-        }
-        if(e){
             e.item.props.value ?  setSlug(e.item.props.value) : setSlug("profile");
         }
        
@@ -104,13 +101,13 @@ const AdminIndex = ({ user }) => {
                 return <UploadImages showBtnChoose={true} handleClickOutSite={handleChooseImg}></UploadImages>
 
             case routingContent.CATEGORIES.LITS:
-                return <Category></Category>
+                return <Category ></Category>
 
             case routingContent.CATEGORIES.CREATE:
                 return <CategoryCreate id={null}></CategoryCreate>
 
             case routingContent.SOCIALS.CREATE:
-                return <SocialsCreate></SocialsCreate>
+                return <SocialsCreate ></SocialsCreate>
 
             case routingContent.SOCIALS.LITS:
                 return <Socials></Socials>
@@ -125,7 +122,7 @@ const AdminIndex = ({ user }) => {
         if(valueContext.token || localStorage.getItem("token")){}
         else{router.push("/admin/login")}
 
-    }, [valueContext.token])
+    }, [valueContext.token]);
     
     const header = (
         <PageHeader pretitle="admin" title={title} separator={true}>
@@ -144,7 +141,7 @@ const AdminIndex = ({ user }) => {
         </PageHeader>
     );
    
-    return <LayoutPage header={header} user={user} token={valueContext.token}>
+    return <LayoutPage header={header} user={user} token={valueContext.token} >
            
             <div className="contentPage">
                 <Navbar handleClick={handleClickMenu}></Navbar>
@@ -159,10 +156,8 @@ const AdminIndex = ({ user }) => {
                     width: 100%;
                 }
             `}</style>
-
+           
     </LayoutPage>;
 };
 
 export default AdminIndex;
-
-// export default withAuth(AdminIndex);
