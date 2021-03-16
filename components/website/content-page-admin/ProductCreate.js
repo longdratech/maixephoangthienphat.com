@@ -5,6 +5,7 @@ import { useState, useEffect, useContext, useRef } from "react";
 import { MainContent } from "components/website/contexts/MainContent";
 import Link from "next/link";
 import UploadImages from "components/website/content-page-admin/UploadImages";
+import Loading from "components/website/loading/Loading";
 
 /* eslint-disable no-template-curly-in-string */
 const validateMessages = {
@@ -37,16 +38,20 @@ export default function ProductCreate({ id = null, dataProductSelect, closeModal
     const [listImgs, setListImgs] = useState(); // get list img in form 
 
     const onFinish = async (values) => {
+        await valueContext.setStatusLoading(true)
         await valueContext.postDataProduct(success, values);
         if (closeModal) {
             closeModal();
+            await valueContext.setStatusLoading(false)
         }
     };
 
     const onFinishHadID = async (values) => {
+        await valueContext.setStatusLoading(true)
         await valueContext.patchDataProduct(success, id, values);
         if (closeModal) {
             closeModal();
+            await valueContext.setStatusLoading(false)
         }
     };
 
@@ -258,7 +263,7 @@ export default function ProductCreate({ id = null, dataProductSelect, closeModal
 
                     <UploadImages handleClickOutSite={handleSetImgToInput} handleCloseModal={handleCancelModal} showBtnChoose={true}></UploadImages>
                 </Modal>
-
+                <Loading status={valueContext.statusLoading}></Loading>    
             </div>
             <style jsx>{`
                 .contentProductAdmin{
@@ -403,6 +408,7 @@ export default function ProductCreate({ id = null, dataProductSelect, closeModal
                     <h2>Tạo mới</h2>
                     <UploadImages handleClickOutSite={handleSetImgToInput} handleCloseModal={handleCancelModal} showBtnChoose={true} ></UploadImages>
                 </Modal>
+                <Loading status={valueContext.statusLoading}></Loading>    
             </div>
             <style jsx>{`
                 .contentProductAdmin{

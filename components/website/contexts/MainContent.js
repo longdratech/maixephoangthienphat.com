@@ -10,6 +10,7 @@ export default function MainContentProvider( {children}){
     const [dataUser, setDataUser] =  useState();
     const [token, setToken] =  useState();
     const router =  useRouter();
+    const [statusLoading, setStatusLoading] = useState(false);
 
     useEffect(()=>{
         if(localStorage){
@@ -250,7 +251,6 @@ export default function MainContentProvider( {children}){
     }
     //
 
-
     const getDataImages = async (FunctionnCb) =>{
         let res = await ApiCall({
           path: `/photos?page=1&limit=50`
@@ -277,6 +277,9 @@ export default function MainContentProvider( {children}){
 
                 dataUser : dataUser,
                 token: token,
+
+                statusLoading: statusLoading,
+                setStatusLoading: setStatusLoading,
 
                 setDataUser : setDataUser,
                 setToken: setToken,

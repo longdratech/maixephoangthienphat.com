@@ -89,16 +89,15 @@ export default function HomeCategory(props) {
         <Container>
 
           <LayoutGrid paddingTop={50} paddingBottom={50}>
-
             {
-              dataProducts.data 
+              dataProducts.data && dataProducts.data.length !== 0 
               ? dataProducts.data.map((data, index)=>{
                 return <ItemProductSmall
                     key={index}
                     dataAPI={data}
                 ></ItemProductSmall>
               })
-              :<></>
+              :<p style={{textAlign:"center", width:"100%"}}>Không tìm thấy sản phẩm phù hợp</p>
             }
           </LayoutGrid>
           
