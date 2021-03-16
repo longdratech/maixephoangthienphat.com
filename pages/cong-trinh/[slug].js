@@ -76,17 +76,19 @@ export default function PortfoliosDetail(props) {
     }
 
     return (
-        <MasterPageBasic hidePrevButton pageName="Chi tiết sản phẩm">
-            <Header active="san-pham"></Header>
+        <MasterPageBasic hidePrevButton pageName="Chi tiết công trình">
+            <Header active="cong-trinh"></Header>
             <main id="pProductDetail">
                 <BannerTopStyle2 data={fetchData}></BannerTopStyle2>
                 <Container>
                     <LayoutGrid column={1} paddingTop={80}>
+
                         {
                             data
                                 ? <ItemPortfolios dataAPI={data}></ItemPortfolios>
                                 : <Spin></Spin>
                         }
+
                     </LayoutGrid>
                 </Container>
                 <Container>
@@ -101,6 +103,7 @@ export default function PortfoliosDetail(props) {
                             ? <BannerBottom handleRoute={handleRouterPortfolio} data={dataRender}></BannerBottom>
                             : <Spin></Spin>
                     }
+
                 </Container>
             </main>
             <FooterCustom></FooterCustom>
