@@ -18,7 +18,7 @@ import BannerBottom from "components/website/banner/BannerBottom";
 
 const fetchData = [
     {
-        title: "Mái che di động",
+        title: "Công trình",
         srcImg: "/images/demo/banner-top-style-2.jpg",
         description: "Mái che  di động, nắng mưa nay đã không còn là nỗi lo."
     }
@@ -80,8 +80,27 @@ export default function PortfoliosDetail(props) {
             <Header active="cong-trinh"></Header>
             <main id="pProductDetail">
                 <BannerTopStyle2 data={fetchData}></BannerTopStyle2>
-                <Container>
-                    <LayoutGrid column={1} paddingTop={80}>
+                <Container className="containerPortfoliosDetail">
+                    {
+                        data && data.title 
+                        ? <div className="contentPortfoliosDetail">
+                            <h2>{data.title}</h2>
+                            <p>{data.content}</p>
+                            <div className="contentImages"></div>
+                            <img src={data.images[0]}/>
+                            <p>{data.description}</p>
+                            <p className="link">
+                                <a href={data.link} target="_blank">Link sản phẩm >></a>
+                            </p>
+                        </div>
+                        :<>Chưa có thông tin về công trình này</>
+                    }
+
+                    <h3>
+
+                    </h3>
+
+                    {/* <LayoutGrid column={1} paddingTop={80}>
 
                         {
                             data
@@ -89,7 +108,7 @@ export default function PortfoliosDetail(props) {
                                 : <Spin></Spin>
                         }
 
-                    </LayoutGrid>
+                    </LayoutGrid> */}
                 </Container>
                 <Container>
 
