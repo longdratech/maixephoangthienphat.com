@@ -117,7 +117,7 @@ export default function Home(props) {
                       return <ItemProductSmall handleClick={()=>handleClickProduct(data.id)}
                         key={index}
                         dataAPI={data}></ItemProductSmall>
-                   
+                        
                   }else{
                     return <></>
                   }
