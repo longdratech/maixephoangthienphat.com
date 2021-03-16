@@ -277,3 +277,53 @@ body {
     width: 38%;
   }
 }
+.container.ContentInfoProduct{
+
+  padding-top: 50px !important;
+  padding-bottom: 50px !important;
+
+  .ant-tabs-tab .ant-tabs-tab-btn{
+    font-size: 1.2vw;
+  }
+
+  .ant-tabs-tab{
+    background-color: #f0f0f0;
+    padding: 10px 15px;
+    border: 1px solid #f0f0f0;
+    margin-right: 5px;
+    font-weight: bold;
+  }
+
+  .ant-tabs-tab-active{
+    background-color: #fff;
+   
+  }
+
+  .contentImages{
+    width: 80%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    border: solid 1px #888;
+    border-radius: 5px;
+    overflow: hidden;
+  }
+
+  .tabsContentInfoProduct{
+    border: 1px solid #f0f0f0;
+    padding: 50px;
+    margin-top: -18px;
+  }
+
+}
+
+@media only screen and (max-width: 768px){
+  .container.ContentInfoProduct{
+
+    .ant-tabs-tab .ant-tabs-tab-btn{
+      font-size: 2.5vw;
+    }
+
+  }
+}
