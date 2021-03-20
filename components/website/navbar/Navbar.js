@@ -5,7 +5,8 @@ import {
     AreaChartOutlined, 
     FacebookOutlined, 
     OrderedListOutlined,
-    BankOutlined
+    BankOutlined,
+    KeyOutlined
 } from '@ant-design/icons';
 
 const { SubMenu } = Menu;
@@ -52,6 +53,7 @@ const Sider = ({
 
             <Menu.Item title="Hình ảnh upload" value="image-create" icon={<AreaChartOutlined />} key="7">Tải ảnh lên</Menu.Item>
 
+            <Menu.Item title="Đổi mật khẩu" value="change-password" icon={<KeyOutlined />} key="9">Đổi mật khẩu</Menu.Item>
         </Menu>
     );
 
