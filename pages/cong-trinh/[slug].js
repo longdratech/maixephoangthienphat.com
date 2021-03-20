@@ -15,6 +15,7 @@ import { Spin } from 'antd';
 
 import TitleCopy from "components/website/title/TitleCopy";
 import BannerBottom from "components/website/banner/BannerBottom";
+import Loading from "components/website/loading/Loading";
 
 const fetchData = [
     {
@@ -46,6 +47,7 @@ export default function PortfoliosDetail(props) {
     const [data, setData] = useState();
     const [dataAll, setDataAll] = useState();
     const [dataRender, setDataRender] = useState();
+    const [statusLoading, setStatusLoading] = useState(true);
 
     useEffect(() => {
         if (valueContext) {
@@ -61,7 +63,8 @@ export default function PortfoliosDetail(props) {
 
     useEffect(() => {
         if (dataAll && data) {
-            setDataRender(findDataRender(data.id, dataAll.data))
+            setDataRender(findDataRender(data.id, dataAll.data));
+            setStatusLoading(false);
         }
     }, [dataAll, data]);
 
@@ -126,6 +129,7 @@ export default function PortfoliosDetail(props) {
                 </Container>
             </main>
             <FooterCustom></FooterCustom>
+            <Loading status={statusLoading}></Loading>
         </MasterPageBasic>
     );
 }

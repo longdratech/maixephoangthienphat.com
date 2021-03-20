@@ -10,6 +10,8 @@ import Container from "components/website/elements/Container";
 import BannerTopStyle2 from "components/website/banner/BannerTopStyle2";
 import ItemServices from "components/website/items/ItemServices";
 import LayoutGrid from "components/website/elements/LayoutGrid";
+import Loading from "components/website/loading/Loading";
+import {useState, useEffect} from "react";
 
 const fetchData = [
   {
@@ -44,6 +46,12 @@ const fetchServices = [
 
 export default function Home(props) {
   // const router = useRouter();
+  const [statusLoading, setStatusLoading] = useState(false);
+  useEffect(() => {
+      if(fetchServices){
+        setStatusLoading(false)
+      }
+  }, []);
 
   return (
     <MasterPageBasic hidePrevButton pageName="Dịch vụ">
@@ -71,7 +79,7 @@ export default function Home(props) {
       </main>
      
       <FooterCustom></FooterCustom>
-      
+      <Loading status={statusLoading}></Loading>
     </MasterPageBasic>
   );
 }

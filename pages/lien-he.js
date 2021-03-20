@@ -7,6 +7,8 @@ import FooterCustom from "components/website/footer/FooterCustom";
 import Container from "components/website/elements/Container";
 import BannerTopStyle2 from "components/website/banner/BannerTopStyle2";
 import TitleCopy from "components/website/title/TitleCopy";
+import Loading from "components/website/loading/Loading";
+import {useState, useEffect} from "react";
 
 const fetchData = [
   {
@@ -18,6 +20,15 @@ const fetchData = [
 
 export default function Home(props) {
   // const router = useRouter();
+  const [statusLoading, setStatusLoading] = useState(true);
+
+  useEffect(()=>{
+    if(fetchData){
+      setTimeout(()=>{
+        setStatusLoading(false)
+      }, 300);
+    }
+  },[fetchData]);
 
   return (
     <MasterPageBasic hidePrevButton pageName="Liên hệ">
@@ -52,7 +63,7 @@ export default function Home(props) {
       </main>
 
       <FooterCustom></FooterCustom>
-      
+      <Loading status={statusLoading}></Loading>
     </MasterPageBasic>
   );
 }

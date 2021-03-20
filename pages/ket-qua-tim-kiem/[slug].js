@@ -12,7 +12,8 @@ import ItemProductBig from "components/website/items/ItemProductBig";
 import LayoutGrid from "components/website/elements/LayoutGrid";
 
 import { Pagination } from "antd";
-
+import Loading from "components/website/loading/Loading";
+import ApiCall from "modules/ApiCall";
 
 export async function getServerSideProps(context) {
   
@@ -41,7 +42,7 @@ const fetchData = [
 const limitDefault = 5;
 const totalList = 5;
 
-import ApiCall from "modules/ApiCall";
+
 
 export default function HomeCategory(props) {
 
@@ -49,6 +50,7 @@ export default function HomeCategory(props) {
   const [dataProducts, setDataProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState();
   const [total, setTotal] = useState();
+  const [statusLoading, setStatusLoading] = useState(true);
 
   const onChangePage = (page)=>{
     setCurrentPage(page);
@@ -62,7 +64,14 @@ export default function HomeCategory(props) {
         setTotal(res.totalCount)
         setDataProducts(res);
         setCurrentPage(res.page);
+        setStatusLoading(false);
     }
+  }
+
+  const handleClickProduct = (id) => {
+
+    router.push(`/chi-tiet-san-pham/${id}`);
+
   }
 
   useEffect(()=>{
@@ -95,6 +104,7 @@ export default function HomeCategory(props) {
                 return <ItemProductSmall
                     key={index}
                     dataAPI={data}
+                    handleClick={()=>handleClickProduct(data.id)}
                 ></ItemProductSmall>
               })
               :<p style={{textAlign:"center", width:"100%"}}>Không tìm thấy sản phẩm phù hợp</p>
@@ -115,6 +125,8 @@ export default function HomeCategory(props) {
       </main>
 
       <FooterCustom></FooterCustom>
+
+      <Loading status={statusLoading}></Loading>
 
     </MasterPageBasic>
   );

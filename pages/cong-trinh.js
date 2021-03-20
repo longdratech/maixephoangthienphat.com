@@ -11,7 +11,7 @@ import { useState, useEffect } from "react";
 import ItemPortfolios from "components/website/items/ItemPortfolios";
 import { useRouter } from "next/router";
 import ApiCall from "modules/ApiCall";
-
+import Loading from "components/website/loading/Loading";
 
 const fetchData = [
   {
@@ -31,6 +31,7 @@ export default function Home(props) {
   const [currentPage, setCurrentPage] = useState();
   const [total, setTotal] = useState();
   const [dataPortfolios, setDataPortfolios] = useState([]);
+  const [statusLoading, setStatusLoading] = useState(true);
 
   const onChangePage = (page)=>{
     setCurrentPage(page);
@@ -49,7 +50,8 @@ export default function Home(props) {
     if (res) {
       setDataPortfolios(res);
       setCurrentPage(res.page)
-      setTotal(res.totalCount)
+      setTotal(res.totalCount);
+      setStatusLoading(false);
     }
   }
 
@@ -63,7 +65,13 @@ export default function Home(props) {
     if(currentPage){
       getDataPortfolios(currentPage);
     }
-}, [currentPage])
+}, [currentPage]);
+
+// useEffect(()=>{
+//   if(dataPortfolios){
+    
+//   }
+// }, [dataPortfolios])
 
 
 
@@ -105,7 +113,7 @@ export default function Home(props) {
       </main>
 
       <FooterCustom></FooterCustom>
-
+      <Loading status={statusLoading}></Loading>
     </MasterPageBasic>
   );
 }
