@@ -128,7 +128,11 @@ export default function FooterCustom() {
           <h5>KMASoft</h5>
         </a>
       </div>
+     
     </Container>
+    <div class="zalo-chat-widget" data-oaid="579745863508352884" data-welcome-message="Rất vui khi được hỗ trợ bạn!" data-autopopup="3" data-width="350" data-height="420"></div>
+
+    <script src="https://sp.zalo.me/plugins/sdk.js"></script>
 
     <style jsx>{`
       footer{
