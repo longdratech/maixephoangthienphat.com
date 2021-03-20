@@ -30,7 +30,10 @@ const fb =`<!-- Load Facebook SDK for JavaScript -->
 theme_color="#08093f"
 logged_in_greeting="Hi! How can we help you?"
 logged_out_greeting="Hi! How can we help you?">
-</div>`
+</div>
+<div class="zalo-chat-widget" data-oaid="579745863508352884" data-welcome-message="Rất vui khi được hỗ trợ bạn!" data-autopopup="0" data-width="350" data-height="420"></div>
+<script src="https://sp.zalo.me/plugins/sdk.js"></script>
+`
 export default function Header({active}){
 
     const { scrollX, scrollY, scrollDirection } = useScroll();
