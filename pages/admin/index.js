@@ -15,6 +15,7 @@ import Portfolios from "components/website/content-page-admin/Portfolios";
 import PortfoliosCreate from "components/website/content-page-admin/PortfoliosCreate";
 import Socials from "components/website/content-page-admin/Socials";
 import SocialsCreate from "components/website/content-page-admin/SocialsCreate";
+import ChangePassword from "components/website/content-page-admin/ChangePassword";
 
 const routingContent = {
 
@@ -43,6 +44,9 @@ const routingContent = {
         CREATE : "socials-create",
         LITS : "socials-list",
     },
+    PASSWORD: {
+        CHANGE : "change-password",
+    }
 
 }
 
@@ -111,7 +115,9 @@ const AdminIndex = ({ user }) => {
 
             case routingContent.SOCIALS.LITS:
                 return <Socials></Socials>
-
+            
+            case routingContent.PASSWORD.CHANGE:
+                    return <ChangePassword></ChangePassword>
             default:
                 return <></>;
         }

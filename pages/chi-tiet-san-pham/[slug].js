@@ -56,52 +56,48 @@ export default function ProductDetail(props) {
 
     const [currentPage, setCurrentPage] = useState();
     const [total, setTotal] = useState();
-    const [dataBanner, setDataBanner] = useState([]);
 
     const handleRouter = (id) => {
         router.push(`/chi-tiet-san-pham/${id}`);
     }
 
     const filterDataRender = (id, list) => {
-        return list.filter((value, index) => {
-            return value.id !== id;
-        })
+        const newListRender = []
+        list.filter((_value, index) => {
+            if(_value.id !== id){
+                newListRender.push(_value);
+            }
+        });
+        console.log("List Render: ", newListRender)
+        return newListRender;
     }
 
-    useEffect(() => {
-        if(valueContext){
-            valueContext.getDataProduct(setData, props.query.slug);
-        }
-    }, []);
+    // useEffect(() => {
+    //     if(valueContext){
+    //         valueContext.getDataProduct(setData, props.query.slug);
+    //     }
+    // }, []);
 
     const getDataProducts = async (name, page=1) =>{
         let res = await ApiCall({
           path: `/products/?page=${page}&limit=${limitDefault}&category=${name}`
         });
         if (res) {
-            console.log("ress ", res);
+            console.log("ress all", res);
             setTotal(res.totalCount)
             setDataAll(res);
             setCurrentPage(res.page);
         }
     }
-    const getDataBanner = async(id) => {
-        let res = await ApiCall({
-          path: `/categories/${id}`
-        });
-        if (res) {
-          setDataBanner([...dataBanner, res]);
-        }
-    }
 
     const onChangePage = (page)=>{
+        setStatusLoading(true)
         setCurrentPage(page);
     }
 
     useEffect(()=>{
         
         if(dataAll && data){
-            console.log("data API, " , data);
             setDataRender(filterDataRender(data.id, dataAll.data));
             setStatusLoading(false);
         }
@@ -114,6 +110,13 @@ export default function ProductDetail(props) {
         valueContext.getDataProduct(setData, props.query.slug);
         setStatusLoading(true);
     }, [props.query.slug]);
+
+
+    useEffect(()=>{
+        if(currentPage){
+            getDataProducts(data.category, currentPage);
+        }
+    }, [currentPage])
 
     function callback(key) {
         console.log(key);
@@ -174,8 +177,8 @@ export default function ProductDetail(props) {
                             <div className="tabsContentInfoProduct">
                             {
                                 data && data.images
-                                ? data.images.map((value)=>{
-                                    return <div className="contentImages">
+                                ? data.images.map((value, index)=>{
+                                    return <div key={index} className="contentImages">
                                         <img src={value}/>
                                     </div> 
                                 })
@@ -199,8 +202,8 @@ export default function ProductDetail(props) {
                 <Container>
                     <LayoutGrid column={3}>
                         {
-                            dataRender && dataRender.length !== 0
-                            ? dataRender.map((data, index)=>{
+                            dataAll && dataAll.data.length !== 0
+                            ? dataAll.data.map((data, index)=>{
                                 
                                     return <ItemProductSmall handleClick={()=>handleRouter(data.id)}
                                     key={index}
@@ -218,7 +221,7 @@ export default function ProductDetail(props) {
                             defaultPageSize={limitDefault}
                             current={currentPage || 1}
                             defaultCurrent={1}
-                            total={total ||totalList }
+                            total={total || 1 }
                         />
                 </Container>
             </main>
