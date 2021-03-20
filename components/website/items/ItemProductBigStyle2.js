@@ -74,7 +74,7 @@ export default function ItemProductBigStyle2({
         prevArrow: <SamplePrevArrow />
     };
 
-    return <div className="itemProductBigStyle2">
+    return <div className="itemProductBigStyle2" onClick={handleClickTitle}>
         {
             dataAPI 
             ?  <Slider {...settings}>
@@ -82,7 +82,7 @@ export default function ItemProductBigStyle2({
                         dataAPI.images.map((value, index) => {
                             // console.log(value)
                             return (
-                                <div key={index} className="itemCarousel">
+                                <div key={index} className="itemCarousel"  onClick={handleClickTitle}>
                                     <img src= {value} />
                                 </div>
                             )
@@ -102,9 +102,9 @@ export default function ItemProductBigStyle2({
             </Slider>
         }
        
-        <div className="infoItemProductBigStyle2">
+        <div className="infoItemProductBigStyle2"  onClick={handleClickTitle}>
 
-            <h4 onClick={handleClickTitle}>{dataAPI ?  dataAPI.title :fetchData.title}</h4>
+            <h4>{dataAPI ?  dataAPI.title :fetchData.title}</h4>
 
             <p className="priceItemProductBigStyle2">
                 {`Giá: `} <span>{dataAPI ?  dataAPI.price+"đ": fetchData.price}</span>

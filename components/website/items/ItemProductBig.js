@@ -78,7 +78,7 @@ export default function ItemProductBig({
         prevArrow: <SamplePrevArrow />
     };
 
-    return <div className="itemProductBig">
+    return <div className="itemProductBig" >
         {
             dataAPI 
             ?  <Slider {...settings}>
@@ -86,7 +86,7 @@ export default function ItemProductBig({
                         dataAPI.images.map((value, index) => {
                             // console.log(value)
                             return (
-                                <div key={index} className="itemCarousel">
+                                <div key={index} className="itemCarousel" onClick={handleClickTitle}>
                                     <img src= {value} />
                                 </div>
                             )
@@ -97,7 +97,7 @@ export default function ItemProductBig({
                     {
                         fetchData.srcImgs.map((value, index) => {
                             return (
-                                <div key={index} className="itemCarousel">
+                                <div key={index} className="itemCarousel"onClick={handleClickTitle}>
                                     <img src= {asset(value)} />
                                 </div>
                             )
@@ -106,9 +106,9 @@ export default function ItemProductBig({
                 </Slider>
         }
         {dataAPI && dataAPI.isHotDeal == true ?  <span className="priceSale">Giá sốc</span> : <></>}
-        <div className="infoItemProductBig">
+        <div className="infoItemProductBig" onClick={handleClickTitle}>
 
-            <h4 onClick={handleClickTitle}>{dataAPI ?  dataAPI.title :fetchData.title} </h4>
+            <h4 >{dataAPI ?  dataAPI.title :fetchData.title} </h4>
             <span>{dataAPI ?  dataAPI.price+"đ": fetchData.price}</span>
             <p>
                 Bảo hành: { dataAPI ?  dataAPI.guarantee +" tháng" : `12 tháng`} 

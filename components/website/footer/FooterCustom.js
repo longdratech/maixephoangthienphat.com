@@ -107,8 +107,8 @@ export default function FooterCustom() {
           </div>
           <div className="itemInfo">
             <h4>Liên kết</h4>
-            <p><a href="https://www.maixephoangthienphat.com" target="_blank">www.maixephoangthienphat.com</a></p>
-            <p><a href="https://www.maixephoangthienphat.net" target="_blank">www.maixephoangthienphat.net</a></p>
+            <p><a href="https://www.maixephoangthien.com" target="_blank">www.maixephoangthien.com</a></p>
+            <p><a href="https://www.maixepbinhduong.net" target="_blank">www.maixepbinhduong.net</a></p>
 
           </div>
           <div className="itemInfo">
