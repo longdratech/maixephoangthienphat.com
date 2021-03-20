@@ -21,7 +21,7 @@ export default function FooterCustom() {
       <a href="tel:0879200700" className="icon-call">
         <img src={asset("/images/icon-phone-call.png")} />
         <h5 className="text">
-          <b>087.920.0700</b>
+          <b>0879.200.700</b>
         </h5>
       </a>
       <div className="contentFooter">
@@ -266,7 +266,7 @@ export default function FooterCustom() {
         }
         cursor: pointer;
         position: fixed;
-        bottom: 120px;
+        bottom: 30px;
         /* left: 32px; */
         left: 25px;
         width: 50px;

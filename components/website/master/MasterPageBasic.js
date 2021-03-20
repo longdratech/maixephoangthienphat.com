@@ -28,7 +28,7 @@ const fb =`<!-- Load Facebook SDK for JavaScript -->
 <div class="fb-customerchat"
   attribution="setup_tool"
   page_id="118299907006711"
-theme_color="#08093f"
+theme_color="#008fe5"
 logged_in_greeting="Hi! How can we help you?"
 logged_out_greeting="Hi! How can we help you?">
 </div>
@@ -64,7 +64,9 @@ const BlankMasterPage = ({ pageName, children }) => {
 
         <link href={asset("/dashkit/fonts/cerebrisans/cerebrisans.css")} rel="stylesheet" />
         <script src="https://sp.zalo.me/plugins/sdk.js"></script>
-        <div class="zalo-chat-widget" data-oaid="579745863508352884" data-welcome-message="Rất vui khi được hỗ trợ bạn!" data-autopopup="0" data-width="350" data-height="420"></div>
+        <div style={{bottom:"50px !important"}} class="zalo-chat-widget" data-oaid="579745863508352884" 
+        data-welcome-message="Rất vui khi được hỗ trợ bạn!" 
+        data-autopopup="0" data-width="350" data-height="420"></div>
         {
           renderHTML(fb)
         }
