@@ -9,6 +9,8 @@ import FooterCustom from "components/website/footer/FooterCustom";
 import BannerTopStyle2 from "components/website/banner/BannerTopStyle2";
 import TitleCopy from "components/website/title/TitleCopy";
 import asset from "plugins/assets/asset";
+import {useState, useEffect} from "react";
+import Loading from "components/website/loading/Loading";
 
 const fetchData = [
   {
@@ -20,7 +22,13 @@ const fetchData = [
 
 export default function Introduce(props) {
   // const router = useRouter();
-  
+  const [statusLoading, setStatusLoading] = useState(false);
+  useEffect(() => {
+      if(fetchData){
+        setStatusLoading(false)
+      }
+  }, []);
+
   return (
     <MasterPageBasic hidePrevButton pageName="Giới thiệu">
       <Header active="gioi-thieu"></Header>
@@ -79,7 +87,7 @@ export default function Introduce(props) {
 
       <FooterCustom></FooterCustom>
      
-      
+      <Loading status={statusLoading}></Loading>
     </MasterPageBasic>
   );
 }

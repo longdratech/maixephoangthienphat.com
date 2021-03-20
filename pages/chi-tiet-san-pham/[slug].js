@@ -14,6 +14,7 @@ import { MainContent } from "components/website/contexts/MainContent";
 import { Spin, Tabs } from 'antd';
 import TitleCopy from "components/website/title/TitleCopy";
 import ItemProductSmall from "components/website/items/ItemProductSmall";
+import Loading from "components/website/loading/Loading";
 
 const { TabPane } = Tabs;
 
@@ -39,6 +40,7 @@ export async function getServerSideProps(context) {
         },
       };
 }
+
 export default function ProductDetail(props) {
 
     const router = useRouter();
@@ -46,6 +48,7 @@ export default function ProductDetail(props) {
     const [data, setData] = useState();
     const [dataAll, setDataAll] = useState();
     const [dataRender, setDataRender] = useState();
+    const [statusLoading, setStatusLoading] = useState(true);
 
     const handleRouter = (id) => {
         router.push(`/chi-tiet-san-pham/${id}`);
@@ -66,13 +69,15 @@ export default function ProductDetail(props) {
     useEffect(()=>{
         if(dataAll && data){
             console.log("data API, " , data);
-            setDataRender(filterDataRender(data.id, dataAll.data))
+            setDataRender(filterDataRender(data.id, dataAll.data));
+            setStatusLoading(false);
         }
     },[dataAll, data]);
 
     useEffect(()=>{
         valueContext.getDataProduct(setData, props.query.slug);
         valueContext.getDataProducts(setDataAll);
+        // setStatusLoading(true);
     }, [props.query.slug]);
 
     function callback(key) {
@@ -170,7 +175,7 @@ export default function ProductDetail(props) {
             </main>
 
             <FooterCustom></FooterCustom>
-
+            <Loading status={statusLoading}></Loading>
         </MasterPageBasic>
     );
 }

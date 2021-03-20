@@ -15,6 +15,7 @@ import { MainContent } from "components/website/contexts/MainContent";
 import ItemTextInfo from "components/website/items/ItemTextInfo";
 import LayoutGrid from "components/website/elements/LayoutGrid";
 import ApiCall from "modules/ApiCall";
+import Loading from "components/website/loading/Loading";
 
 export default function Home(props) {
 
@@ -23,6 +24,7 @@ export default function Home(props) {
   const [dataBanner, setDataBanner] = useState([]);
   const [dataProducts, setDataProducts] = useState([]);
   const [dataPortfolios, setDataPortfolios] = useState();
+  const [statusLoading, setStatusLoading] = useState(true);
  
   const getDataBanner = async() => {
     let res = await ApiCall({
@@ -30,6 +32,7 @@ export default function Home(props) {
     });
     if (res) {
       setDataBanner(res);
+     
     }
   }
 
@@ -39,6 +42,7 @@ export default function Home(props) {
     });
     if (res) {
       setDataProducts(res);
+      setStatusLoading(false);
     }
   }
 
@@ -194,7 +198,7 @@ export default function Home(props) {
       </main>
 
       <FooterCustom></FooterCustom>
-
+      <Loading status={statusLoading}></Loading>
     </MasterPageBasic>
   );
 }

@@ -16,6 +16,7 @@ import ItemProductBig from "components/website/items/ItemProductBig";
 import LayoutGrid from "components/website/elements/LayoutGrid";
 import ApiCall from "modules/ApiCall";
 import { Pagination } from "antd";
+import Loading from "components/website/loading/Loading";
 
 const fetchData = [
   {
@@ -37,6 +38,8 @@ export default function Home(props) {
   const [total, setTotal] = useState();
   const [dataProducts, setDataProducts] = useState([]);
 
+  const [statusLoading, setStatusLoading] = useState(true);
+
   const onChangePage = (page)=>{
     setCurrentPage(page);
   }
@@ -54,7 +57,8 @@ export default function Home(props) {
     if (res) {
       setDataProducts(res);
       setCurrentPage(res.page)
-      setTotal(res.totalCount)
+      setTotal(res.totalCount);
+      setStatusLoading(false);
     }
   }
 
@@ -183,6 +187,7 @@ export default function Home(props) {
 
       <FooterCustom></FooterCustom>
 
+      <Loading status={statusLoading}></Loading>
     </MasterPageBasic>
   );
 }
