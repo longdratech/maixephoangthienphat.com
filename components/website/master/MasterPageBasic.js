@@ -32,6 +32,18 @@ logged_in_greeting="Xin chào, tôi có thể giúp gì cho bạn?"
 logged_out_greeting="Xin chào, tôi có thể giúp gì cho bạn?">
 </div>
 `
+
+const ga = `
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZH743344J2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-ZH743344J2');
+</script>
+` 
 const BlankMasterPage = ({ pageName, children }) => {
   const router = useRouter();
 
@@ -68,6 +80,9 @@ const BlankMasterPage = ({ pageName, children }) => {
         data-autopopup="0" data-width="350" data-height="420"></div>
         {
           renderHTML(fb)
+        }
+        {
+          renderHTML(ga)
         }
       </Head>
       {children}
