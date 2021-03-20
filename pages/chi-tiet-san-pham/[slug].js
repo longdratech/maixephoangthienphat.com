@@ -15,6 +15,8 @@ import { Spin, Tabs } from 'antd';
 import TitleCopy from "components/website/title/TitleCopy";
 import ItemProductSmall from "components/website/items/ItemProductSmall";
 import Loading from "components/website/loading/Loading";
+import { Pagination } from "antd";
+import ApiCall from "modules/ApiCall";
 
 const { TabPane } = Tabs;
 
@@ -40,6 +42,8 @@ export async function getServerSideProps(context) {
         },
       };
 }
+const limitDefault = 3;
+const totalList = 3;
 
 export default function ProductDetail(props) {
 
@@ -49,6 +53,10 @@ export default function ProductDetail(props) {
     const [dataAll, setDataAll] = useState();
     const [dataRender, setDataRender] = useState();
     const [statusLoading, setStatusLoading] = useState(true);
+
+    const [currentPage, setCurrentPage] = useState();
+    const [total, setTotal] = useState();
+    const [dataBanner, setDataBanner] = useState([]);
 
     const handleRouter = (id) => {
         router.push(`/chi-tiet-san-pham/${id}`);
@@ -66,18 +74,45 @@ export default function ProductDetail(props) {
         }
     }, []);
 
+    const getDataProducts = async (name, page=1) =>{
+        let res = await ApiCall({
+          path: `/products/?page=${page}&limit=${limitDefault}&category=${name}`
+        });
+        if (res) {
+            console.log("ress ", res);
+            setTotal(res.totalCount)
+            setDataAll(res);
+            setCurrentPage(res.page);
+        }
+    }
+    const getDataBanner = async(id) => {
+        let res = await ApiCall({
+          path: `/categories/${id}`
+        });
+        if (res) {
+          setDataBanner([...dataBanner, res]);
+        }
+    }
+
+    const onChangePage = (page)=>{
+        setCurrentPage(page);
+    }
+
     useEffect(()=>{
+        
         if(dataAll && data){
             console.log("data API, " , data);
             setDataRender(filterDataRender(data.id, dataAll.data));
             setStatusLoading(false);
         }
+        if(data && !dataAll){
+            getDataProducts(data.category);
+        }
     },[dataAll, data]);
 
     useEffect(()=>{
         valueContext.getDataProduct(setData, props.query.slug);
-        valueContext.getDataProducts(setDataAll);
-        // setStatusLoading(true);
+        setStatusLoading(true);
     }, [props.query.slug]);
 
     function callback(key) {
@@ -91,9 +126,18 @@ export default function ProductDetail(props) {
 
             <main id="pProductDetail">
 
-                <BannerTopStyle2 data={fetchData}></BannerTopStyle2>
-
-
+                {
+                    data
+                    ? <BannerTopStyle2 data={
+                        [{
+                            title: data.category,
+                            srcImg: "/images/demo/banner-top-style-2.jpg",
+                            description: ""
+                        }]
+                     }> </BannerTopStyle2>
+                    :<></>
+                }
+                
                 <Container>
 
                     <LayoutGrid column={1} paddingTop={80}>
@@ -104,8 +148,6 @@ export default function ProductDetail(props) {
                         }
                         
                     </LayoutGrid>
-
-                    
                 </Container>
 
                 <Container className="ContentInfoProduct">
@@ -157,7 +199,7 @@ export default function ProductDetail(props) {
                 <Container>
                     <LayoutGrid column={3}>
                         {
-                            dataRender 
+                            dataRender && dataRender.length !== 0
                             ? dataRender.map((data, index)=>{
                                 
                                     return <ItemProductSmall handleClick={()=>handleRouter(data.id)}
@@ -166,12 +208,19 @@ export default function ProductDetail(props) {
                                     </ItemProductSmall>
                                 
                             })
-                            :<></>
+                            :<h3>Không còn sản phẩm khác.</h3>
                         }
                     </LayoutGrid>
                 </Container>
-
-                
+                <Container className="center">
+                    <Pagination
+                            onChange={onChangePage}
+                            defaultPageSize={limitDefault}
+                            current={currentPage || 1}
+                            defaultCurrent={1}
+                            total={total ||totalList }
+                        />
+                </Container>
             </main>
 
             <FooterCustom></FooterCustom>

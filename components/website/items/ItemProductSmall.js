@@ -86,7 +86,7 @@ export default function ItemProductSmall({
                         dataAPI.images.map((value, index) => {
                             // console.log(value)
                             return (
-                                <div key={index} className="itemCarousel">
+                                <div key={index} className="itemCarousel" onClick={handleClickTitle}>
                                     <img src= {value} />
                                 </div>
                             )
@@ -107,9 +107,9 @@ export default function ItemProductSmall({
                 </Slider>
         }
         {dataAPI && dataAPI.isHotDeal == true ?  <span className="priceSale">Giá sốc</span> : <></>}
-        <div className="infoItemProductSmall">
+        <div className="infoItemProductSmall"  onClick={handleClickTitle}>
 
-            <h4 onClick={handleClickTitle}>{dataAPI ?  dataAPI.title :fetchData.title}</h4>
+            <h4>{dataAPI ?  dataAPI.title :fetchData.title}</h4>
             <span>{dataAPI ?  dataAPI.price+"đ": fetchData.price}</span>
             <p>
                 Bảo hành: { dataAPI ?  dataAPI.guarantee +" tháng" : `12 tháng`} 

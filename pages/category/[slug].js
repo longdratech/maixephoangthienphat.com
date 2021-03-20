@@ -12,7 +12,7 @@ import ItemProductBig from "components/website/items/ItemProductBig";
 import LayoutGrid from "components/website/elements/LayoutGrid";
 
 import { Pagination } from "antd";
-
+import ApiCall from "modules/ApiCall";
 
 export async function getServerSideProps(context) {
   
@@ -41,7 +41,6 @@ const fetchData = [
 const limitDefault = 10;
 const totalList = 10;
 
-import ApiCall from "modules/ApiCall";
 
 export default function HomeCategory(props) {
 

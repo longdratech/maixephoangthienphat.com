@@ -20,19 +20,30 @@ const fb =`<!-- Load Facebook SDK for JavaScript -->
   var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) return;
   js = d.createElement(s); js.id = id;
-  js.src = 'https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js';
+  js.src = 'https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js';
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
 
 <!-- Your Chat Plugin code -->
 <div class="fb-customerchat"
   attribution="setup_tool"
-  page_id="118299907006711"
-theme_color="#008fe5"
-logged_in_greeting="Hi! How can we help you?"
-logged_out_greeting="Hi! How can we help you?">
+  page_id="105430074207722"
+logged_in_greeting="Xin chào, tôi có thể giúp gì cho bạn?"
+logged_out_greeting="Xin chào, tôi có thể giúp gì cho bạn?">
 </div>
 `
+
+const ga = `
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZH743344J2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-ZH743344J2');
+</script>
+` 
 const BlankMasterPage = ({ pageName, children }) => {
   const router = useRouter();
 
@@ -69,6 +80,9 @@ const BlankMasterPage = ({ pageName, children }) => {
         data-autopopup="0" data-width="350" data-height="420"></div>
         {
           renderHTML(fb)
+        }
+        {
+          renderHTML(ga)
         }
       </Head>
       {children}

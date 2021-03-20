@@ -112,6 +112,11 @@ function BannerTopStyle2({ data }) {
                     margin-right: auto;
                 }
             }
+            @media only screen and (max-width : 768px){
+                .infoItemCopy{
+                    width: 100%;
+                }
+            }
             @media only screen and (max-width : 599px){
 
                 .itemCarousel{

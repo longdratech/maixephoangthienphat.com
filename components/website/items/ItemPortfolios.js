@@ -81,7 +81,7 @@ export default function ItemPortfolios({
                         dataAPI.images.map((value, index) => {
                             // console.log(value)
                             return (
-                                <div key={index} className="itemCarousel">
+                                <div key={index} className="itemCarousel"  onClick={handleClickTitle}>
                                     <img src= {value} />
                                 </div>
                             )
@@ -103,9 +103,9 @@ export default function ItemPortfolios({
 
         {dataAPI && dataAPI.isHotDeal == true ? <span className="priceSale">Hot deal</span> : <></>}
        
-        <div className="infoItemProductBigStyle2">
+        <div className="infoItemProductBigStyle2"  onClick={handleClickTitle}>
 
-            <h4 onClick={handleClickTitle}>{dataAPI ?  dataAPI.title :fetchData.title}</h4>
+            <h4>{dataAPI ?  dataAPI.title :fetchData.title}</h4>
 
             <p>
                 { dataAPI ?  dataAPI.description : ""}

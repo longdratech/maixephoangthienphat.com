@@ -140,3 +140,9 @@ code.hljs {
   transform: scale(1.21);
   bottom: 100px !important;
 }
+
+@media only screen and (max-width: 599px){
+  .zalo-chat-widget, #fb-root, .fb_reset {
+    display: none !important;
+  }
+}
