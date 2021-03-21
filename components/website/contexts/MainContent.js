@@ -19,6 +19,7 @@ export default function MainContentProvider( {children}){
             }
         }
     }, [token]);
+    
     useEffect(()=>{
         if(localStorage){
             if(localStorage.getItem("token")){
@@ -212,7 +213,7 @@ export default function MainContentProvider( {children}){
         }
     }
 
-    const patchDataSocials = async (FunctionnCb, id ="", data) =>{
+    const patchDataSocials = async (FunctionCb, id ="", data) =>{
         let res = await ApiCall({
           path: `/socials/${id}`,
           method: "PATCH",
@@ -223,7 +224,7 @@ export default function MainContentProvider( {children}){
           data: data
         });
         if (res) {
-            await FunctionnCb(res);
+            await FunctionCb(res);
         }
     }
 

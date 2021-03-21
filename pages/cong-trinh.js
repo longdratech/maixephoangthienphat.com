@@ -96,6 +96,12 @@ export default function Home(props) {
                 })
                 :<></>
               }
+
+            {
+                dataPortfolios.data && dataPortfolios.data.length === 0
+                ? <h3 style={{textAlign:"center", paddingBottom:"50px"}}> Dữ liệu sẽ sớm được cập nhật trong sắp tới.</h3> 
+                :<></>
+            }
           </LayoutGrid>
 
         </Container>
