@@ -123,9 +123,9 @@ export default function FooterCustom() {
     <Container>
       <div className="endFooter">
         <h5>Copyright © 2021 - Hoàng Thiên Phát. All Rights Reserved.</h5>
-        <a href="https://kmasoft.vn/" target="_blank">
+        <a href="https://uranus-solutions.com/" target="_blank">
           <img src={asset("/images/icon-cm.png")} />
-          <h5>KMASoft</h5>
+          <h5>Uranus Solutions</h5>
         </a>
       </div>
      

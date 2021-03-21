@@ -25,22 +25,22 @@ const fetchServices = [
   {
     title: "Tư vấn",
     srcImg:asset("/images/demo/icon-tu-van.png"),
-    description: "Chúng tôi đang giúp tìm các giải pháp để tạo các sản phẩm phù hợp với nhu cầu của bạn"
+    description: "Luôn tìm các giải pháp để tạo các sản phẩm phù hợp với nhu cầu của bạn"
   },
   {
     title: "Khảo sát",
     srcImg:asset("/images/demo/icon-khao-sat.png"),
-    description: "Chúng tôi đang giúp tìm các giải pháp để tạo các sản phẩm phù hợp với nhu cầu của bạn"
+    description: "Khảo sát tình hình thực địa của các khu vực khác nhau trước khi tiến hàng lắp đặt"
   },
   {
     title: "Cung cấp vật tư",
     srcImg:asset("/images/demo/icon-cung-cap-vat-tu.png"),
-    description: "Chúng tôi đang giúp tìm các giải pháp để tạo các sản phẩm phù hợp với nhu cầu của bạn"
+    description: "Tạo ra các vật tư chất lượng, mang lại giá trị cao trên từng sản phẩm"
   },
   {
     title: "Thi công",
     srcImg:asset("/images/demo/icon-thi-cong.png"),
-    description: "Chúng tôi đang giúp tìm các giải pháp để tạo các sản phẩm phù hợp với nhu cầu của bạn"
+    description: "Đội ngũ thi công công trình giàu kinh nghiệm. Mang đến chất lượng tốt nhất đến khách hàng"
   },
 ]
 
