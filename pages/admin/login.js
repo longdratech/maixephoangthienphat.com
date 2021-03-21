@@ -67,6 +67,7 @@ const AdminLogin = () => {
                     if(localStorage){
 
                         localStorage.setItem("token",res.data.accessToken);
+                        valueContext.setDataUser(res.data);
                         router.push("/admin");
 
                     }
@@ -81,7 +82,9 @@ const AdminLogin = () => {
                             });
                         });
                     } else {
-                        console.log("res ==> ", res)
+                        console.log("res ==> ", res);
+                        localStorage.removeItem("token");
+                        valueContext.setDataUser();
                         notification.error({
                             message: "Something wrong, please try again later.",
                         });

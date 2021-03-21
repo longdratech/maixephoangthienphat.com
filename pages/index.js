@@ -147,8 +147,14 @@ export default function Home(props) {
               :<></>
             }
           </LayoutGrid>
-          
+          {
+              dataProducts.data && dataProducts.data.length === 0
+              ? <h3 style={{textAlign:"center", paddingBottom:"50px"}}> Dữ liệu sẽ sớm được cập nhật trong sắp tới.</h3>  
+              :<></>
+          }
         </Container>
+
+        
 
         <Container>
 
@@ -188,9 +194,15 @@ export default function Home(props) {
           ></TitleCopy>
 
           {
-            dataPortfolios
+            dataPortfolios && dataPortfolios.data
             ?   <BannerBottom handleRoute={handleRouterPortfolio} data={dataPortfolios.data}></BannerBottom>
             :   <Spin></Spin>
+          }
+
+          {
+              dataPortfolios && dataPortfolios.data.length === 0
+              ? <h3 style={{textAlign:"center", paddingBottom:"50px"}}> Dữ liệu sẽ sớm được cập nhật trong sắp tới.</h3> 
+              :<></>
           }
 
         </Container>
