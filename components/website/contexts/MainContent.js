@@ -4,39 +4,76 @@ import { useRouter } from "next/router"
 import ApiCall from "modules/ApiCall";
 import Axios from "axios";
 import { method } from "lodash";
+import { message } from "antd"
 export default function MainContentProvider( {children}){
 
 
     const [dataUser, setDataUser] =  useState();
     const [token, setToken] =  useState();
+    const [timeline, setTimeLine] = useState();
     const router =  useRouter();
     const [statusLoading, setStatusLoading] = useState(false);
 
     useEffect(()=>{
         if(localStorage){
-            if(localStorage.getItem("token")){
+            if(localStorage.getItem("token") && localStorage.getItem("infoUser")){
                 setToken(localStorage.getItem("token"));
+                setDataUser(JSON.parse(localStorage.getItem("infoUser")));
+                setTimeLine(localStorage.getItem("total_seconds"));
             }
         }
     }, [token]);
     
     useEffect(()=>{
         if(localStorage){
-            if(localStorage.getItem("token")){
+            if(localStorage.getItem("token") && localStorage.getItem("infoUser")){
                 setToken(localStorage.getItem("token"));
+                setDataUser(JSON.parse(localStorage.getItem("infoUser")));
+            }else{
+                // if(router.query)
+                // logout();
             }
         }
     }, []);
 
     const logout = () => {
         if(localStorage){
-            if(localStorage.getItem("token")){
-                setToken();
-                localStorage.removeItem("token");
-                router.push("/admin/login");
+            setToken();
+            localStorage.removeItem("token");
+            localStorage.removeItem("infoUser");
+            localStorage.removeItem("total_seconds");
+            router.push("/admin/login");
+        }
+    }
+
+    const timer = () => {
+
+        if(localStorage.getItem("total_seconds")){
+            var total_seconds = localStorage.getItem("total_seconds");
+        } else {
+            var total_seconds = 60*1;
+        }
+        var minutes = parseInt(total_seconds/60);
+        var seconds = parseInt(total_seconds%60);
+        function countDownTimer(){
+            if(seconds < 10){
+                seconds= "0"+ seconds ;
+            }if(minutes < 10){
+                minutes= "0"+ minutes ;
+            }
+            if(total_seconds <= 0){
+                logout();
+            } else {
+                total_seconds = total_seconds - 1 ;
+                minutes = parseInt(total_seconds/60);
+                seconds = parseInt(total_seconds%60);
+                localStorage.setItem("total_seconds",total_seconds);
+                console.log("timer", total_seconds)
+                // setTimeout(countDownTimer() ,1000);
             }
         }
-    }   
+        // setTimeout( countDownTimer(),1000);
+    }
 
     const getDataProducts = async (FunctionnCb, page=1, limit=50) =>{
         let res = await ApiCall({
@@ -278,6 +315,9 @@ export default function MainContentProvider( {children}){
 
                 dataUser : dataUser,
                 token: token,
+
+                timer: timer,
+                timeline: timeline,
 
                 statusLoading: statusLoading,
                 setStatusLoading: setStatusLoading,
