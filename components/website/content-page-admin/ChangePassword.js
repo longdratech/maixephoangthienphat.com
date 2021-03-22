@@ -4,6 +4,7 @@ import ApiCall from "modules/ApiCall";
 import { useState, useEffect, useContext, useRef } from "react";
 import { MainContent } from "components/website/contexts/MainContent";
 import {message} from "antd";
+import Loading from "components/website/loading/Loading";
 
 
 const layout = {
@@ -28,12 +29,11 @@ export default function ChangePassword({ }) {
 
 
   const patchChangePassword = async (functionCb, data) => {
-
-    console.log(" valueContext.token",  valueContext.token);
-    console.log("user ", valueContext.dataUser)
-    if(valueContext.dataUser && valueContext.dataUser.id ){
+    valueContext.setStatusLoading(true);
+    let dataUser = JSON.parse(localStorage.getItem("infoUser"));
+    if(localStorage.getItem("token")){
       let res = await ApiCall({
-        path: `/auth/change-password/${valueContext.dataUser.id}`,
+        path: `/auth/change-password/${dataUser.id}`,
         method: "PATCH",
         token: localStorage.getItem("token"),
         headers: {
@@ -42,23 +42,22 @@ export default function ChangePassword({ }) {
         data: data
       });
       if (res) {
-        if(!res.data){
+        if(res.statusCode == 200){
+          message.success(res.message);
+          await valueContext.setStatusLoading(false);
+        }else{
           message.warn(res.message);
+          await valueContext.setStatusLoading(false);
         }
-        if(res.data){
-          await functionCb(res);
-          message.success("Hoàn thành!");
-        }
-        
       }
     }else{
       message.warn("Vui lòng thử lại sau, tính năng này đang cập nhật!");
+       await valueContext.setStatusLoading(false);
     }
     
   }
 
   const onFinish = (values) => {
-    // console.log('Success:', values);
     patchChangePassword(setDataPatch, values)
   };
 
@@ -103,7 +102,9 @@ export default function ChangePassword({ }) {
           </Button>
         </Form.Item>
       </Form>
+     
     </Container>
+    <Loading status={valueContext.statusLoading}></Loading>    
     <style jsx>{`
           .contentChangePassword{
             width: 100%;

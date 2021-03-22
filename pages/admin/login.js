@@ -67,9 +67,9 @@ const AdminLogin = () => {
                     if(localStorage){
 
                         localStorage.setItem("token",res.data.accessToken);
-                        valueContext.setDataUser(res.data);
+                        localStorage.setItem("infoUser", JSON.stringify(res.data));
+                        localStorage.setItem("total_seconds", "1000000")
                         router.push("/admin");
-
                     }
                     
                 } else {
@@ -82,8 +82,8 @@ const AdminLogin = () => {
                             });
                         });
                     } else {
-                        console.log("res ==> ", res);
                         localStorage.removeItem("token");
+                        localStorage.removeItem("infoUser");
                         valueContext.setDataUser();
                         notification.error({
                             message: "Something wrong, please try again later.",

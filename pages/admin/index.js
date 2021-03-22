@@ -16,6 +16,7 @@ import PortfoliosCreate from "components/website/content-page-admin/PortfoliosCr
 import Socials from "components/website/content-page-admin/Socials";
 import SocialsCreate from "components/website/content-page-admin/SocialsCreate";
 import ChangePassword from "components/website/content-page-admin/ChangePassword";
+import Countdown from "react-countdown";
 
 const routingContent = {
 
@@ -49,6 +50,10 @@ const routingContent = {
     }
 
 }
+const Completionist = () => <span>You are good to go!</span>;
+
+// Renderer callback with condition
+
 
 const AdminIndex = ({ user }) => {
 
@@ -56,7 +61,7 @@ const AdminIndex = ({ user }) => {
     const router = useRouter();
     const [title, setTitle] = useState("Dashboard");
     const [slug, setSlug] = useState("profile");
-    const [idProduct , setIdProduct] = useState()
+    const [idProduct , setIdProduct] = useState();
 
     const handleClickMenu = (e) => {
         // console.log("DATA CLICK : ", e);
@@ -68,18 +73,29 @@ const AdminIndex = ({ user }) => {
        
     }
 
-    // useEffect(()=>{
-    //     setIdProduct()
-    // },[])
+    const renderer = ({ hours, minutes, seconds, completed }) => {
+        if (completed) {
+            valueContext.logout();
+          return <Completionist />;
+        } else {
+          // Render a countdown
+          if(localStorage){
+            localStorage.setItem("total_seconds", hours*3600 + minutes*60 + seconds);
+          }
+          return (
+            <span>
+              {hours}:{minutes}:{seconds}
+            </span>
+          );
+        }
+      };
 
     const handleRepairProduct = (id) => {
         console.log("repair ID", id);
-        // setIdProduct(id)
     }
 
     const handleRepairPortfolio = (id) => {
         console.log("repair ID", id);
-        // setIdProduct(id)
     }
 
     const handleChooseImg = (value) => {
@@ -134,6 +150,11 @@ const AdminIndex = ({ user }) => {
         <PageHeader pretitle="admin" title={title} separator={true}>
             <div className="topHeaderAdmin">
                 <p>Thông số tổng quát.</p>
+                {/* {
+                    valueContext.timeline 
+                    ?   <Countdown date={Date.now() + parseInt(valueContext.timeline) } renderer={renderer} />
+                    :<></>
+                } */}
                 <Button type="primary" danger onClick={valueContext? valueContext.logout : null}> Logout </Button>
             </div>
             <style jsx>{`
