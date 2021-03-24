@@ -73,6 +73,7 @@ const amplitude = `
   ;e.amplitude=n})(window,document);
 
   amplitude.getInstance().init("66c1b87792f80cf93c5b64040c89011c");
+  amplitude.getInstance().trackSessionEvents(true);
 </script>
 `
 const BlankMasterPage = ({pageName, children}) => {
