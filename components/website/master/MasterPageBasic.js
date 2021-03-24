@@ -47,7 +47,7 @@ const ga = `
 </script>
 `
 
-const amplitude = `
+const amplitudeScript = `
 <script type="text/javascript">
   (function(e,t){var n=e.amplitude||{_q:[],_iq:{}};var r=t.createElement("script")
   ;r.type="text/javascript"
@@ -81,7 +81,7 @@ const BlankMasterPage = ({pageName, children}) => {
     const router = useRouter();
 
     useEffect(() => {
-      if(amplitude){
+      if( typeof(window) != undefined && amplitude) {
         amplitude.getInstance().logEvent('USER_ONLINE');
       }
     }, []);
@@ -120,7 +120,7 @@ const BlankMasterPage = ({pageName, children}) => {
                     renderHTML(ga)
                 }
                 {
-                  renderHTML(amplitude)
+                  renderHTML(amplitudeScript)
                 }
             </Head>
             {children}
