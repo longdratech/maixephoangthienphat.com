@@ -4,6 +4,7 @@ import {useRouter} from "next/router";
 import {NextSeo} from 'next-seo';
 import asset from "plugins/assets/asset";
 // import Compose from "components/diginext/context/Compose";
+import {useEffect} from "react";
 
 import renderHTML from 'react-render-html';
 
@@ -73,11 +74,17 @@ const amplitude = `
   ;e.amplitude=n})(window,document);
 
   amplitude.getInstance().init("66c1b87792f80cf93c5b64040c89011c");
-  amplitude.getInstance().trackSessionEvents(true);
 </script>
 `
 const BlankMasterPage = ({pageName, children}) => {
+
     const router = useRouter();
+
+    useEffect(() => {
+      if(amplitude){
+        amplitude.getInstance().logEvent('USER_ONLINE');
+      }
+    }, []);
 
     return (
         <>
