@@ -75,6 +75,15 @@
             grid-template-columns: 1fr;
         }
     } 
+    .tabsContentInfoProduct{
+        padding: 20px !important;
+        .contentImages{
+            width: 100% !important;
+            img{
+                width: 100%;
+            }
+        }
+    }
 }
 
 @media only screen and (max-width : 599px){

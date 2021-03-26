@@ -20,6 +20,7 @@ export default function TitleCopy({
                 h2{
                     display: flex;
                     justify-content: center;
+                    text-align: center;
                 }
             }
 
