@@ -64,6 +64,8 @@
     "replace-in-file": "^6.1.0",
     "sass": "^1.27.0",
     "slick-carousel": "^1.8.1",
+    "socket.io": "^4.0.0",
+    "socket.io-client": "^4.0.0",
     "styled-jsx-plugin-sass": "^1.0.0",
     "sweetalert2": "^9.17.0",
     "swr": "^0.2.3",

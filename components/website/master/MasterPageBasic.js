@@ -5,7 +5,7 @@ import {NextSeo} from 'next-seo';
 import asset from "plugins/assets/asset";
 // import Compose from "components/diginext/context/Compose";
 import {useEffect} from "react";
-
+import  {io}  from "socket.io-client";
 import renderHTML from 'react-render-html';
 
 const fb = `<!-- Load Facebook SDK for JavaScript -->
@@ -79,11 +79,15 @@ const amplitudeScript = `
 const BlankMasterPage = ({pageName, children}) => {
 
     const router = useRouter();
-
+    var socket ;
+    
     useEffect(() => {
       if( typeof(window) != undefined && amplitude) {
         amplitude.getInstance().logEvent('USER_ONLINE');
+       
       }
+      // socket = io.connect("192.168.1.31:3000/");
+      // console.log(" socket " , socket)
     }, []);
 
     return (
@@ -110,7 +114,9 @@ const BlankMasterPage = ({pageName, children}) => {
 
                 <link href={asset("/dashkit/fonts/cerebrisans/cerebrisans.css")} rel="stylesheet"/>
                 <script src="https://sp.zalo.me/plugins/sdk.js"/>
-                <div style={{bottom: "50px !important"}} class="zalo-chat-widget" data-oaid="579745863508352884"
+                <script src="/socket.io/socket.io.js"></script>
+
+                <div style={{bottom: "50px !important"}} class="zalo-chat-widget" data-oaid="664405381284161454"
                      data-welcome-message="Rất vui khi được hỗ trợ bạn!"
                      data-autopopup="0" data-width="350" data-height="420"/>
                 {
