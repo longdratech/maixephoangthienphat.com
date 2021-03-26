@@ -131,6 +131,7 @@ function BannerTop({
                 position: absolute;
                 top: 10%;
                 left: 8%;
+                max-width: 450px;
                 h3{
                     font-size: 32px;
                     font-family: "Montserrat-SemiBold";

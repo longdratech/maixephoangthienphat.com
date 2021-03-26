@@ -34,28 +34,28 @@ app.prepare().then(() => {
   let httpsServer = https.createServer(options, server)
   
 
-  let io = require('socket.io')(httpServer);
+  // let io = require('socket.io')(httpServer);
 
-  let arrUserSocket = [];
+  // let arrUserSocket = [];
   
-  io.on('connection', function (socket) {
+  // io.on('connection', function (socket) {
   
-    arrUserSocket.push(socket.id);
-    console.log("CONNECT !!!!!!!", socket.id);
+  //   arrUserSocket.push(socket.id);
+  //   console.log("CONNECT !!!!!!!", socket.id);
   
-    socket.on('disconnect', () => {
-      console.log("disconnect CONNECT !!!!!");
+  //   socket.on('disconnect', () => {
+  //     console.log("disconnect CONNECT !!!!!");
   
-      let idRemove = arrUserSocket.findIndex(function (item) {
-        return item == socket.id;
-      });
+  //     let idRemove = arrUserSocket.findIndex(function (item) {
+  //       return item == socket.id;
+  //     });
   
-      arrUserSocket.splice(idRemove, 1); // xoa ten client tren may client dang online 
-      console.log(socket.id + ' Disconnect !');
+  //     arrUserSocket.splice(idRemove, 1); // xoa ten client tren may client dang online 
+  //     console.log(socket.id + ' Disconnect !');
   
-    });
+  //   });
   
-  });
+  // });
 
   httpServer.listen(httpPort);
   httpsServer.listen(httpsPort);
