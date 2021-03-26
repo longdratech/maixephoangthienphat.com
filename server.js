@@ -11,15 +11,15 @@ const httpPort = process.env.PORT || 3000;
 const httpsPort = 3443;
 const options = dev
   ? {
-      /**
-       * IF YOU NEED HTTPS FOR LOCALHOST, UNCOMMENT THIS
-       * AND GENERATE THE key & crt FOLLOW THIS COMMAND:
-       * bash local_certificate/cer.sh
-       * Read more: local_certificate/readme.md
-       */
-      // key: fs.readFileSync("local_certificate/localhost.key"),
-      // cert: fs.readFileSync("local_certificate/localhost.crt"),
-    }
+    /**
+     * IF YOU NEED HTTPS FOR LOCALHOST, UNCOMMENT THIS
+     * AND GENERATE THE key & crt FOLLOW THIS COMMAND:
+     * bash local_certificate/cer.sh
+     * Read more: local_certificate/readme.md
+     */
+    // key: fs.readFileSync("local_certificate/localhost.key"),
+    // cert: fs.readFileSync("local_certificate/localhost.crt"),
+  }
   : {};
 
 server.use(express.static(__dirname + "/public", { maxAge: "365d", redirect: false }));
@@ -30,7 +30,36 @@ app.prepare().then(() => {
   server.all("*", (req, res) => {
     return handle(req, res);
   });
+  let httpServer = http.createServer(server);
+  let httpsServer = https.createServer(options, server)
+  
 
-  http.createServer(server).listen(httpPort);
-  https.createServer(options, server).listen(httpsPort);
+  let io = require('socket.io')(httpServer);
+
+  let arrUserSocket = [];
+  
+  io.on('connection', function (socket) {
+  
+    arrUserSocket.push(socket.id);
+    console.log("CONNECT !!!!!!!", socket.id);
+  
+    socket.on('disconnect', () => {
+      console.log("disconnect CONNECT !!!!!");
+  
+      let idRemove = arrUserSocket.findIndex(function (item) {
+        return item == socket.id;
+      });
+  
+      arrUserSocket.splice(idRemove, 1); // xoa ten client tren may client dang online 
+      console.log(socket.id + ' Disconnect !');
+  
+    });
+  
+  });
+
+  httpServer.listen(httpPort);
+  httpsServer.listen(httpsPort);
 });
+
+
+
