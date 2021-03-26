@@ -66,12 +66,14 @@ export default function Home(props) {
     <MasterPageBasic hidePrevButton header="Home Page">
       <Header active="/"></Header>
       <main id="pHome">
-
+        <div className="bannerHero">
         {
           dataBanner 
           ? <BannerTop dataList={dataBanner}></BannerTop>
           : <BannerTop></BannerTop>
         }
+        </div>
+        
 
         <Container>
 
