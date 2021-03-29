@@ -228,37 +228,45 @@ body {
   height: 100%;
   height: 78px;
 }
-.container.center{
-  .ant-pagination-item{
+
+.container.center {
+  .ant-pagination-item {
     border-radius: 100%;
   }
-  .ant-pagination-options{
+
+  .ant-pagination-options {
     display: none;
   }
-  .ant-pagination-next .ant-pagination-item-link, .ant-pagination-prev .ant-pagination-item-link{
+
+  .ant-pagination-next .ant-pagination-item-link,
+  .ant-pagination-prev .ant-pagination-item-link {
     border: none;
   }
 }
 
-#pContact{
-  .noneLine{
+#pContact {
+  .noneLine {
     margin-bottom: 40px;
-    h2{
+
+    h2 {
       margin-bottom: 0;
     }
-    p{
+
+    p {
       padding: 10px 0;
       font-size: 16px;
     }
   }
 
 }
-.contentIntroduce{
-  p{
+
+.contentIntroduce {
+  p {
     padding: 10px 0;
   }
-  p{
-    img{
+
+  p {
+    img {
       max-width: 90%;
       margin-left: auto;
       margin-right: auto;
@@ -266,30 +274,34 @@ body {
   }
 }
 
-.layoutGrid.flex{
+.layoutGrid.flex {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  .itemProductBig{
+
+  .itemProductBig {
     width: 60%;
   }
-  .itemProductSmall{
+
+  .itemProductSmall {
     width: 38%;
   }
 }
-.container.ContentInfoProduct{
+
+.container.ContentInfoProduct {
 
   padding-top: 50px !important;
   padding-bottom: 50px !important;
 
-  .ant-tabs-tab .ant-tabs-tab-btn{
+  .ant-tabs-tab .ant-tabs-tab-btn {
     font-size: 1.2vw;
   }
-  .ant-tabs-tab+.ant-tabs-tab{
+
+  .ant-tabs-tab+.ant-tabs-tab {
     margin: 2px;
   }
 
-  .ant-tabs-tab{
+  .ant-tabs-tab {
     background-color: #f0f0f0;
     padding: 10px 15px;
     border: 1px solid #f0f0f0;
@@ -297,12 +309,12 @@ body {
     font-weight: bold;
   }
 
-  .ant-tabs-tab-active{
+  .ant-tabs-tab-active {
     background-color: #fff;
-   
+
   }
 
-  .contentImages{
+  .contentImages {
     width: 80%;
     margin-top: 20px;
     margin-bottom: 20px;
@@ -311,58 +323,68 @@ body {
     border: solid 1px #888;
     border-radius: 5px;
     overflow: hidden;
-    img{
+
+    img {
       width: 100%;
       object-fit: cover;
     }
   }
 
-  .tabsContentInfoProduct{
+  .tabsContentInfoProduct {
     border: 1px solid #f0f0f0;
     padding: 50px;
     margin-top: -18px;
   }
 
 }
-.containerPortfoliosDetail{
+
+.containerPortfoliosDetail {
   padding-top: 50px !important;
   padding-top: 50px !important;
-  .contentPortfoliosDetail{
-    h2{
+
+  .contentPortfoliosDetail {
+    h2 {
       font-size: 2vw;
       color: #103C55;
       text-align: center;
       font-weight: bold;
       text-transform: capitalize;
     }
-    img{
+
+    img {
       max-width: 700px;
       margin-left: auto;
       margin-right: auto;
     }
-    p{
+
+    p {
       margin-top: 20px;
       margin-bottom: 20px;
     }
-    .link{
+
+    .link {
       display: flex;
       justify-content: flex-end;
-      a{
+
+      a {
         display: flex;
         color: red;
         font-weight: bold;
         margin-left: auto;
         text-align: right;
         transition: 0.2s;
-        &:hover{
+
+        &:hover {
           color: #103C55;
         }
       }
     }
   }
 }
-.carouselCustom.bannerTop{
-    .slick-next,
+
+.carouselCustom.bannerTop {
+
+  .slick-next,
   .slick-prev {
     opacity: 0;
     width: 25px;
@@ -389,6 +411,7 @@ body {
       top: 55%;
       transform: translate(-50%, -50%);
     }
+
     &:after {
       content: "";
       position: absolute;
@@ -402,31 +425,39 @@ body {
       top: 45%;
       transform: translate(-50%, -50%);
     }
+
     transform: scale(1.5);
   }
 
   .slick-prev {
     left: 35px;
+
     &:before {
       transform: translate(-50%, -50%) rotate(-50deg);
     }
+
     &:after {
       transform: translate(-50%, -50%) rotate(50deg);
     }
   }
+
   .slick-next {
     right: 35px;
+
     &:before {
       transform: translate(0%, -50%) rotate(50deg);
     }
+
     &:after {
       transform: translate(0%, -50%) rotate(-50deg);
     }
   }
+
   .slick-prev:hover {
     background-color: #FD7669;
     border: solid 2px #FD7669;
   }
+
   .slick-next:hover {
     background-color: #FD7669;
     border: solid 2px #FD7669;
@@ -436,25 +467,45 @@ body {
     opacity: 1;
     right: 25px;
   }
+
   &:hover .slick-prev {
     opacity: 1;
     left: 25px;
   }
 
 }
-.bannerHero{
+
+.bannerHero {
   padding: 0 50px;
 }
-@media only screen and (max-width: 768px){
-  .container.ContentInfoProduct{
 
-    .ant-tabs-tab .ant-tabs-tab-btn{
+@media only screen and (max-width: 768px) {
+  .container.ContentInfoProduct {
+
+    .ant-tabs-tab .ant-tabs-tab-btn {
       font-size: 2.5vw;
     }
 
   }
 
-  .bannerHero{
+  .bannerHero {
     padding: 0 0;
+  }
+
+  .page-layout {
+    .contentPage {
+      display: flex;
+      width: 100%;
+      flex-wrap: wrap;
+    }
+    .ant-menu-root.ant-menu-inline,{
+      width: 100% !important;
+    }
+    .contentProductAdmin{
+      padding-left: 0 !important;
+    }
+    .ant-btn-dangerous.ant-btn-primary{
+      margin: 0 !important;
+    }
   }
 }

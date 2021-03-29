@@ -61,15 +61,5 @@ const PageHeader = ({
   );
 };
 
-PageHeader.propTypes = {
-  /**
-   * Page header's title
-   */
-  title: PropTypes.string,
-  type: PropTypes.oneOf(["description", "pretitle"]),
-  size: PropTypes.oneOf([1, 2, 3]),
-  separator: PropTypes.bool,
-  spaceBottom: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
-};
 
 export default PageHeader;

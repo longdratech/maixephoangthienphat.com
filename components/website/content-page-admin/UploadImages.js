@@ -214,6 +214,14 @@ export default function UploadImages({handleClickOutSite, showBtnChoose, handleC
                 .itemImageUpload{
                    
                 }
+                @media only screen and (max-width: 768px) {
+                    .listImg{
+                        max-height: 300px;
+                        padding: 30px 10px 50px 10px;
+                        display: grid;
+                        grid-template-columns: 1fr 1fr;
+                    }
+                }
             `}</style>
     </div>
 

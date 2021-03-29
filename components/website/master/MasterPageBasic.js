@@ -1,11 +1,11 @@
 import Head from "next/head";
 import CONFIG from "web.config";
-import {useRouter} from "next/router";
-import {NextSeo} from 'next-seo';
+import { useRouter } from "next/router";
+import { NextSeo } from 'next-seo';
 import asset from "plugins/assets/asset";
 // import Compose from "components/diginext/context/Compose";
-import {useEffect} from "react";
-import  {io}  from "socket.io-client";
+import { useEffect } from "react";
+// import  {io}  from "socket.io-client";
 import renderHTML from 'react-render-html';
 
 const fb = `<!-- Load Facebook SDK for JavaScript -->
@@ -101,65 +101,92 @@ const firebase = `
   firebase.analytics();
 </script>
 `
-const BlankMasterPage = ({pageName, children}) => {
 
-    const router = useRouter();
-    var socket ;
-    
-    useEffect(() => {
-      if( typeof(window) != undefined && amplitude) {
-        amplitude.getInstance().logEvent('USER_ONLINE');
-       
-      }
-      // socket = io.connect("192.168.1.31:3000/");
-      // console.log(" socket " , socket)
-    }, []);
+const SERVER = "http://103.90.226.237:3000";
 
-    return (
-        <>
-            <NextSeo
-                nofollow={CONFIG.environment != "production"}
-                noindex={CONFIG.environment != "production"}
-            />
-            <Head>
-                <title>
-                    {CONFIG.site.title} | {pageName || "Trang chủ"}
-                </title>
-                <meta name="description" content={CONFIG.site.description}/>
-                <link rel="shortcut icon" href={`${CONFIG.getBasePath()}/favicon.ico`}/>
-                <meta property="og:title" content={CONFIG.site.title}/>
-                <meta property="og:description" content={CONFIG.site.description}/>
-                <meta property="og:url" content={CONFIG.getBasePath() + router.asPath}/>
-                <meta property="og:image" content={`${CONFIG.getBasePath()}/share.png`}/>
-                <meta property="og:image:width" content="1200"/>
-                <meta property="og:image:height" content="630"/>
-                <meta property="fb:app_id" content={CONFIG.NEXT_PUBLIC_FB_APP_ID}/>
 
-                <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+const BlankMasterPage = ({ pageName, children }) => {
 
-                <link href={asset("/dashkit/fonts/cerebrisans/cerebrisans.css")} rel="stylesheet"/>
-                <script src="https://sp.zalo.me/plugins/sdk.js"/>
-                <script src="/socket.io/socket.io.js"></script>
+  const router = useRouter();
+  // let socket = io(SERVER);
 
-                <div style={{bottom: "50px !important"}} class="zalo-chat-widget" data-oaid="664405381284161454"
+  // console.log(object)
+
+  useEffect(() => {
+    if (io) {
+      let socket = io.connect(SERVER);
+
+      socket.on("connect", () => {
+
+        console.log("socket", socket);
+
+        socket.emit("events", { views: 1 });
+
+        socket.emit("Identity", 0, response => {
+          console.log("RES Identity: ", response);
+        });
+        socket.on("events", function(data) {
+          console.log("Events, ", data);
+        });
+  
+        socket.on("exception", function(data) {
+          console.log("Events, ", data);
+        });
+  
+        socket.on("disconnect", function() {
+          console.log("disconnect");
+        });
+      });
+
+      
+
+    }
+  }, []);
+
+
+
+  // console.log("socket 2", socket)
+
+
+  return (
+    <>
+      <NextSeo
+        nofollow={CONFIG.environment != "production"}
+        noindex={CONFIG.environment != "production"}
+      />
+      <Head>
+        <title>
+          {CONFIG.site.title} | {pageName || "Trang chủ"}
+        </title>
+        <meta name="description" content={CONFIG.site.description} />
+        <link rel="shortcut icon" href={`${CONFIG.getBasePath()}/favicon.ico`} />
+        <meta property="og:title" content={CONFIG.site.title} />
+        <meta property="og:description" content={CONFIG.site.description} />
+        <meta property="og:url" content={CONFIG.getBasePath() + router.asPath} />
+        <meta property="og:image" content={`${CONFIG.getBasePath()}/share.png`} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="fb:app_id" content={CONFIG.NEXT_PUBLIC_FB_APP_ID} />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <link href={asset("/dashkit/fonts/cerebrisans/cerebrisans.css")} rel="stylesheet" />
+        <script src="https://sp.zalo.me/plugins/sdk.js" />
+        <script src="http://103.90.226.237:3000/socket.io/socket.io.js"></script>
+
+        <div style={{bottom: "50px !important"}} class="zalo-chat-widget" data-oaid="664405381284161454"
                      data-welcome-message="Rất vui khi được hỗ trợ bạn!"
                      data-autopopup="0" data-width="350" data-height="420"/>
-                {
-                    renderHTML(fb)
-                }
-                {
-                    renderHTML(ga)
-                }
-                {
-                  renderHTML(amplitudeScript)
-                }
-                {
-                  renderHTML(firebase)
-                }
-            </Head>
-            {children}
-        </>
-    );
+        {
+          renderHTML(fb)
+        }
+        {
+          renderHTML(ga)
+        }
+      </Head>
+      {children}
+    </>
+  );
 };
 
 export default BlankMasterPage;
