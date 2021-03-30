@@ -145,7 +145,7 @@ export default function MainContentProvider( {children}){
         let res = await ApiCall({
           path: `/portfolios?page=${page}&limit=${limit}`
         });
-        if (res.data) {
+        if (res && res.data) {
             await FunctionnCb(res);
         }
     }

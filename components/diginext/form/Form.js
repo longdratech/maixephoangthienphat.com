@@ -619,6 +619,10 @@ const TextEditor = forwardRef(
     const [error, setError] = useState();
     const [currentValue, setCurrentValue] = useState(defaultValue);
 
+    useEffect(()=>{
+      setCurrentValue(defaultValue);
+    },[defaultValue])
+
     const isValid = () => {
       let isValid;
       for (var i = 0; i < validateConditions.length; i++) {
