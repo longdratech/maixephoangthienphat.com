@@ -16,7 +16,8 @@ function MyApp({ Component, pageProps }) {
   }, []);
 
   return  <MainContent> 
-    <Component {...pageProps} /> 
+    {/*<Component {...pageProps} /> */}
+    <div >Web đang bảo trì.. Chúng tôi sẽ cập nhật trong thời gian sớm nhất. Xin cảm ơn</div>
   </MainContent>;
 }
 
