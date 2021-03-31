@@ -16,6 +16,7 @@ const AdminSidebarPage = ({ pageName, children }) => {
         </title>
 
         <meta name="description" content={CONFIG.site.description}></meta>
+        {/* <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"></meta> */}
         <link href={asset("/dashkit/fonts/cerebrisans/cerebrisans.css")} rel="stylesheet" />
         <link
           rel="shortcut icon"

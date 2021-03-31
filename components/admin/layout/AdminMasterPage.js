@@ -19,7 +19,7 @@ const AdminMasterPage = ({ pageName, children }) => {
                 <meta name="description" content={CONFIG.site.description}></meta>
                 <link href={asset("/dashkit/fonts/cerebrisans/cerebrisans.css")} rel="stylesheet" />
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.2.0/styles/dracula.min.css" />
-
+                {/* <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"></meta> */}
                 {/* <link href={asset("/admin/css/antd.css")} rel="stylesheet" /> */}
                 {/* <link href={asset("/admin/css/antd.css.map")} rel="stylesheet" /> */}
                 <script src="https://ckeditor.com/apps/ckfinder/3.5.0/ckfinder.js"></script>
