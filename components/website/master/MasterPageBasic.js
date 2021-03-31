@@ -3,7 +3,6 @@ import CONFIG from "web.config";
 import { useRouter } from "next/router";
 import { NextSeo } from 'next-seo';
 import asset from "plugins/assets/asset";
-// import Compose from "components/diginext/context/Compose";
 import { useEffect } from "react";
 // import  {io}  from "socket.io-client";
 import renderHTML from 'react-render-html';
@@ -112,36 +111,7 @@ const BlankMasterPage = ({ pageName, children }) => {
 
   // console.log(object)
 
-  useEffect(() => {
-    if (io) {
-      let socket = io.connect(SERVER);
 
-      socket.on("connect", () => {
-
-        console.log("socket", socket);
-
-        socket.emit("events", { views: 1 });
-
-        socket.emit("Identity", 0, response => {
-          console.log("RES Identity: ", response);
-        });
-        socket.on("events", function(data) {
-          console.log("Events, ", data);
-        });
-  
-        socket.on("exception", function(data) {
-          console.log("Events, ", data);
-        });
-  
-        socket.on("disconnect", function() {
-          console.log("disconnect");
-        });
-      });
-
-      
-
-    }
-  }, []);
 
 
 
@@ -167,6 +137,7 @@ const BlankMasterPage = ({ pageName, children }) => {
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="fb:app_id" content={CONFIG.NEXT_PUBLIC_FB_APP_ID} />
+        {/* <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"></meta> */}
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
