@@ -605,11 +605,13 @@ const TextEditor = forwardRef(
     {
       children,
       defaultValue,
+      _value,
       height = 300,
       label,
       type = InputType.TEXT,
       placeholder,
       validateConditions = [],
+      _id="text-editor",
       onChange,
       ...rest
     },
@@ -684,9 +686,10 @@ const TextEditor = forwardRef(
         <label className={`label ${label ? "" : "hide"}`}>{label}</label>
         <Editor
           ref={inputRef}
-          id="text-editor"
+          id={_id}
           initialValue={defaultValue}
-          apiKey="tglg10xhq02cxgmaixdccuyfwkkvvem203eqoqlftdk2j48t"
+          value={_value}
+          // apiKey="tglg10xhq02cxgmaixdccuyfwkkvvem203eqoqlftdk2j48t"
           init={{
             height: height,
             menubar: false,

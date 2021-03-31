@@ -17,6 +17,8 @@ import TitleCopy from "components/website/title/TitleCopy";
 import BannerBottom from "components/website/banner/BannerBottom";
 import Loading from "components/website/loading/Loading";
 
+import renderHTML from 'react-render-html';
+
 const fetchData = [
     {
         title: "Công trình",
@@ -88,7 +90,7 @@ export default function PortfoliosDetail(props) {
                         data && data.title 
                         ? <div className="contentPortfoliosDetail">
                             <h2>{data.title}</h2>
-                            <p>{data.content}</p>
+                            {renderHTML(data.content)}
                             <div className="contentImages"></div>
                             <img src={data.images[0]}/>
                             <p>{data.description}</p>

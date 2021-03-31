@@ -113,7 +113,13 @@ export default function MainContentProvider( {children}){
           data: data
         });
         if (res) {
-            await FunctionnCb(res);
+            if(res.statusCode && res.statusCode == 401){
+                message.warning("Đã hết phiên đăng nhập");
+                return logout();
+            }else{
+                await FunctionnCb(res);
+            }
+            
         }
     }
 
@@ -226,7 +232,12 @@ export default function MainContentProvider( {children}){
           data: data
         });
         if (res) {
-            await FunctionnCb(res);
+            if(res.statusCode && res.statusCode == 401){
+                message.warning("Đã hết phiên đăng nhập");
+                return logout();
+            }else{
+                await FunctionnCb(res);
+            }
         }
     }
 
@@ -262,7 +273,12 @@ export default function MainContentProvider( {children}){
           data: data
         });
         if (res) {
-            await FunctionCb(res);
+            if(res.statusCode && res.statusCode == 401){
+                message.warning("Đã hết phiên đăng nhập");
+                return logout();
+            }else{
+                await FunctionnCb(res);
+            }
         }
     }
 

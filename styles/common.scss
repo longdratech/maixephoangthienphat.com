@@ -8,6 +8,10 @@ body {
   z-index: 1;
 }
 
+.tox-notification.tox-notification--in.tox-notification--warning {
+  display: none;
+}
+
 #pHome {
   .titleCompany {
     h2 {
