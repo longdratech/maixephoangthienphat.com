@@ -1,24 +1,32 @@
-// import { useQuery } from "@apollo/client";
 import asset from "plugins/assets/asset";
 import React from "react";
 import Slider from "react-slick";
-// import { Loading } from "src/component/Loading/Loading";
 import Container from "components/website/elements/Container";
+import { useRouter } from "next/router";
 
 const fetchData = [
     {
         title: "Mái che di động 1",
-        srcImg : "/images/demo/banner-01.png",
+        srcImg : "/images/demo/banner-01.jpg",
         description : "Mái che  di động, nắng mưa nay đã không còn là nỗi lo."
     },
     {
         title: "Mái che di động 2",
-        srcImg : "/images/demo/banner-01.png",
+        srcImg : "/images/demo/banner-01.jpg",
         description : "Mái che  di động, nắng mưa nay đã không còn là nỗi lo."
     },
 ]
 
-function BannerTop() {
+function BannerTop({
+    dataList
+}) {
+
+    const router = useRouter();
+
+    const handleRoute = (value) => {
+        console.log("value : ", value);
+        router.push(`/category/${value.id}`)
+    }
   
     const settings = {
         dots: true,
@@ -37,31 +45,53 @@ function BannerTop() {
     
     return <div className="carouselCustom bannerTop">
         {
-            fetchData
+            dataList
                 ? <Slider {...settings}>
-                    {
-                        fetchData.map((image, index) => {
-                            return (
-                                <div key={index} className="itemCarousel">
-                                    <img src= {asset(image.srcImg)} />
-                                   
-                                        <div className="infoItemCopy">
-                                        
-                                        <h3>{image.title}</h3>
-                                        <p>
-                                                {image.description}
-                                        </p>
-                                        <span className="btn">Xem tất cả</span>
+                        {
+                            dataList.map((data, index) => {
+                                return (
+                                    <div key={index} className="itemCarousel">
+                                        <img src= {data.image} />
+                                    
+                                            <div className="infoItemCopy">
+                                            
+                                            <h3>{data.title}</h3>
+                                            <p>
+                                                {data.description}
+                                            </p>
+                                            <span onClick={()=>handleRoute(data)} className="btn">Xem tất cả</span>
+                                            
+                                        </div>
+                                    
                                         
                                     </div>
-                                  
+                                )
+                            })
+                        }
+                    </Slider>
+                :   <Slider {...settings}>
+                        {
+                            fetchData.map((data, index) => {
+                                return (
+                                    <div key={index} className="itemCarousel">
+                                        <img src= {data.srcImg} />
                                     
-                                </div>
-                            )
-                        })
-                    }
-                </Slider>
-                : <></>
+                                            <div className="infoItemCopy">
+                                            
+                                            <h3>{data.title}</h3>
+                                            <p>
+                                                {data.description}
+                                            </p>
+                                            <span className="btn">Xem tất cả</span>
+                                            
+                                        </div>
+                                    
+                                        
+                                    </div>
+                                )
+                            })
+                        }
+                    </Slider>
         }
 
         <style jsx>{`
@@ -86,6 +116,11 @@ function BannerTop() {
                 display: flex;
                 cursor: pointer;
                 color: #fff;
+                box-shadow: 0 20px 25px rgba(253, 118, 105,0.2);
+                transition: all 0.5s ease-in-out;
+                &:hover{
+                    box-shadow: 0 20px 25px rgba(253, 118, 105,0.5);
+                }
             }
             .infoItemCopy{
                 padding: 30px 30px;
@@ -96,6 +131,7 @@ function BannerTop() {
                 position: absolute;
                 top: 10%;
                 left: 8%;
+                max-width: 450px;
                 h3{
                     font-size: 32px;
                     font-family: "Montserrat-SemiBold";
@@ -110,6 +146,12 @@ function BannerTop() {
                 }
             }
             @media only screen and (max-width : 599px){
+
+                .itemCarousel{
+                    img{
+                        height: 60vh;
+                    }
+                }
 
                 .infoItemCopy{
                     width: 85%;

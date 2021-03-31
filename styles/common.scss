@@ -1,38 +1,47 @@
-footer {
-  
-  
-}
+footer {}
+
 header {
   z-index: 99;
 }
+
 body {
   z-index: 1;
 }
+
+.tox-notification.tox-notification--in.tox-notification--warning {
+  display: none;
+}
+
 #pHome {
-  .titleCompany{
-    h2{
+  .titleCompany {
+    h2 {
       margin-bottom: 0;
       padding-bottom: 10px;
     }
-    h4{
+
+    h4 {
       font-size: 18px;
       letter-spacing: 0.1rem;
       opacity: 0.6;
     }
   }
 }
-.bannerTop{
+
+.bannerTop {
   .slick-dots {
     position: absolute;
     bottom: 30px;
   }
+
   .slick-dots li button:before {
     color: #fff;
   }
+
   .slick-dots li.slick-active button:before {
     opacity: 0.75;
     color: #fff;
   }
+
   .slick-next,
   .slick-prev {
     opacity: 0;
@@ -44,7 +53,7 @@ body {
     border: solid 1px #fff;
     margin: 0;
     box-sizing: border-box;
-  
+
     &:before {
       font-size: 16px;
       color: #fff;
@@ -60,6 +69,7 @@ body {
       top: 55%;
       transform: translate(-50%, -50%);
     }
+
     &:after {
       content: "";
       position: absolute;
@@ -73,46 +83,58 @@ body {
       top: 45%;
       transform: translate(-50%, -50%);
     }
+
     transform: scale(1.5);
   }
-  
+
   .slick-prev {
     left: 35px;
+
     &:before {
       transform: translate(-50%, -50%) rotate(-50deg);
     }
+
     &:after {
       transform: translate(-50%, -50%) rotate(50deg);
     }
   }
+
   .slick-next {
     right: 35px;
+
     &:before {
       transform: translate(0%, -50%) rotate(50deg);
     }
+
     &:after {
       transform: translate(0%, -50%) rotate(-50deg);
     }
   }
+
   .slick-prev:hover {
     background-color: #FD7669;
     border: solid 2px #FD7669;
   }
+
   .slick-next:hover {
     background-color: #FD7669;
     border: solid 2px #FD7669;
   }
+
   .carouselCustom:hover .slick-next {
     opacity: 1;
     right: 25px;
   }
+
   .carouselCustom:hover .slick-prev {
     opacity: 1;
     left: 25px;
   }
 }
 
-.itemProductSmall, .itemProductBig, .itemBannerBottom{
+.itemProductSmall,
+.itemProductBig,
+.itemBannerBottom {
   .slick-prev {
     left: unset;
     width: 40px;
@@ -125,14 +147,17 @@ body {
     align-items: center;
     background-color: #fff;
     transition: 0.3s;
-    &::before{
+
+    &::before {
       display: none;
     }
-    &:hover{
+
+    &:hover {
       background-color: #FD7669;
     }
-    
+
   }
+
   .slick-next {
     right: 1px;
     width: 40px;
@@ -145,49 +170,346 @@ body {
     align-items: center;
     background-color: #fff;
     transition: 0.3s;
-    &:hover{
+
+    &:hover {
       background-color: #FD7669;
     }
-    &::before{
+
+    &::before {
       display: none;
     }
-    &::after{
-        content: "";
-        position: absolute;
-        width: 1px;
-        height: 15px;
-        background-color: #888;
-        left: 0;
-        top: 50%;
-        transform: translate(0, -50%);
+
+    &::after {
+      content: "";
+      position: absolute;
+      width: 1px;
+      height: 15px;
+      background-color: #888;
+      left: 0;
+      top: 50%;
+      transform: translate(0, -50%);
     }
-    
+
   }
 }
 
-.itemBannerBottom{
+.itemBannerBottom {
   .slick-next {
     border-top-right-radius: 0;
   }
 }
 
-.itemProductBigStyle2{
+.itemProductBigStyle2 {
   .slick-dots {
     bottom: 10px;
     width: 35%;
-    .slick-active{
 
-    }
-    li.slick-active button:before{
+    .slick-active {}
+
+    li.slick-active button:before {
       color: #fff;
       transform: scale(1.5);
     }
   }
 }
 
-.layoutGrid.infoCompany{
+.layoutGrid.infoCompany {
   padding: 20px 0;
   column-gap: 50px !important;
 }
 
+.layoutGrid.containerServices {}
 
+.formSearch {
+  flex: 1;
+  justify-content: flex-end;
+  align-items: flex-end;
+  display: flex;
+  padding: 5px 6px;
+  padding-bottom: 10px;
+  margin: 0 10px;
+  margin-bottom: 10px;
+  height: 100%;
+  height: 78px;
+}
+
+.container.center {
+  .ant-pagination-item {
+    border-radius: 100%;
+  }
+
+  .ant-pagination-options {
+    display: none;
+  }
+
+  .ant-pagination-next .ant-pagination-item-link,
+  .ant-pagination-prev .ant-pagination-item-link {
+    border: none;
+  }
+}
+
+#pContact {
+  .noneLine {
+    margin-bottom: 40px;
+
+    h2 {
+      margin-bottom: 0;
+    }
+
+    p {
+      padding: 10px 0;
+      font-size: 16px;
+    }
+  }
+
+}
+
+.contentIntroduce {
+  p {
+    padding: 10px 0;
+  }
+
+  p {
+    img {
+      max-width: 90%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+}
+
+.layoutGrid.flex {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  .itemProductBig {
+    width: 60%;
+  }
+
+  .itemProductSmall {
+    width: 38%;
+  }
+}
+
+.container.ContentInfoProduct {
+
+  padding-top: 50px !important;
+  padding-bottom: 50px !important;
+
+  .ant-tabs-tab .ant-tabs-tab-btn {
+    font-size: 1.2vw;
+  }
+
+  .ant-tabs-tab+.ant-tabs-tab {
+    margin: 2px;
+  }
+
+  .ant-tabs-tab {
+    background-color: #f0f0f0;
+    padding: 10px 15px;
+    border: 1px solid #f0f0f0;
+    margin-right: 5px;
+    font-weight: bold;
+  }
+
+  .ant-tabs-tab-active {
+    background-color: #fff;
+
+  }
+
+  .contentImages {
+    width: 80%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    border: solid 1px #888;
+    border-radius: 5px;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .tabsContentInfoProduct {
+    border: 1px solid #f0f0f0;
+    padding: 50px;
+    margin-top: -18px;
+  }
+
+}
+
+.containerPortfoliosDetail {
+  padding-top: 50px !important;
+  padding-top: 50px !important;
+
+  .contentPortfoliosDetail {
+    h2 {
+      font-size: 2vw;
+      color: #103C55;
+      text-align: center;
+      font-weight: bold;
+      text-transform: capitalize;
+    }
+
+    img {
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    p {
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+
+    .link {
+      display: flex;
+      justify-content: flex-end;
+
+      a {
+        display: flex;
+        color: red;
+        font-weight: bold;
+        margin-left: auto;
+        text-align: right;
+        transition: 0.2s;
+
+        &:hover {
+          color: #103C55;
+        }
+      }
+    }
+  }
+}
+
+.carouselCustom.bannerTop {
+
+  .slick-next,
+  .slick-prev {
+    opacity: 0;
+    width: 25px;
+    height: 25px;
+    z-index: 1;
+    transition: 0.4s;
+    border-radius: 50%;
+    border: solid 2px #fff;
+    margin: 0;
+    box-sizing: border-box;
+
+    &:before {
+      font-size: 16px;
+      color: #fff;
+      content: "";
+      width: 2px;
+      height: 6px;
+      position: absolute;
+      z-index: 1;
+      background-color: #fff;
+      border-radius: 5px;
+      opacity: 1;
+      left: 48%;
+      top: 55%;
+      transform: translate(-50%, -50%);
+    }
+
+    &:after {
+      content: "";
+      position: absolute;
+      width: 2px;
+      height: 6px;
+      z-index: 1;
+      background-color: #fff;
+      opacity: 1;
+      border-radius: 5px;
+      left: 48%;
+      top: 45%;
+      transform: translate(-50%, -50%);
+    }
+
+    transform: scale(1.5);
+  }
+
+  .slick-prev {
+    left: 35px;
+
+    &:before {
+      transform: translate(-50%, -50%) rotate(-50deg);
+    }
+
+    &:after {
+      transform: translate(-50%, -50%) rotate(50deg);
+    }
+  }
+
+  .slick-next {
+    right: 35px;
+
+    &:before {
+      transform: translate(0%, -50%) rotate(50deg);
+    }
+
+    &:after {
+      transform: translate(0%, -50%) rotate(-50deg);
+    }
+  }
+
+  .slick-prev:hover {
+    background-color: #FD7669;
+    border: solid 2px #FD7669;
+  }
+
+  .slick-next:hover {
+    background-color: #FD7669;
+    border: solid 2px #FD7669;
+  }
+
+  &:hover .slick-next {
+    opacity: 1;
+    right: 25px;
+  }
+
+  &:hover .slick-prev {
+    opacity: 1;
+    left: 25px;
+  }
+
+}
+
+.bannerHero {
+  padding: 0 50px;
+}
+
+@media only screen and (max-width: 768px) {
+  .container.ContentInfoProduct {
+
+    .ant-tabs-tab .ant-tabs-tab-btn {
+      font-size: 2.5vw;
+    }
+
+  }
+
+  .bannerHero {
+    padding: 0 0;
+  }
+
+  .page-layout {
+    .contentPage {
+      display: flex;
+      width: 100%;
+      flex-wrap: wrap;
+    }
+    .ant-menu-root.ant-menu-inline,{
+      width: 100% !important;
+    }
+    .contentProductAdmin{
+      padding-left: 0 !important;
+    }
+    .ant-btn-dangerous.ant-btn-primary{
+      margin: 0 !important;
+    }
+  }
+}

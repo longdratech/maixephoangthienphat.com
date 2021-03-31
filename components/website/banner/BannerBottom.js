@@ -1,18 +1,10 @@
 import asset from "plugins/assets/asset";
 import Slider from "react-slick";
-const fetchData = 
-    {
-        title: "Thi công mái hiên tại Bình Quới",
-        srcImgs : ["/images/demo/banner-01.png", "/images/demo/banner-02.jpg"],
-        description : "Thi công mái hiên di động tại Đà Nẵng Thi công mái hiên di động tại Đà Nẵng đã và đang đáp ứng nhu cầu đông đảo cho người sử dụng trên địa bàn khi muốn gia tăng diện tích",
-        price : "1.300.000 đ",
-    }
 
 
 export default function BannerBottom({
-    name,
-    description="",
-    price
+    handleRoute,
+    data,
 }){
 
     function SampleNextArrow(props) {
@@ -28,7 +20,7 @@ export default function BannerBottom({
             </svg>
         </div>
         );
-      }
+    }
       
     function SamplePrevArrow(props) {
         const { className, style, onClick } = props;
@@ -51,9 +43,9 @@ export default function BannerBottom({
         dots: false,
         infinite: true,
         arrows: true,
-        speed: 1200,
-        autoplay: true,
-        autoplaySpeed: 5000,
+        speed: 500,
+        autoplay: false,
+        // autoplaySpeed: 1000,
         slidesToShow: 1,
         slidesToScroll: 1,
         fade: true,
@@ -61,19 +53,26 @@ export default function BannerBottom({
         prevArrow: <SamplePrevArrow />
     };
 
+    const _handleRoute = (id) =>{
+        if(handleRoute){
+            // console.log("ID", id)
+            handleRoute(id);
+        }
+    }
+
     return <div className="itemBannerBottom">
         {
-            fetchData.srcImgs
+            data 
                 ? <Slider {...settings}>
                     {
-                        fetchData.srcImgs.map((value, index) => {
+                         data.map((value, index) => {
                             return (
-                                <div key={index} className="itemCarousel">
-                                    <img src= {asset(value)} />
+                                <div key={index} className="itemCarousel" onClick={() => _handleRoute(value.id)}>
+                                    <img src= {value.images[0]} />
                                     <div className="infoItemBannerBottom">
-                                        <h4>{fetchData.title}</h4>
+                                        <h4>{value.title}</h4>
                                         <p className="descriptionItemBannerBottom">
-                                            {fetchData.description}
+                                            {value.description}
                                         </p>
 
                                     </div>
@@ -85,7 +84,6 @@ export default function BannerBottom({
                 : <></>
         }
         {/* <span className="priceSale">Giá sốc</span> */}
-
         
 
         <style jsx>{`
@@ -109,10 +107,12 @@ export default function BannerBottom({
                 transform: scale(1.1);
             }
             .itemCarousel{
+                overflow: hidden;
+                height: 40vh;
                 img{
                     transition: 0.3s;
                     width: 100%;
-                    max-height: 50vh;
+                    /* max-height: 50vh; */
                     height: 100%;
                     object-fit: cover;
                     
@@ -123,7 +123,7 @@ export default function BannerBottom({
                     height: 100%;
                     position: absolute;
                     left: 0;
-                    top: 0;
+                    top: -3px;
                     z-index: 1;
                     background-color: rgba(0,0,0,0.5);
                 }

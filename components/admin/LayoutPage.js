@@ -26,11 +26,11 @@ const LayoutPage = ({ children, header, user }) => {
     <div className="page-layout">
       <HorizontalList type={ListType.START} style={{ position: "fixed", width: "100%", height: "100%" }}>
         {/* Sidebar */}
-        <SidebarAdmin width={250} user={user} style={{ overflow: "scroll" }} />
+        {/* <SidebarAdmin width={250} user={user} style={{ overflow: "scroll" }} /> */}
 
         {/* Page Content */}
         <ListItem size="stretch" style={{ height: "100%" }}>
-          <AdminTopBar isMobile={false} user={user} />
+          {/* <AdminTopBar isMobile={false} user={user} /> */}
 
           <LayoutContent>
             {header}
@@ -50,10 +50,11 @@ const LayoutPage = ({ children, header, user }) => {
         visible={sideBarVisible}
         onClose={onSidebarClose}
       >
-        <SidebarAdmin width="100%" user={user} />
+        {/* <SidebarAdmin width="100%" user={user} /> */}
       </Drawer>
 
-      <AdminTopBar isMobile={true} onMenuClick={onMenuClick} user={user} />
+      {/* <AdminTopBar isMobile={true} onMenuClick={onMenuClick} user={user} /> */}
+      <AdminTopBar isMobile={true} onMenuClick={onMenuClick}  />
 
       <LayoutContent>
         {header}
@@ -72,7 +73,7 @@ const LayoutPage = ({ children, header, user }) => {
 
   return (
     <AdminMasterPage>
-      {isLayoutSidebar ? ShowSidebarLayout : HideSidebarLayout}
+      { ShowSidebarLayout}
       {/* {HideSidebarLayout} */}
     </AdminMasterPage>
   );

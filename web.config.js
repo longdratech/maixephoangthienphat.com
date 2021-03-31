@@ -4,12 +4,12 @@ export const ENVIRONMENT_DATA = {
   STAGING: "staging",
   DEVELOPMENT: "development",
 }
-
+// console.log("process.env.NEXT_PUBLIC_API_BASE_PATH : ",process.env.NEXT_PUBLIC_API_BASE_PATH)
 const CONFIG = {
   environment: process.env.NEXT_PUBLIC_ENV || "development",
   site: {
-    title: "Hello Website",
-    description: "Description goes here",
+    title: "Hoàng Thiên Phát",
+    description: "Chất lượng đến từng chi tiết. Giá cả cạnh tranh",
     type: "article",
   },
   links: {
@@ -20,7 +20,7 @@ const CONFIG = {
   NEXT_PUBLIC_FB_APP_ID: process.env.NEXT_PUBLIC_FB_APP_ID || "326227578745497",  // currently using XXX
   NEXT_PUBLIC_FB_PAGE_ID: process.env.NEXT_PUBLIC_FB_PAGE_ID || "421729185315854",  // currently using developers
   NEXT_PUBLIC_BASE_PATH: process.env.NEXT_PUBLIC_BASE_PATH || "",
-  NEXT_PUBLIC_API_BASE_PATH: process.env.NEXT_PUBLIC_API_BASE_PATH || "",
+  NEXT_PUBLIC_API_BASE_PATH: process.env.NEXT_PUBLIC_API_BASE_PATH || "http://103.90.226.237:3000/api/v1",
   NEXT_PUBLIC_CDN_BASE_PATH: process.env.NEXT_PUBLIC_CDN_BASE_PATH || "",
   NEXT_PUBLIC_APP_DOMAIN: process.env.NEXT_PUBLIC_APP_DOMAIN || "",
   NEXT_PUBLIC_BASE_URL: process.env.NEXT_PUBLIC_BASE_URL || "",

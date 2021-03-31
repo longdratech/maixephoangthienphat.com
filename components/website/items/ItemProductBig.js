@@ -1,9 +1,12 @@
 import asset from "plugins/assets/asset";
 import Slider from "react-slick";
+import { useRouter } from "next/router"
+
 const fetchData = 
     {
+        id:"123",
         title: "Mái che di động 1",
-        srcImgs : ["/images/demo/banner-01.png", "/images/demo/banner-02.jpg"],
+        srcImgs : ["/images/demo/banner-01.jpg", "/images/demo/banner-02.jpg"],
         description : "Mái che  di động, nắng mưa nay đã không còn là nỗi lo.",
         price : "1.300.000 đ",
     }
@@ -12,8 +15,22 @@ const fetchData =
 export default function ItemProductBig({
     name,
     description,
-    price
+    price,
+    guarantee,
+    images,
+    dataAPI,
+    handleClick,
 }){
+
+    const router = useRouter();
+    
+    const handleClickTitle = (e) =>{
+        if(handleClick){
+            handleClick();
+        }else{
+            router.push("/chi-tiet-san-pham/"+fetchData.id);
+        }
+    }
 
     function SampleNextArrow(props) {
         const { className, style, onClick } = props;
@@ -52,8 +69,8 @@ export default function ItemProductBig({
         infinite: true,
         arrows: true,
         speed: 1200,
-        autoplay: true,
-        autoplaySpeed: 5000,
+        autoplay: false,
+        // autoplaySpeed: 5000,
         slidesToShow: 1,
         slidesToScroll: 1,
         fade: true,
@@ -61,29 +78,40 @@ export default function ItemProductBig({
         prevArrow: <SamplePrevArrow />
     };
 
-    return <div className="itemProductBig">
+    return <div className="itemProductBig" >
         {
-            fetchData.srcImgs
-                ? <Slider {...settings}>
+            dataAPI 
+            ?  <Slider {...settings}>
+                    {
+                        dataAPI.images.map((value, index) => {
+                            // console.log(value)
+                            return (
+                                <div key={index} className="itemCarousel" onClick={handleClickTitle}>
+                                    <img src= {value} />
+                                </div>
+                            )
+                        })
+                    }
+                </Slider>
+            :   <Slider {...settings}>
                     {
                         fetchData.srcImgs.map((value, index) => {
                             return (
-                                <div key={index} className="itemCarousel">
+                                <div key={index} className="itemCarousel"onClick={handleClickTitle}>
                                     <img src= {asset(value)} />
                                 </div>
                             )
                         })
                     }
                 </Slider>
-                : <></>
         }
-        <span className="priceSale">Giá sốc</span>
-        <div className="infoItemProductBig">
+        {dataAPI && dataAPI.isHotDeal == true ?  <span className="priceSale">Giá sốc</span> : <></>}
+        <div className="infoItemProductBig" onClick={handleClickTitle}>
 
-            <h4>{fetchData.title}</h4>
-            <span>{fetchData.price}</span>
+            <h4 >{dataAPI ?  dataAPI.title :fetchData.title} </h4>
+            <span>{dataAPI ?  dataAPI.price+"đ": fetchData.price}</span>
             <p>
-                {`Bảo hành: 12 tháng`}
+                Bảo hành: { dataAPI ?  dataAPI.guarantee +" tháng" : `12 tháng`} 
             </p>
 
             <div className="infoTracking">
@@ -93,9 +121,9 @@ export default function ItemProductBig({
                         <path id="Path_33" data-name="Path 33" d="M157.929,154.725a2.832,2.832,0,1,0,3.207,2.807A3.031,3.031,0,0,0,157.929,154.725Zm0,4.678a1.888,1.888,0,1,1,2.138-1.871A2.02,2.02,0,0,1,157.929,159.4Z" transform="translate(-5277.127 1379.625)" fill="#707070"/>
                     </g>
                 </svg>
-                <p>{`1.000`}</p>
+                <p>{ dataAPI ?  dataAPI.views : `1.000`}</p>
                 <span>
-                    Đã bán: 100
+                    Đã bán: { dataAPI ?  dataAPI.sold : `1.000`}
                 </span>
             </div>
 

@@ -3,6 +3,7 @@ export default function TitleCopy({
     positionLine = "CENTER",
     fontSize = 32,
     className = "",
+    color,
     children,
 }) {
     return <div className={`titleCopy__`+ positionLine + " " + className}>
@@ -19,6 +20,7 @@ export default function TitleCopy({
                 h2{
                     display: flex;
                     justify-content: center;
+                    text-align: center;
                 }
             }
 
@@ -32,7 +34,7 @@ export default function TitleCopy({
             h2{
                 font-family: "Montserrat-SemiBold";
                 font-size: ${fontSize +"px"};
-                color: #103C55;
+                color: ${color ? color : "#103C55"};
                 padding: 20px 0;
                 margin: 20px 0;
                 display: block;
@@ -66,7 +68,15 @@ export default function TitleCopy({
                         left: 0;
                     }
                 }
+                
             }
+            .noneLine{
+                span{
+                    &::after{
+                        display: none;
+                    }
+                }
+            }   
         `}</style>
     </div>
 }

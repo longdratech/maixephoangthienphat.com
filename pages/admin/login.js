@@ -20,8 +20,12 @@ import Axios from "axios";
 import { useMediaQuery } from "react-responsive";
 import { DefaultStyles } from "components/admin/layout/AdminGlobalStyle";
 import AdminMasterPage from "components/admin/layout/AdminMasterPage";
-
+import {MainContent} from "components/website/contexts/MainContent";
+import {useContext} from "react"
 const AdminLogin = () => {
+
+    const valueContext =  useContext(MainContent);
+
     const router = useRouter();
     const emailRef = useRef();
     const passRef = useRef();
@@ -40,38 +44,47 @@ const AdminLogin = () => {
     });
 
     const loginHandler = async () => {
+
         clearTimeout(myTimeout);
         let loginTimeout = setTimeout(async function() {
-            if (emailRef.current.isValid && passRef.current.isValid) {
-                let body = {
-                    email: emailRef.current.value,
-                    password: passRef.current.value,
-                };
+
+            if (emailRef.current && passRef.current) {
+                let body =  JSON.stringify({"username":emailRef.current.value,"password":passRef.current.value});
                 let res;
                 try {
                     res = await Axios({
-                        url: `${CONFIG.getBasePath()}/api/login`,
+                        url: `${CONFIG.NEXT_PUBLIC_API_BASE_PATH}/auth/signin`,
                         method: "POST",
-                        data: JSON.stringify(body),
-                        headers: {
-                        "Content-Type": "application/json",
-                        },
+                        data: body,
+                        headers: { 'Content-Type': 'application/json' },
                     });
                 } catch (e) {
                     res = e.response;
                 }
         
-                if (res.data.status) {
-                    router.push("/admin");
+                if (res && res.data.accessToken) {
+
+                    if(localStorage){
+
+                        localStorage.setItem("token",res.data.accessToken);
+                        localStorage.setItem("infoUser", JSON.stringify(res.data));
+                        localStorage.setItem("total_seconds", "1000000")
+                        router.push("/admin");
+                    }
+                    
                 } else {
-                    if (res.data.message) {
+                    if (res && res.data.message) {
                         if (typeof res.data.message == "string") res.data.message = [res.data.message];
                             res.data.message.map((msg) => {
+                                // console.log("Msg ==> ",msg);
                             notification.error({
                                 message: msg,
                             });
                         });
                     } else {
+                        localStorage.removeItem("token");
+                        localStorage.removeItem("infoUser");
+                        valueContext.setDataUser();
                         notification.error({
                             message: "Something wrong, please try again later.",
                         });
@@ -93,7 +106,7 @@ const AdminLogin = () => {
                 ref={emailRef}
                 label="Email Address"
                 placeholder="name@address.com"
-                validateConditions={[{ type: ValidationType.EMAIL, errMessage: "Không đúng định dạng email." }]}
+                validateConditions={[{ type: ValidationType.NOT_EMPTY, errMessage: "Vui lòng nhập tên tài khoản." }]}
                 onKeyPress={(event) => {
                 if(event.key === 'Enter') {
                     loginHandler()

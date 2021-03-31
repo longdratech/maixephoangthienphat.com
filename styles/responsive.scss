@@ -60,7 +60,30 @@
             transform: translate(-50%,0%);
         }
     }
+
+    #pServices{
+        .layoutGrid.containerServices{
+            grid-template-columns: 1fr 1fr;
+        }
+    }   
+    
    
+}
+@media only screen and (max-width : 768px){
+    #pServices{
+        .layoutGrid.containerServices{
+            grid-template-columns: 1fr;
+        }
+    } 
+    .tabsContentInfoProduct{
+        padding: 20px !important;
+        .contentImages{
+            width: 100% !important;
+            img{
+                width: 100%;
+            }
+        }
+    }
 }
 
 @media only screen and (max-width : 599px){
