@@ -5,6 +5,7 @@ import ApiCall from "modules/ApiCall";
 import Axios from "axios";
 import { method } from "lodash";
 import { message } from "antd"
+
 export default function MainContentProvider( {children}){
 
 
@@ -112,7 +113,13 @@ export default function MainContentProvider( {children}){
           data: data
         });
         if (res) {
-            await FunctionnCb(res);
+            if(res.statusCode && res.statusCode == 401){
+                message.warning("Đã hết phiên đăng nhập");
+                return logout();
+            }else{
+                await FunctionnCb(res);
+            }
+            
         }
     }
 
@@ -144,7 +151,7 @@ export default function MainContentProvider( {children}){
         let res = await ApiCall({
           path: `/portfolios?page=${page}&limit=${limit}`
         });
-        if (res.data) {
+        if (res && res.data) {
             await FunctionnCb(res);
         }
     }
@@ -225,7 +232,12 @@ export default function MainContentProvider( {children}){
           data: data
         });
         if (res) {
-            await FunctionnCb(res);
+            if(res.statusCode && res.statusCode == 401){
+                message.warning("Đã hết phiên đăng nhập");
+                return logout();
+            }else{
+                await FunctionnCb(res);
+            }
         }
     }
 
@@ -261,7 +273,12 @@ export default function MainContentProvider( {children}){
           data: data
         });
         if (res) {
-            await FunctionCb(res);
+            if(res.statusCode && res.statusCode == 401){
+                message.warning("Đã hết phiên đăng nhập");
+                return logout();
+            }else{
+                await FunctionnCb(res);
+            }
         }
     }
 

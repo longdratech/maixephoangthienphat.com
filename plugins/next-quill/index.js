@@ -8,7 +8,7 @@ const defaultModules = {
     ["bold", "italic", "underline", "strike", "blockquote"],
     [{ color: [] }, { background: [] }],
     [{ align: [] }, { list: "ordered" }, { list: "bullet" }, { indent: "-1" }, { indent: "+1" }],
-    ["link", "image", "video", "code", "code-block"],
+    ["link",  "code", "code-block"], //"image", "video",
     ["clean"],
   ],
 };
@@ -24,7 +24,7 @@ const defaultFormats = [
   "bullet",
   "indent",
   "link",
-  "image",
+  // "image",
   "color",
   "background",
   "align",

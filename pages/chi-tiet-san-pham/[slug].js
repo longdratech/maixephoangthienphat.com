@@ -17,6 +17,7 @@ import ItemProductSmall from "components/website/items/ItemProductSmall";
 import Loading from "components/website/loading/Loading";
 import { Pagination } from "antd";
 import ApiCall from "modules/ApiCall";
+import renderHTML from 'react-render-html';
 
 const { TabPane } = Tabs;
 
@@ -133,7 +134,7 @@ export default function ProductDetail(props) {
                     data
                     ? <BannerTopStyle2 data={
                         [{
-                            title: data.category,
+                            title: data.titleCategory,
                             srcImg: "/images/demo/banner-top-style-2.jpg",
                             description: ""
                         }]
@@ -159,7 +160,7 @@ export default function ProductDetail(props) {
                             <div className="Description tabsContentInfoProduct">
                                 {
                                     data && data.description
-                                    ? data.description
+                                    ? renderHTML(data.description)
                                     : "Chưa có thông tin" 
                                 }
                             </div>
@@ -168,7 +169,7 @@ export default function ProductDetail(props) {
                             <div className="Specifications tabsContentInfoProduct">
                                 {
                                     data && data.specifications
-                                    ? data.specifications
+                                    ? renderHTML(data.specifications)
                                     : "Chưa có thông tin" 
                                 }
                             </div>

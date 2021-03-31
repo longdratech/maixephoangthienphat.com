@@ -1,7 +1,6 @@
 import LayoutPage from "components/admin/LayoutPage";
 import PageHeader from "components/dashkit/PageHeader";
 import { useRouter } from "next/router";
-import { withAuth } from "plugins/next-auth/admin";
 import {MainContent} from "components/website/contexts/MainContent";
 import {useContext, useEffect, useState} from "react"
 import Navbar from "components/website/navbar/Navbar";
@@ -168,7 +167,7 @@ const AdminIndex = ({ user }) => {
         </PageHeader>
     );
    
-    return <LayoutPage header={header} user={user} token={valueContext.token} >
+    return <LayoutPage header={header} token={valueContext.token} >
            
             <div className="contentPage">
                 <Navbar handleClick={handleClickMenu}></Navbar>
@@ -183,6 +182,7 @@ const AdminIndex = ({ user }) => {
                     width: 100%;
                 }
             `}</style>
+
            
     </LayoutPage>;
 };

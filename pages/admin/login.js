@@ -62,7 +62,7 @@ const AdminLogin = () => {
                     res = e.response;
                 }
         
-                if (res.data.accessToken) {
+                if (res && res.data.accessToken) {
 
                     if(localStorage){
 
@@ -73,10 +73,10 @@ const AdminLogin = () => {
                     }
                     
                 } else {
-                    if (res.data.message) {
+                    if (res && res.data.message) {
                         if (typeof res.data.message == "string") res.data.message = [res.data.message];
                             res.data.message.map((msg) => {
-                                console.log("Msg ==> ",msg);
+                                // console.log("Msg ==> ",msg);
                             notification.error({
                                 message: msg,
                             });

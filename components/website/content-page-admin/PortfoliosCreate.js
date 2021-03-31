@@ -6,7 +6,7 @@ import { MainContent } from "components/website/contexts/MainContent";
 import Link from "next/link";
 import UploadImages from "components/website/content-page-admin/UploadImages";
 import Loading from "components/website/loading/Loading";
-
+import { TextEditor } from "components/diginext/form/Form";
 /* eslint-disable no-template-curly-in-string */
 const validateMessages = {
     required: 'Vui lòng nhập ${label}!',
@@ -32,9 +32,10 @@ export default function PortfoliosCreate({ id = null, dataSelect, closeModal }) 
     const [formRepair] = Form.useForm();
     const formRef = useRef();
 
-    // const [hotDeal, setHotDeal] = useState(false);  // set init value checkbox
     const [indexImg, setIndexImg] = useState();// get index input to set value url img
     const [listImgs, setListImgs] = useState(); // get list img in form 
+
+    const [dataContent, setDataContent] = useState(); // get data Content in form 
 
     const onFinish = async (values) => {
         await valueContext.setStatusLoading(true)
@@ -75,15 +76,6 @@ export default function PortfoliosCreate({ id = null, dataSelect, closeModal }) 
         setIsModalVisible(false);
     };
 
-    // const getBase64 = (file) => {
-    //     return new Promise((resolve, reject) => {
-    //         const reader = new FileReader();
-    //         reader.readAsDataURL(file);
-    //         reader.onload = () => resolve(reader.result);
-    //         reader.onerror = error => reject(error);
-    //     });
-    // }
-
     useEffect(() => {
         if (dataSelect) {
             console.log("data SELECT" , dataSelect)
@@ -94,12 +86,13 @@ export default function PortfoliosCreate({ id = null, dataSelect, closeModal }) 
     }, [dataSelect]);
 
     const initValueForm = async (dataSelect) => {
-        // console.log("dataSelect : ", dataSelect)
         await formRepair.setFieldsValue({ ...dataSelect });
+        await setDataContent(dataSelect.content);
     }
 
     const resetInitValueForm = async () => {
         await formRepair.resetFields();
+        await setDataContent();
     } 
 
     const handleSetImgToInput =  async (value) => {
@@ -144,10 +137,11 @@ export default function PortfoliosCreate({ id = null, dataSelect, closeModal }) 
                     </Form.Item>
 
                     <Form.Item name={['content']} label="Content">
-                        <Input.TextArea />
+                        {/* <Input.TextArea /> */}
+                        <TextEditor _id="1224" _value={dataContent}  />
                     </Form.Item>
 
-                    <Form.Item name={['link']} label="Link">
+                    <Form.Item name={['link']} label="Link" rules={[{ required: true }]}>
                         <Input />
                     </Form.Item>
 
@@ -278,10 +272,11 @@ export default function PortfoliosCreate({ id = null, dataSelect, closeModal }) 
                     </Form.Item>
 
                     <Form.Item name={['content']} label="Content">
-                        <Input.TextArea />
+                        {/* <Input.TextArea /> */}
+                        <TextEditor _id="valueContent" defaultValue={""} />
                     </Form.Item>
 
-                    <Form.Item name={['link']} label="Link" >
+                    <Form.Item name={['link']} label="Link" rules={[{ required: true }]}>
                         <Input />
                     </Form.Item>
 

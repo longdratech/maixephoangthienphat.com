@@ -73,7 +73,7 @@ const LayoutPage = ({ children, header, user }) => {
 
   return (
     <AdminMasterPage>
-      {isLayoutSidebar ? ShowSidebarLayout : HideSidebarLayout}
+      { ShowSidebarLayout}
       {/* {HideSidebarLayout} */}
     </AdminMasterPage>
   );
