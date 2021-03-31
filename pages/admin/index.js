@@ -15,6 +15,7 @@ import PortfoliosCreate from "components/website/content-page-admin/PortfoliosCr
 import Socials from "components/website/content-page-admin/Socials";
 import SocialsCreate from "components/website/content-page-admin/SocialsCreate";
 import ChangePassword from "components/website/content-page-admin/ChangePassword";
+import TrackingUser from "components/website/content-page-admin/TrackingUser";
 // import Countdown from "react-countdown";
 
 const routingContent = {
@@ -134,7 +135,7 @@ const AdminIndex = ({ user }) => {
             case routingContent.PASSWORD.CHANGE:
                     return <ChangePassword></ChangePassword>
             default:
-                return <></>;
+                return <TrackingUser></TrackingUser>;
         }
     } 
 

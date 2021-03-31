@@ -6,6 +6,8 @@ import Axios from "axios";
 import { method } from "lodash";
 import { message } from "antd"
 
+const SERVER = "http://103.90.226.237:3000";
+
 export default function MainContentProvider( {children}){
 
 
@@ -76,17 +78,17 @@ export default function MainContentProvider( {children}){
         // setTimeout( countDownTimer(),1000);
     }
 
-    const getDataProducts = async (FunctionnCb, page=1, limit=50) =>{
+    const getDataProducts = async (FunctionCb, page=1, limit=50) =>{
         let res = await ApiCall({
           path: `/products?page=${page}&limit=${limit}`
         });
         if (res.data) {
-            await FunctionnCb(res);
+            await FunctionCb(res);
         }
     }
 
     // get product[id]
-    const getDataProduct = async (FunctionnCb, id ="") =>{
+    const getDataProduct = async (FunctionCb, id ="") =>{
         let res = await ApiCall({
           path: `/products/${id}`
         });
@@ -94,15 +96,15 @@ export default function MainContentProvider( {children}){
         if (res) {
             if(res.error){
                 console.log("error ",res.error);
-                FunctionnCb();
+                FunctionCb();
             }else{
-                await FunctionnCb(res);
+                await FunctionCb(res);
             }
            
         }
     }
     // repair product[id]
-    const patchDataProduct = async (FunctionnCb, id ="", data) =>{
+    const patchDataProduct = async (FunctionCb, id ="", data) =>{
         let res = await ApiCall({
           path: `/products/${id}`,
           method: "PATCH",
@@ -117,24 +119,24 @@ export default function MainContentProvider( {children}){
                 message.warning("Đã hết phiên đăng nhập");
                 return logout();
             }else{
-                await FunctionnCb(res);
+                await FunctionCb(res);
             }
             
         }
     }
 
-    const deleteDataProduct = async (FunctionnCb, id) =>{
+    const deleteDataProduct = async (FunctionCb, id) =>{
         let res = await ApiCall({
             token: token,
             path: `/products/${id}`,
             method: "DELETE"
         });
         if (res) {
-            await FunctionnCb(res);
+            await FunctionCb(res);
         }
     }
 
-    const postDataProduct = async (FunctionnCb, data) =>{
+    const postDataProduct = async (FunctionCb, data) =>{
         let res = await ApiCall({
             token: token,
             path: `/products`,
@@ -142,22 +144,22 @@ export default function MainContentProvider( {children}){
             data: data
         });
         if (res) {
-            await FunctionnCb();
+            await FunctionCb();
         }
     }
 
     // get all portfolios
-    const getDataPortfolios = async (FunctionnCb, page=1, limit=50) =>{
+    const getDataPortfolios = async (FunctionCb, page=1, limit=50) =>{
         let res = await ApiCall({
           path: `/portfolios?page=${page}&limit=${limit}`
         });
         if (res && res.data) {
-            await FunctionnCb(res);
+            await FunctionCb(res);
         }
     }
 
     // get portfolios[id]
-    const getDataPortfolio = async (FunctionnCb, id ="") =>{
+    const getDataPortfolio = async (FunctionCb, id ="") =>{
 
         let res = await ApiCall({
           path: `/portfolios/${id}`
@@ -165,14 +167,14 @@ export default function MainContentProvider( {children}){
 
         if (res) {
             if(res.error){
-                await FunctionnCb();
+                await FunctionCb();
             }else{
-                await FunctionnCb(res);
+                await FunctionCb(res);
             }
         }
     }
 
-    const patchDataPortfolio = async (FunctionnCb, id ="", data) =>{
+    const patchDataPortfolio = async (FunctionCb, id ="", data) =>{
         let res = await ApiCall({
           path: `/portfolios/${id}`,
           method: "PATCH",
@@ -183,22 +185,22 @@ export default function MainContentProvider( {children}){
           data: data
         });
         if (res) {
-            await FunctionnCb(res);
+            await FunctionCb(res);
         }
     }
 
-    const deleteDataPortfolio = async (FunctionnCb, id) =>{
+    const deleteDataPortfolio = async (FunctionCb, id) =>{
         let res = await ApiCall({
             token: token,
             path: `/portfolios/${id}`,
             method: "DELETE"
         });
         if (res) {
-            await FunctionnCb(res);
+            await FunctionCb(res);
         }
     }
 
-    const postDataPortfolio = async (FunctionnCb, data) =>{
+    const postDataPortfolio = async (FunctionCb, data) =>{
         let res = await ApiCall({
             token: token,
             path: `/portfolios`,
@@ -206,22 +208,22 @@ export default function MainContentProvider( {children}){
             data: data
         });
         if (res) {
-            await FunctionnCb();
+            await FunctionCb();
         }
     }
     //
 
-    const getDataCategories = async(FunctionnCb, page=1, limit=50) => {
+    const getDataCategories = async(FunctionCb, page=1, limit=50) => {
         let res = await ApiCall({
           path: "/categories"
         });
         if (res) {
             console.log("categories : " ,res.data);
-            FunctionnCb(res);
+            FunctionCb(res);
         }
     }
 
-    const patchDataCategories = async (FunctionnCb, id ="", data) =>{
+    const patchDataCategories = async (FunctionCb, id ="", data) =>{
         let res = await ApiCall({
           path: `/categories/${id}`,
           method: "PATCH",
@@ -236,29 +238,29 @@ export default function MainContentProvider( {children}){
                 message.warning("Đã hết phiên đăng nhập");
                 return logout();
             }else{
-                await FunctionnCb(res);
+                await FunctionCb(res);
             }
         }
     }
 
     // socials
     // get all socials
-    const getDataSocials = async (FunctionnCb, page=1, limit=5) =>{
+    const getDataSocials = async (FunctionCb, page=1, limit=5) =>{
         let res = await ApiCall({
           path: `/socials?page=${page}&limit=${limit}`
         });
         if (res) {
-            await FunctionnCb(res);
+            await FunctionCb(res);
         }
     }
 
     // get Socials[id]
-    const getDataSocial = async (FunctionnCb, id ="") =>{
+    const getDataSocial = async (FunctionCb, id ="") =>{
         let res = await ApiCall({
           path: `/socials/${id}`
         });
         if (res.data) {
-            await FunctionnCb(res);
+            await FunctionCb(res);
         }
     }
 
@@ -277,23 +279,23 @@ export default function MainContentProvider( {children}){
                 message.warning("Đã hết phiên đăng nhập");
                 return logout();
             }else{
-                await FunctionnCb(res);
+                await FunctionCb(res);
             }
         }
     }
 
-    const deleteDataSocial = async (FunctionnCb, id) =>{
+    const deleteDataSocial = async (FunctionCb, id) =>{
         let res = await ApiCall({
             token: token,
             path: `/socials/${id}`,
             method: "DELETE"
         });
         if (res) {
-            await FunctionnCb(res);
+            await FunctionCb(res);
         }
     }
 
-    const postDataSocial = async (FunctionnCb, data) =>{
+    const postDataSocial = async (FunctionCb, data) =>{
         let res = await ApiCall({
             token: token,
             path: `/socials`,
@@ -301,29 +303,47 @@ export default function MainContentProvider( {children}){
             data: data
         });
         if (res) {
-            await FunctionnCb();
+            await FunctionCb();
         }
     }
     //
 
-    const getDataImages = async (FunctionnCb) =>{
+    const getDataImages = async (FunctionCb) =>{
         let res = await ApiCall({
           path: `/photos?page=1&limit=50`
         });
         if (res.data) {
-            await FunctionnCb(res);
+            await FunctionCb(res);
         }
     }
 
-    const deleteImage = async (FunctionnCb, idPublic) =>{
+    const deleteImage = async (FunctionCb, idPublic) =>{
         let res = await ApiCall({
             token: token,
             path: `/photos/${idPublic}`,
             method: "DELETE"
         });
         if (res) {
-            await FunctionnCb(res);
+            await FunctionCb(res);
         }
+    }
+
+    const getOneDayTracking = async (FunctionCb) => {
+        let res = await ApiCall({
+            path: `/views?count=1`
+          });
+          if (res) {
+              await FunctionCb(res);
+          }
+    }
+
+    const getOneMonthTracking = async (FunctionCb) => {
+        let res = await ApiCall({
+            path: `/views`
+          });
+          if (res) {
+            await FunctionCb(res);
+          }
     }
 
     return(
@@ -366,7 +386,10 @@ export default function MainContentProvider( {children}){
                 getDataSocial: getDataSocial,
 
                 getDataImages: getDataImages,
-                deleteImage: deleteImage
+                deleteImage: deleteImage,
+
+                getOneDayTracking,
+                getOneMonthTracking,
 
             }}
         >
