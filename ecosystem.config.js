@@ -1,7 +1,8 @@
 module.exports = {
     apps : [{
       name: "maixep-web",
-      script: "./server.js",
+      script: 'yarn',
+      args: 'startup',
       env: {
         NODE_ENV: "development",
       },
