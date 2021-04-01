@@ -1,5 +1,5 @@
 import "antd/dist/antd.min.css";
-import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "styles/global.scss";
 import "styles/common.scss";
@@ -17,37 +17,41 @@ function MyApp({ Component, pageProps }) {
   }, []);
 
   useEffect(() => {
-    if (typeof(io) !== "undefined" && io) {
+    if (typeof io !== "undefined" && io) {
       let socket = io.connect(SERVER);
 
       socket.on("connect", () => {
-
         console.log("socket", socket);
 
         socket.emit("events", { views: 1 });
 
-        socket.emit("Identity", 0, response => {
+        socket.emit("Identity", 0, (response) => {
           console.log("RES Identity: ", response);
         });
-        socket.on("events", function(data) {
+        socket.on("events", function (data) {
           console.log("Events, ", data);
         });
 
-        socket.on("exception", function(data) {
+        socket.on("exception", function (data) {
           console.log("Events, ", data);
         });
-  
-        socket.on("disconnect", function() {
+
+        socket.on("disconnect", function () {
           console.log("disconnect");
         });
       });
     }
   }, []);
 
-  return  <MainContent> 
-    <Component {...pageProps} />
-    {/*<div >Web đang bảo trì.. Chúng tôi sẽ cập nhật trong thời gian sớm nhất. Xin cảm ơn</div>*/}
-  </MainContent>;
+  return (
+    <MainContent>
+      {/* <Component {...pageProps} /> */}
+      <div>
+        Web đang bảo trì.. Chúng tôi sẽ cập nhật trong thời gian sớm nhất. Xin
+        cảm ơn
+      </div>
+    </MainContent>
+  );
 }
 
 export default MyApp;
