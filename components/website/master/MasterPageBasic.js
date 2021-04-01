@@ -148,7 +148,7 @@ const BlankMasterPage = ({ pageName, children }) => {
           rel="stylesheet"
         />
         <script src="https://sp.zalo.me/plugins/sdk.js" />
-        {/* <script src="socket.io.js"></script> */}
+        <script src="socket.io.js"></script>
 
         <div
           style={{ bottom: "50px !important" }}
