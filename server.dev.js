@@ -9,7 +9,7 @@ const dev = process.env.NODE_ENV !== "production";
 const app = next({ dev });
 const handle = app.getRequestHandler();
 const server = express();
-let httpPort = process.env.PORT || 3000;
+let httpPort = process.env.PORT || 3001;
 let httpsPort = 3443;
 const options = dev
   ? {
