@@ -1,7 +1,7 @@
 import asset from "plugins/assets/asset";
 import Slider from "react-slick";
 import { useRouter } from "next/router"
-
+import renderHTML from 'react-render-html';
 const fetchData = 
     {
         id:"123",
@@ -110,6 +110,8 @@ export default function ItemProductBig({
 
             <h4 >{dataAPI ?  dataAPI.title :fetchData.title} </h4>
             <span>{dataAPI ?  dataAPI.price+"đ": fetchData.price}</span>
+            <div className="descriptionPro">{dataAPI ?  renderHTML(dataAPI.description)  : ""}
+            </div>
             <p>
                 Bảo hành: { dataAPI ?  dataAPI.guarantee +" tháng" : `12 tháng`} 
             </p>
@@ -158,7 +160,7 @@ export default function ItemProductBig({
                 img{
                     transition: 0.3s;
                     width: 100%;
-                    max-height: 50vh;
+                    max-height: 55vh;
                     height: 100%;
                     border-radius: 20px;
                     object-fit: cover;
@@ -239,6 +241,15 @@ export default function ItemProductBig({
                             object-fit: cover;
                         }
                     }
+                
+                
+            }
+            @media only screen and (max-width : 599px){
+                    .itemProductBig:hover .itemCarousel img{
+                        transform: unset;
+                        border-radius: 20px;
+                    }
+                
             }
         `}</style>
     </div>

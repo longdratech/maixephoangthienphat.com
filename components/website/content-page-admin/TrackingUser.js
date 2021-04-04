@@ -23,7 +23,7 @@ export default function TrackingUser() {
             
             <div className="content">
                 <h3>Số người truy cập trong ngày: <span>{oneDayTracking || "Chưa có data"}</span></h3>
-                <h3>Số người truy cập trong tháng: <span>{allTracking || "Chưa có data"}</span></h3>
+                <h3>Tổng số người truy cập: <span>{allTracking || "Chưa có data"}</span></h3>
             </div>
          
             <style jsx>{`

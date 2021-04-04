@@ -142,7 +142,10 @@ code.hljs {
 }
 
 @media only screen and (max-width: 599px){
-  .zalo-chat-widget, #fb-root, .fb_reset {
+  #fb-root, .fb_reset {
     display: none !important;
+  }
+  .zalo-chat-widget {
+      bottom: 10px !important;
   }
 }

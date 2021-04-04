@@ -92,7 +92,7 @@ export default function PortfoliosCreate({ id = null, dataSelect, closeModal }) 
 
     const resetInitValueForm = async () => {
         await formRepair.resetFields();
-        await setDataContent();
+        await setDataContent("");
     } 
 
     const handleSetImgToInput =  async (value) => {
