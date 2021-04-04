@@ -5,7 +5,7 @@ module.exports = {
       script: "npm run",
       args: "deploy",
       watch: true,
-      interpreter: "/bin/bash",
+      interpreter: "/root/.nvm/versions/node/v14.16.0/bin/node",
       env: {
         NODE_ENV: "production",
       },
