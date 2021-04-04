@@ -5,7 +5,7 @@ module.exports = {
       script: "yarn",
       args: "deploy:prod",
       watch: true,
-      // interpreter: "/root/.nvm/versions/node/v14.16.0/bin/node",
+      interpreter: "/root/.nvm/versions/node/v14.16.0/bin/node",
       env: {
         NODE_ENV: "production",
       },
