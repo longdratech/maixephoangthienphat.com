@@ -1,13 +1,10 @@
 module.exports = {
   apps: [
     {
-      name: "maixep-web",
-      script: "yarn",
-      args: "deploy:prod",
+      name: "maixep-backend",
+      watch: false,
+      interpreter: "/root/.nvm/versions/node/v14.16.0/bin/node",
       env: {
-        NODE_ENV: "development",
-      },
-      env_production: {
         NODE_ENV: "production",
       },
     },
