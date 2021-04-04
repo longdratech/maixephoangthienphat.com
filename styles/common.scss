@@ -12,6 +12,19 @@ body {
   display: none;
 }
 
+.descriptionPro {
+  padding: 5px 0;
+  padding-bottom: 0;
+  width: 100%;
+  >p,h1,h2,h3,h4,h5 {
+    text-align: left;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;  
+    overflow: hidden;
+  }
+}
+
 #pHome {
   .titleCompany {
     h2 {
@@ -502,13 +515,17 @@ body {
       width: 100%;
       flex-wrap: wrap;
     }
-    .ant-menu-root.ant-menu-inline,{
+
+    .ant-menu-root.ant-menu-inline,
+      {
       width: 100% !important;
     }
-    .contentProductAdmin{
+
+    .contentProductAdmin {
       padding-left: 0 !important;
     }
-    .ant-btn-dangerous.ant-btn-primary{
+
+    .ant-btn-dangerous.ant-btn-primary {
       margin: 0 !important;
     }
   }

@@ -701,8 +701,8 @@ const TextEditor = forwardRef(
             ],
             toolbar:
               "undo redo | formatselect | bold italic underline forecolor backcolor | \
-             alignleft aligncenter alignright alignjustify | \
-             bullist numlist outdent indent | removeformat | help",
+             alignleft aligncenter alignright alignjustify | ",
+            //  bullist numlist outdent indent | removeformat | help",
           }}
           onEditorChange={onEditorChange}
         />

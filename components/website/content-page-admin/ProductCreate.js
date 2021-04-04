@@ -96,8 +96,8 @@ export default function ProductCreate({ id = null, dataProductSelect, closeModal
     const resetInitValueForm = async () => {
         await formRepair.resetFields();
         await setHotDeal(false);
-        await setDataSpecifications();
-        await setDataDescription();
+        await setDataSpecifications("");
+        await setDataDescription("");
     } 
 
     const handleSetImgToInput =  async (value) => {
@@ -169,7 +169,7 @@ export default function ProductCreate({ id = null, dataProductSelect, closeModal
 
                     <Form.Item name={['description']} label="description">
                         {/* <Input.TextArea /> */}
-                        <TextEditor _id="1224" _value={dataDescription}  />
+                        <TextEditor _id="description1224" _value={dataDescription}  />
                     </Form.Item>
 
                     <Form.Item name={['specifications']} label="Thông số kỹ thuật">
@@ -335,7 +335,7 @@ export default function ProductCreate({ id = null, dataProductSelect, closeModal
 
                     <Form.Item name={['specifications']} label="Thông số kỹ thuật">
                        
-                       <TextEditor defaultValue={""} onChange={onChangeTextEditor} />
+                       <TextEditor _id="specifications123" defaultValue={""} onChange={onChangeTextEditor} />
                    </Form.Item>
 
                     {/* <Form.Item name={['specifications']} label="Thông số kỹ thuật" >
