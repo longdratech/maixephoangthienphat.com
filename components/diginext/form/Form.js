@@ -619,11 +619,11 @@ const TextEditor = forwardRef(
   ) => {
     const inputRef = useRef();
     const [error, setError] = useState();
-    const [currentValue, setCurrentValue] = useState(defaultValue);
+    const [currentValue, setCurrentValue] = useState(_value);
 
     useEffect(()=>{
-      setCurrentValue(defaultValue);
-    },[defaultValue])
+      setCurrentValue(_value);
+    },[_value])
 
     const isValid = () => {
       let isValid;
