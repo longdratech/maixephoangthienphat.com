@@ -7,9 +7,13 @@ import "styles/responsive.scss";
 import "quill/dist/quill.snow.css";
 import { ConfigLive } from "plugins/utils/ConfigLive";
 import { useEffect } from "react";
+import { useRouter } from "next/router";
 import MainContent from "../components/website/contexts/MainContent";
 import ApiCall from "modules/ApiCall";
+import { colStyles } from "@/components/diginext/col/Col.style";
 function MyApp({ Component, pageProps }) {
+
+  const router = useRouter();
 
   const postTrackingUser = async () =>{
 
@@ -25,7 +29,10 @@ function MyApp({ Component, pageProps }) {
 
   useEffect(() => {
     ConfigLive.consoleHandle();
-    postTrackingUser();
+    if(router && router.pathname !== "/admin"){
+      postTrackingUser();
+    }
+   
     return () => {};
   }, []);
 
