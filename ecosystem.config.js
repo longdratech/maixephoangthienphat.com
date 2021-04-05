@@ -1,13 +1,14 @@
 module.exports = {
-    apps : [{
-      name: "maixep-web",
-      script: 'yarn',
-      args: 'start',
+  apps: [
+    {
+      name: "maixep-fontend",
+      script: "npm run",
+      args: "deploy",
+      watch: true,
+      interpreter: "/root/.nvm/versions/node/v14.16.0/bin/node",
       env: {
-        NODE_ENV: "development",
-      },
-      env_production: {
         NODE_ENV: "production",
-      }
-    }]
-}
+      },
+    },
+  ],
+};

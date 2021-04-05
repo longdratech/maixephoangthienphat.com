@@ -101,7 +101,7 @@ const firebase = `
 </script>
 `;
 
-const SERVER = "http://103.90.226.237:3000";
+const SERVER = process.env.NEXT_PUBLIC_BASE_PATH;
 
 const BlankMasterPage = ({ pageName, children }) => {
   const router = useRouter();
