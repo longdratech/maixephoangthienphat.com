@@ -16,13 +16,17 @@ body {
   padding: 5px 0;
   padding-bottom: 0;
   width: 100%;
-  >p,h1,h2,h3,h4,h5 {
+  p,h1,h2,h3,h4,h5, h6 {
+    display: none;
+  }
+  p:first-child,h1:first-child, h2:first-child, h3:first-child, h4:first-child, h5:first-child, h6:first-child{
     text-align: left;
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;  
     overflow: hidden;
   }
+  
 }
 
 #pHome {
