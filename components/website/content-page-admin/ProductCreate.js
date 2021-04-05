@@ -171,20 +171,14 @@ export default function ProductCreate({ id = null, dataProductSelect, closeModal
 
                     <Form.Item name={['description']} label="description">
                         {/* <Input.TextArea /> */}
-                        <TextEditor _id="description1224" _value={dataDescription} onChange={value=>setDataDescription(value)}  />
-                        {/* <JoditEditor
-                            ref={editor}
-                            value={dataSpecifications}
-                            config={configJoditEditor}
-                            tabIndex={1} // tabIndex of textarea
-                            onBlur={newContent => setDataSpecifications(newContent)} // preferred to use only this option to update the content for performance reasons
-                            onChange={newContent => {}}
-                        /> */}
+                        <TextEditor _id="description1224" _value={dataDescription}  />
+                        {/* onChange={value=>setDataDescription(value)} */}
                     </Form.Item>
 
-                    <Form.Item name={['specifications']} label="Thông số kỹ thuật">
+                    <Form.Item _id="specifications" name={['specifications']} label="Thông số kỹ thuật">
                        
-                       <TextEditor _value={dataSpecifications} onChange={value=>setDataSpecifications(value)} />
+                       <TextEditor _value={dataSpecifications}  />
+                       {/* onChange={value=>setDataSpecifications(value)} */}
                    </Form.Item>
 
                     {/* <Form.Item name={['specifications']} label="Thông số kỹ thuật" >
