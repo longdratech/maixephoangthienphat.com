@@ -8,7 +8,7 @@ import "quill/dist/quill.snow.css";
 import { ConfigLive } from "plugins/utils/ConfigLive";
 import { useEffect } from "react";
 import MainContent from "../components/website/contexts/MainContent";
-const SERVER = "https://maixepbinhduong.net/socket";
+const SERVER = "https://maixepbinhduong.net/socket/";
 
 function MyApp({ Component, pageProps }) {
   useEffect(() => {
