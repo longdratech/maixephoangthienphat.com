@@ -8,27 +8,27 @@ import Container from "components/website/elements/Container";
 import BannerTopStyle2 from "components/website/banner/BannerTopStyle2";
 import TitleCopy from "components/website/title/TitleCopy";
 import Loading from "components/website/loading/Loading";
-import {useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 
 const fetchData = [
   {
-      title: "Liên hệ",
-      srcImg: "/images/demo/banner-top-style-2.jpg",
-      description: "Mái che  di động, nắng mưa nay đã không còn là nỗi lo."
-  }
-]
+    title: "Liên hệ",
+    srcImg: "/images/demo/banner-top-style-2.jpg",
+    description: "Mái che  di động, nắng mưa nay đã không còn là nỗi lo.",
+  },
+];
 
 export default function Home(props) {
   // const router = useRouter();
   const [statusLoading, setStatusLoading] = useState(true);
 
-  useEffect(()=>{
-    if(fetchData){
-      setTimeout(()=>{
-        setStatusLoading(false)
+  useEffect(() => {
+    if (fetchData) {
+      setTimeout(() => {
+        setStatusLoading(false);
       }, 300);
     }
-  },[fetchData]);
+  }, [fetchData]);
 
   return (
     <MasterPageBasic hidePrevButton pageName="Liên hệ">
@@ -37,28 +37,27 @@ export default function Home(props) {
         <BannerTopStyle2 data={fetchData}></BannerTopStyle2>
         <Container className="listContact">
           <TitleCopy
-              name={"Sản xuất mái hiên - mái xếp Hoàng Thiên Phát"}
-              positionLine={"LEFT"}
-              className="noneLine"
-            >
-              <p>Chất lượng đến từng chi tiết. Giá cả cạnh tranh</p>
-              <p>Phone: 0123.456.789</p>
-              <p>Email: info@gmail.com</p>
-              <p>Địa chỉ: 30 Cách Mạng Tháng 8, Phường 6, quận Bình Thạnh. TP HCM</p>
-              <p>Website: hoangthienphat.com | hoangthienphat.net</p>
-
-            </TitleCopy>
+            name={"Sản xuất mái hiên - mái xếp Hoàng Thiên Phát"}
+            positionLine={"LEFT"}
+            className="noneLine"
+          >
+            <p>Chất lượng đến từng chi tiết. Giá cả cạnh tranh</p>
+            <p>Phone: 0879.200.700</p>
+            <p>Email: maixephoangthienphat@gmail.com</p>
+            <p>Địa chỉ: 168 Chòm sao, Hưng Định Thuận An, Bình Dương</p>
+            <p>Website: maixephoangthien.com | maixepbinhduong.net</p>
+          </TitleCopy>
         </Container>
         <Container>
-         
-          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3918.1363706930456!2d106.74748661466907!3d10.877230860299559!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3174d874f6c8146b%3A0x9cb0c9b0486d3b99!2zMTQgS2h1IFBo4buRIE5o4buLIMSQ4buTbmcsIETEqSBBbiwgQsOsbmggRMawxqFuZywgVmnhu4d0IE5hbQ!5e0!3m2!1svi!2s!4v1614439449712!5m2!1svi!2s" 
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3917.2937606570354!2d106.69983011480218!3d10.941167992209866!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3174d76a9b24766b%3A0x525eac9ff9e38907!2zMTY4IENow7JtIFNhbywgSMawbmcgxJDhu4tuaCwgVGh14bqtbiBBbiwgQsOsbmggRMawxqFuZywgVmnhu4d0IE5hbQ!5e0!3m2!1svi!2shk!4v1617605148309!5m2!1svi!2shk"
             height="450"
             width="100%"
             frameBorder="0"
             aria-hidden="false"
             tabIndex={0}
-            loading="lazy">
-          </iframe>
+            loading="lazy"
+          ></iframe>
         </Container>
       </main>
 
