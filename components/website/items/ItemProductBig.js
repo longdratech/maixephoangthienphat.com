@@ -110,7 +110,7 @@ export default function ItemProductBig({
 
             <h4 >{dataAPI ?  dataAPI.title :fetchData.title} </h4>
             <span>{dataAPI ?  dataAPI.price+"đ": fetchData.price}</span>
-            <div className="descriptionPro">{dataAPI ?  renderHTML(dataAPI.description)  : ""}
+            <div className="descriptionPro">{dataAPI && dataAPI.description ?  renderHTML(dataAPI.description)  : ""}
             </div>
             <p>
                 Bảo hành: { dataAPI ?  dataAPI.guarantee +" tháng" : `12 tháng`} 
