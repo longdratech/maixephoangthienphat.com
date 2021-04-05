@@ -132,13 +132,13 @@ export default function PortfoliosCreate({ id = null, dataSelect, closeModal }) 
                         <Input />
                     </Form.Item>
 
-                    <Form.Item name={['description']} label="Description">
+                    <Form.Item name={['description']} label="Description" >
                         <Input.TextArea />
                     </Form.Item>
 
                     <Form.Item name={['content']} label="Content">
                         {/* <Input.TextArea /> */}
-                        <TextEditor _id="1224" _value={dataContent}  />
+                        <TextEditor _id="1224" _value={dataContent}  onChange={value => setDataContent(value)} />
                     </Form.Item>
 
                     <Form.Item name={['link']} label="Link" rules={[{ required: true }]}>

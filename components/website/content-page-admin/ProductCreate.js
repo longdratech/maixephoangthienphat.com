@@ -7,6 +7,7 @@ import Link from "next/link";
 import UploadImages from "components/website/content-page-admin/UploadImages";
 import Loading from "components/website/loading/Loading";
 import { TextEditor } from "components/diginext/form/Form";
+
 /* eslint-disable no-template-curly-in-string */
 const validateMessages = {
     required: 'Vui lòng nhập ${label}!',
@@ -32,6 +33,7 @@ export default function ProductCreate({ id = null, dataProductSelect, closeModal
     const [data, setData] = useState(null);
     const [formRepair] = Form.useForm();
     const formRef = useRef();
+    const editor = useRef(null)
 
     const [hotDeal, setHotDeal] = useState(false);  // set init value checkbox
     const [indexImg, setIndexImg] = useState();// get index input to set value url img
@@ -169,12 +171,20 @@ export default function ProductCreate({ id = null, dataProductSelect, closeModal
 
                     <Form.Item name={['description']} label="description">
                         {/* <Input.TextArea /> */}
-                        <TextEditor _id="description1224" _value={dataDescription}  />
+                        <TextEditor _id="description1224" _value={dataDescription} onChange={value=>setDataDescription(value)}  />
+                        {/* <JoditEditor
+                            ref={editor}
+                            value={dataSpecifications}
+                            config={configJoditEditor}
+                            tabIndex={1} // tabIndex of textarea
+                            onBlur={newContent => setDataSpecifications(newContent)} // preferred to use only this option to update the content for performance reasons
+                            onChange={newContent => {}}
+                        /> */}
                     </Form.Item>
 
                     <Form.Item name={['specifications']} label="Thông số kỹ thuật">
                        
-                       <TextEditor _value={dataSpecifications} />
+                       <TextEditor _value={dataSpecifications} onChange={value=>setDataSpecifications(value)} />
                    </Form.Item>
 
                     {/* <Form.Item name={['specifications']} label="Thông số kỹ thuật" >
