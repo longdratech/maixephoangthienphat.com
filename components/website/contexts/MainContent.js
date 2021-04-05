@@ -257,25 +257,20 @@ export default function MainContentProvider({ children }) {
     if (res.data) {
       await FunctionCb(res);
     }
-  };
+    //
 
-  const patchDataSocials = async (FunctionCb, id = "", data) => {
-    let res = await ApiCall({
-      path: `/socials/${id}`,
-      method: "PATCH",
-      token: token,
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-      data: data,
-    });
-    if (res) {
-      if (res.statusCode && res.statusCode == 401) {
-        message.warning("Đã hết phiên đăng nhập");
-        return logout();
-      } else {
-        await FunctionCb(res);
-      }
+    const getDataImages = async (FunctionCb) =>{
+        let res = await ApiCall({
+          path: `/photos?page=1&limit=50`
+        });
+        if (res) {
+            if(res.data){
+                await FunctionCb(res);
+            }else{
+                // message.warning(res);
+                // console.log(res)
+            }
+        }
     }
   };
 

@@ -169,12 +169,12 @@ export default function ProductCreate({ id = null, dataProductSelect, closeModal
 
                     <Form.Item name={['description']} label="description">
                         {/* <Input.TextArea /> */}
-                        <TextEditor _id="description1224" _value={dataDescription}  />
+                        <TextEditor _id="description1224" defaultValue={dataDescription}  />
                     </Form.Item>
 
                     <Form.Item name={['specifications']} label="Thông số kỹ thuật">
                        
-                       <TextEditor _value={dataSpecifications} onChange={onChangeTextEditor} />
+                       <TextEditor defaultValue={dataSpecifications} />
                    </Form.Item>
 
                     {/* <Form.Item name={['specifications']} label="Thông số kỹ thuật" >
@@ -330,12 +330,12 @@ export default function ProductCreate({ id = null, dataProductSelect, closeModal
 
                     <Form.Item name={['description']} label="Description">
                         {/* <Input.TextArea /> */}
-                        <TextEditor defaultValue={""} onChange={onChangeTextEditor} />
+                        <TextEditor defaultValue={""}  />
                     </Form.Item>
 
                     <Form.Item name={['specifications']} label="Thông số kỹ thuật">
                        
-                       <TextEditor _id="specifications123" defaultValue={""} onChange={onChangeTextEditor} />
+                       <TextEditor _id="specifications123" defaultValue={""} />
                    </Form.Item>
 
                     {/* <Form.Item name={['specifications']} label="Thông số kỹ thuật" >

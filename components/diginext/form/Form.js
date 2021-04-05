@@ -694,15 +694,15 @@ const TextEditor = forwardRef(
             height: height,
             menubar: false,
             entity_encoding: "raw",
-            plugins: [
-              "advlist autolink lists link image charmap print preview anchor",
-              "searchreplace visualblocks code fullscreen",
-              "insertdatetime media table paste code help wordcount",
-            ],
+            // plugins: [
+            //   "advlist autolink lists link image charmap print preview anchor",
+            //   "searchreplace visualblocks code fullscreen",
+            //   "insertdatetime media table paste code help wordcount",
+            // ],
             toolbar:
-              "undo redo | formatselect | bold italic underline forecolor backcolor | \
+              "undo redo| bold italic underline forecolor backcolor | \
              alignleft aligncenter alignright alignjustify | ",
-            //  bullist numlist outdent indent | removeformat | help",
+            //  bullist numlist outdent indent | removeformat | help | formatselect |",
           }}
           onEditorChange={onEditorChange}
         />
