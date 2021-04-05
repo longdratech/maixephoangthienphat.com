@@ -144,7 +144,19 @@ export default function MainContentProvider( {children}){
             data: data
         });
         if (res) {
-            await FunctionCb();
+
+            if(res.statusCode && res.statusCode == 401){
+                message.warning("Đã hết phiên đăng nhập");
+                return logout();
+            }else{
+                if(res.statusCode == 409){
+                    message.warning(res.message)
+                }else{
+                    await FunctionCb();
+                }
+                
+            }
+
         }
     }
 
@@ -208,7 +220,23 @@ export default function MainContentProvider( {children}){
             data: data
         });
         if (res) {
-            await FunctionCb();
+            if(res.statusCode && res.statusCode == 401){
+                message.warning("Đã hết phiên đăng nhập");
+                return logout();
+            }else{
+                if(res.statusCode == 409){
+                    message.warning(res.message)
+                }else{
+                    if(res.statusCode == 400){
+                        message.warning(res.message)
+                    }else{
+                        await FunctionCb();
+                    }
+                    
+                }
+                
+            }
+            
         }
     }
     //
