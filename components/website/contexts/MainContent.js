@@ -312,8 +312,13 @@ export default function MainContentProvider( {children}){
         let res = await ApiCall({
           path: `/photos?page=1&limit=50`
         });
-        if (res.data) {
-            await FunctionCb(res);
+        if (res) {
+            if(res.data){
+                await FunctionCb(res);
+            }else{
+                message.warning(res);
+                console.log(res)
+            }
         }
     }
 
