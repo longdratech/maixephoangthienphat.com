@@ -171,13 +171,13 @@ export default function ProductCreate({ id = null, dataProductSelect, closeModal
 
                     <Form.Item name={['description']} label="description">
                         {/* <Input.TextArea /> */}
-                        <TextEditor _id="description1224" _value={dataDescription}  />
+                        <TextEditor _id="description1224" defaultValue={dataDescription}  />
                         {/* onChange={value=>setDataDescription(value)} */}
                     </Form.Item>
 
                     <Form.Item _id="specifications" name={['specifications']} label="Thông số kỹ thuật">
                        
-                       <TextEditor _value={dataSpecifications}  />
+                       <TextEditor defaultValue={dataSpecifications}  />
                        {/* onChange={value=>setDataSpecifications(value)} */}
                    </Form.Item>
 
