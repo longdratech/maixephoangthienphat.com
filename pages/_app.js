@@ -8,40 +8,28 @@ import "quill/dist/quill.snow.css";
 import { ConfigLive } from "plugins/utils/ConfigLive";
 import { useEffect } from "react";
 import MainContent from "../components/website/contexts/MainContent";
-const SERVER = "https://maixepbinhduong.net/socket";
-
+import ApiCall from "modules/ApiCall";
 function MyApp({ Component, pageProps }) {
+
+  const postTrackingUser = async () =>{
+
+    let res = await ApiCall({
+        path: `/views`,
+        method: "POST",
+        data: {view: 1}
+    });
+    if (res) {
+        console.log(res);
+    }
+  }
+
   useEffect(() => {
     ConfigLive.consoleHandle();
+    postTrackingUser();
     return () => {};
   }, []);
 
-  useEffect(() => {
-    if (typeof io !== "undefined" && io) {
-      let socket = io.connect(SERVER);
-
-      socket.on("connect", () => {
-        console.log("socket", socket);
-
-        socket.emit("events", { views: 1 });
-
-        socket.emit("Identity", 0, (response) => {
-          console.log("RES Identity: ", response);
-        });
-        socket.on("events", function (data) {
-          console.log("Events, ", data);
-        });
-
-        socket.on("exception", function (data) {
-          console.log("Events, ", data);
-        });
-
-        socket.on("disconnect", function () {
-          console.log("disconnect");
-        });
-      });
-    }
-  }, []);
+  
 
   return (
     <MainContent>
