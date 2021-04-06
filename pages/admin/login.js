@@ -68,6 +68,8 @@ const AdminLogin = () => {
 
                         localStorage.setItem("token",res.data.accessToken);
                         localStorage.setItem("infoUser", JSON.stringify(res.data));
+                        valueContext.setToken(res.data.accessToken);
+                        valueContext.setDataUser(res.data);
                         localStorage.setItem("total_seconds", "1000000")
                         router.push("/admin");
                     }
