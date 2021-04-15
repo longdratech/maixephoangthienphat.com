@@ -129,6 +129,8 @@ export default function ItemPortfolios({
                 font-family: "Montserrat-SemiBold";
                 color: #fff;
                 border-radius: 5px;
+                z-index: 999;
+                right: 0;
             }
             .priceSale.success{
                 background-color: #75f300;
