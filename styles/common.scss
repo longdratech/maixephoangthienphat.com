@@ -11,7 +11,9 @@ body {
 .tox-notification.tox-notification--in.tox-notification--warning {
   display: none;
 }
-
+.contentPagination .ant-pagination-options{
+  display: none;
+}
 .descriptionPro {
   padding: 5px 0;
   padding-bottom: 0;

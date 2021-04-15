@@ -336,12 +336,13 @@ export default function MainContentProvider( {children}){
     }
     //
 
-    const getDataImages = async (FunctionCb) =>{
+    const getDataImages = async (FunctionCb, page=1) =>{
         let res = await ApiCall({
-          path: `/photos?page=1&limit=50`
+          path: `/photos?limit=50&page=${page}`
         });
         if (res) {
             if(res.data){
+                console.log(res);
                 await FunctionCb(res);
             }else{
                 message.warning(res);
@@ -361,12 +362,23 @@ export default function MainContentProvider( {children}){
         }
     }
 
-    const getOneDayTracking = async (FunctionCb) => {
+    // const getOneDayTracking = async (FunctionCb) => {
+    //     let res = await ApiCall({
+    //         path: `/views?count=1`
+    //       });
+    //       if (res) {
+    //         //   await FunctionCb(res);
+    //           console.log("count1", res)
+    //       }
+    // }
+
+    const getDataTracking = async (FunctionCb) => {
         let res = await ApiCall({
-            path: `/views?count=1`
+            path: `/views`
           });
           if (res) {
               await FunctionCb(res);
+            //   console.log("count1", res)
           }
     }
 
@@ -375,7 +387,8 @@ export default function MainContentProvider( {children}){
             path: `/views`
           });
           if (res) {
-            await FunctionCb(res);
+            // console.log("count3", res)
+            await FunctionCb(res.total);
           }
     }
 
@@ -421,7 +434,7 @@ export default function MainContentProvider( {children}){
                 getDataImages: getDataImages,
                 deleteImage: deleteImage,
 
-                getOneDayTracking,
+                getDataTracking,
                 getOneMonthTracking,
 
             }}

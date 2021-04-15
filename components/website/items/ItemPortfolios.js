@@ -101,7 +101,11 @@ export default function ItemPortfolios({
             </Slider>
         }
 
-        {dataAPI && dataAPI.isHotDeal == true ? <span className="priceSale">Hot deal</span> : <></>}
+        {
+            dataAPI && dataAPI.status !== "DEPLOYED" 
+            ? <span className="priceSale">Đang triển khai</span> 
+            : <span className="priceSale success">Đã hoàn thành</span> 
+        }
        
         <div className="infoItemProductBigStyle2"  onClick={handleClickTitle}>
 
@@ -125,6 +129,9 @@ export default function ItemPortfolios({
                 font-family: "Montserrat-SemiBold";
                 color: #fff;
                 border-radius: 5px;
+            }
+            .priceSale.success{
+                background-color: #75f300;
             }
             
             .ItemPortfolios{
