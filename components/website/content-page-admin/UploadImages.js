@@ -1,5 +1,5 @@
 import TitleCopy from "components/website/title/TitleCopy"
-import { Button, Radio, Upload, Modal, message, Popconfirm } from 'antd';
+import { Button, Radio, Upload, Modal, message, Popconfirm, Pagination } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import { useState, useEffect, useContext, useRef } from "react";
 import { MainContent } from "components/website/contexts/MainContent";
@@ -13,6 +13,7 @@ export default function UploadImages({handleClickOutSite, showBtnChoose, handleC
     const valueContext = useContext(MainContent);
     const [data, setData] = useState(null);
     const [dataImages, setDataImages] = useState([]);
+    const [totalCount, setTotalCount] = useState();
 
     const [previewVisible, setPreviewVisible] = useState(false)
     const [previewImage, setPreviewImage] = useState('');
@@ -49,8 +50,6 @@ export default function UploadImages({handleClickOutSite, showBtnChoose, handleC
         await valueContext.deleteImage(success, value.id);
         success();
     }
-
-
 
     const getBase64 = (file) => {
         return new Promise((resolve, reject) => {
@@ -105,15 +104,34 @@ export default function UploadImages({handleClickOutSite, showBtnChoose, handleC
         if (data) {
             console.log("DATA : ", data);
         }
-    }, [data])
+    }, [data]);
+
+
+    const handleChangePaginator = (page) => {
+        valueContext.getDataImages(setDataImages, page)
+    }
 
 
     return <div className="contentProductAdmin">
-        <div className="content">
+                {
+                    dataImages
+                    ? <div className="contentPagination">
+                        <Pagination 
+                        onChange={handleChangePaginator} 
+                        pageSize={50} 
+                        defaultCurrent={1}  
+                        total={dataImages.totalCount}></Pagination>
+                    </div>
+                    : <></>
+
+                }
+                
+                <div className="content">
             <div className="listDataImages">
                 {
                     dataImages.length !== 0
                         ? <div className="listImg">
+                            
                             {dataImages.data.map((value, index) => {
                                 return <div className="itemImageUpload" key={index} > 
                                 <img style={{ display: "block" }} src={value.url} /> 
@@ -199,6 +217,7 @@ export default function UploadImages({handleClickOutSite, showBtnChoose, handleC
                     }
                 }
                 .listImg{
+                    position: relative;
                     padding: 70px 35px 100px 40px;
                     display: grid;
                     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
@@ -210,6 +229,15 @@ export default function UploadImages({handleClickOutSite, showBtnChoose, handleC
                     overflow: auto;
                     border: solid 5px rgba(0,0,0,0.2);
                     border-radius: 10px;
+                    margin-top: 20px;
+                }
+                .contentPagination{
+                    /* position: absolute; */
+                    width: 100%;
+                    display: flex;
+                    justify-content: flex-end;
+                    /* top: 0; */
+                    
                 }
                 .itemImageUpload{
                    

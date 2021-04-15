@@ -6,24 +6,25 @@ import Loading from "components/website/loading/Loading";
 
 export default function TrackingUser() {
 
-    const [oneDayTracking, setOneDayTracking] = useState();
-    const [ allTracking, setAllTracking] = useState();
+    // const [oneDayTracking, setOneDayTracking] = useState();
+    // const [allTracking, setAllTracking] = useState();
+    const [data, setData] = useState();
 
     const {
-        getOneDayTracking,
-        getOneMonthTracking 
+        getDataTracking,
+        // getOneMonthTracking 
     } = useContext(MainContent);
 
     useEffect(()=>{
-        getOneDayTracking(setOneDayTracking);
-        getOneMonthTracking(setAllTracking);
+        getDataTracking(setData);
+        // getOneMonthTracking(setAllTracking);
     },[])
 
     return <div className="contentTrackingUser">
             
             <div className="content">
-                <h3>Số người truy cập trong ngày: <span>{oneDayTracking || "Chưa có data"}</span></h3>
-                <h3>Tổng số người truy cập: <span>{allTracking || "Chưa có data"}</span></h3>
+                <h3>Số người truy cập trong ngày: <span>{ data && data.today.toString() ? data.today :  "Chưa có data" }</span></h3>
+                <h3>Tổng số người truy cập: <span>{ data && data.total ? data.total.toString() : "Chưa có data" }</span></h3>
             </div>
          
             <style jsx>{`
