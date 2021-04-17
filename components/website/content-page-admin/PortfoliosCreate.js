@@ -276,6 +276,13 @@ export default function PortfoliosCreate({ id = null, dataSelect, closeModal }) 
                         <Input />
                     </Form.Item>
 
+                    <Form.Item name={['status']} label="Status" rules={[{ required: true }]}>
+                        <Radio.Group>
+                            <Radio.Button value="DEPLOYED">Đã hoàn thành</Radio.Button>
+                            <Radio.Button value="DEPLOYING">Đang trển khai</Radio.Button>
+                        </Radio.Group>
+                    </Form.Item>
+
                     <Form.Item name={['description']} label="Description">
                         <Input.TextArea />
                     </Form.Item>
