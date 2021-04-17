@@ -133,7 +133,7 @@ function BannerTop({
                 left: 8%;
                 max-width: 450px;
                 h3{
-                    font-size: 32px;
+                    font-size: 20px;
                     font-family: "Montserrat-SemiBold";
                     color: #103C55;
                 }

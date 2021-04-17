@@ -23,6 +23,7 @@ const fetchData = [
 ]
 
 export default function Introduce(props) {
+
     // const router = useRouter();
 
     const {
@@ -40,7 +41,6 @@ export default function Introduce(props) {
             )
             setStatusLoading(false);
         }
-      
     },[dataContent]);
 
 
@@ -65,7 +65,6 @@ export default function Introduce(props) {
                     </TitleCopy>
                 </Container>
                 <Container className="contentIntroduce">
-                <p><img src={asset("/images/demo/banner-03.jpg")}/></p>
                     {
                         dataRender && dataRender[0]
                         ? renderHTML(dataRender[0].content)

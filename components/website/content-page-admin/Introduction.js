@@ -77,7 +77,7 @@ export default function Introduction({
                         label=""
                         name="content"
                     >
-                        <EditorText _id="content" defaultValue={dataRender[0].content}  />
+                        <EditorText height="500px" _id="content" defaultValue={dataRender[0].content}  />
                     </Form.Item>
 
                     <Form.Item {...tailLayout}>

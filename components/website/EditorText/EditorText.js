@@ -109,12 +109,12 @@ const EditorText = forwardRef(
               entity_encoding: "raw",
               plugins: [
                 "advlist autolink lists link image charmap print preview anchor",
-                "searchreplace visualblocks code fullscreen",
-                "insertdatetime media table paste code help wordcount",
+                "searchreplace visualblocks code fullscreen image",
+                "insertdatetime media table paste code help wordcount image",
               ],
               toolbar:
                 "undo redo| bold italic underline forecolor backcolor | \
-               alignleft aligncenter alignright alignjustify | formatselect | ",
+               alignleft aligncenter alignright alignjustify | formatselect | image",
               //  bullist numlist outdent indent | removeformat | help | formatselect |",
             }}
             onEditorChange={onEditorChange}
