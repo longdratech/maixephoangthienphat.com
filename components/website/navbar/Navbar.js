@@ -6,7 +6,8 @@ import {
     FacebookOutlined, 
     OrderedListOutlined,
     BankOutlined,
-    KeyOutlined
+    KeyOutlined,
+    IdcardOutlined
 } from '@ant-design/icons';
 
 const { SubMenu } = Menu;
@@ -30,10 +31,11 @@ const Sider = ({
         >
             <Menu.Item value="profile" icon={<UserOutlined />} key="1">Thông tin admin</Menu.Item>
 
+            <Menu.Item value="introduction" icon={<IdcardOutlined />} key="10">Giới thiệu</Menu.Item>
+
             <SubMenu key="sub2" icon={<AppstoreOutlined />} title="Sản Phẩm">
                 <Menu.Item title="Sản Phẩm" value="product-list" key="2">Danh sách</Menu.Item>
-                {/* <Menu.Item title="Sản Phẩm" value="product-create" key="3">Tạo mới</Menu.Item> */}
-                
+                {/* <Menu.Item title="Sản Phẩm" value="product-create" key="3">Tạo mới</Menu.Item> */}                
             </SubMenu>
 
             <SubMenu key="sub3" icon={<BankOutlined />} title="Dự án">
