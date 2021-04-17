@@ -6,18 +6,11 @@ import { MainContent } from "components/website/contexts/MainContent";
 import { message } from "antd";
 import Loading from "components/website/loading/Loading";
 import { TextEditor } from "components/diginext/form/Form";
-
-const layout = {
-    labelCol: {
-        span: 1,
-    },
-    wrapperCol: {
-        span: 1,
-    },
-};
+import EditorText from "components/website/EditorText/EditorText";
+import NextQuill from "plugins/next-quill";
 const tailLayout = {
     wrapperCol: {
-        offset:12,
+        offset:10,
         span: 16,
     },
 };
@@ -25,6 +18,7 @@ const tailLayout = {
 export default function Introduction({
 
 }) {
+
     const {
         patchDataIntroduction, 
         getDataIntroduction, 
@@ -32,10 +26,16 @@ export default function Introduction({
         setStatusLoading} = useContext(MainContent);
 
     const [dataContent, setDataContent] = useState();
+    const [dataRender, setDataRender] = useState();
 
     useEffect(()=>{
-        console.log(dataContent);
-        setStatusLoading(false);
+        if(dataContent){
+            setDataRender(
+                dataContent.filter(value => value.id.toString() == "7")
+            )
+            setStatusLoading(false);
+        }
+      
     },[dataContent])
 
     useEffect(()=>{
@@ -55,7 +55,7 @@ export default function Introduction({
     }
     const onSubmit = (values) => {
         setStatusLoading(true);
-        patchDataIntroduction(onSuccess, values, onError);
+        patchDataIntroduction(onSuccess, dataRender[0].id, values, onError);
     }
 
     const onFinishFailed = (errorInfo) => {
@@ -65,19 +65,19 @@ export default function Introduction({
     return <div className="contentIntro">
         <Container className="center">
             {
-                dataContent && dataContent.content
+                dataContent && dataRender && dataRender.length == 1
                 ? <Form
+                    className="fromEditIntro"
                     name="into"
                     initialValues={{ remember: true }}
                     onFinish={onSubmit}
                     onFinishFailed={onFinishFailed}
                 >
                     <Form.Item
-                        label="Nộ dung"
+                        label=""
                         name="content"
-                        rules={[{ required: true, message: 'Vui lòng nhập nội dung!' }]}
                     >
-                        <TextEditor _id="content" defaultValue={dataContent.content}  />
+                        <EditorText _id="content" defaultValue={dataRender[0].content}  />
                     </Form.Item>
 
                     <Form.Item {...tailLayout}>
@@ -88,8 +88,6 @@ export default function Introduction({
                 </Form>
                 : <>Chức năng đang đang hoàn thiện</>
             }
-            
-
         </Container>
         <Loading status={statusLoading}></Loading>
         <style jsx>{`

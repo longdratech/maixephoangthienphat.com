@@ -364,9 +364,9 @@ export default function MainContentProvider( {children}){
 
     // introduction
 
-    const patchDataIntroduction = async (FunctionCb, data, errorFunctionCb) =>{
+    const patchDataIntroduction = async (FunctionCb, id="8", data, errorFunctionCb) =>{
         let res = await ApiCall({
-          path: `/introduction`,
+          path: `/introduction/${id}`,
           method: "PATCH",
           token: token,
           headers:{
