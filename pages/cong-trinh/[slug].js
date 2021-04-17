@@ -91,9 +91,9 @@ export default function PortfoliosDetail(props) {
                         ? <div className="contentPortfoliosDetail">
                             <h2>{data.title}</h2>
                             {renderHTML(data.content)}
-                            <div className="contentImages"></div>
-                            <img src={data.images[0]}/>
-                            <p>{data.description}</p>
+                            {/* <div className="contentImages"></div> */}
+                            {/* <img src={data.images[0]}/> */}
+                            {/* <p>{data.description}</p> */}
                             <p className="link">
                                 <a href={data.link} target="_blank">Link sản phẩm >></a>
                             </p>

@@ -16,11 +16,14 @@ import Socials from "components/website/content-page-admin/Socials";
 import SocialsCreate from "components/website/content-page-admin/SocialsCreate";
 import ChangePassword from "components/website/content-page-admin/ChangePassword";
 import TrackingUser from "components/website/content-page-admin/TrackingUser";
+import Introduction from "components/website/content-page-admin/Introduction";
 // import Countdown from "react-countdown";
 
 const routingContent = {
 
     PROFILE :  "profile",
+
+    INTRODUCTION :"introduction",
 
     PRODUCTS : {
         CREATE :  "product-create",
@@ -48,8 +51,8 @@ const routingContent = {
     PASSWORD: {
         CHANGE : "change-password",
     }
-
 }
+
 const Completionist = () => <span>You are good to go!</span>;
 
 // Renderer callback with condition
@@ -134,6 +137,10 @@ const AdminIndex = ({ user }) => {
             
             case routingContent.PASSWORD.CHANGE:
                     return <ChangePassword></ChangePassword>
+
+            case routingContent.INTRODUCTION:
+                    return <Introduction></Introduction>
+
             default:
                 return <TrackingUser></TrackingUser>;
         }
@@ -150,11 +157,6 @@ const AdminIndex = ({ user }) => {
         <PageHeader pretitle="admin" title={title} separator={true}>
             <div className="topHeaderAdmin">
                 <p>Thông số tổng quát.</p>
-                {/* {
-                    valueContext.timeline 
-                    ?   <Countdown date={Date.now() + parseInt(valueContext.timeline) } renderer={renderer} />
-                    :<></>
-                } */}
                 <Button type="primary" danger onClick={valueContext? valueContext.logout : null}> Logout </Button>
             </div>
             <style jsx>{`

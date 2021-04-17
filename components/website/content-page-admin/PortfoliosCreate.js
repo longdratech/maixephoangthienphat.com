@@ -7,6 +7,7 @@ import Link from "next/link";
 import UploadImages from "components/website/content-page-admin/UploadImages";
 import Loading from "components/website/loading/Loading";
 import { TextEditor } from "components/diginext/form/Form";
+import EditorText from "components/website/EditorText/EditorText";
 /* eslint-disable no-template-curly-in-string */
 const validateMessages = {
     required: 'Vui lòng nhập ${label}!',
@@ -145,7 +146,7 @@ export default function PortfoliosCreate({ id = null, dataSelect, closeModal }) 
 
                     <Form.Item name={['content']} label="Content">
                         {/* <Input.TextArea /> */}
-                        <TextEditor _id="1224" defaultValue={dataContent}  />
+                        <EditorText _id="1224" defaultValue={dataContent}  />
                         {/* onChange={value => setDataContent(value)} */}
                     </Form.Item>
 
@@ -281,7 +282,7 @@ export default function PortfoliosCreate({ id = null, dataSelect, closeModal }) 
 
                     <Form.Item name={['content']} label="Content">
                         {/* <Input.TextArea /> */}
-                        <TextEditor _id="valueContent" defaultValue={""} />
+                        <EditorText _id="valueContent" defaultValue={""} />
                     </Form.Item>
 
                     <Form.Item name={['link']} label="Link" rules={[{ required: true }]}>

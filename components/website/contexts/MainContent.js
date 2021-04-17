@@ -362,6 +362,47 @@ export default function MainContentProvider( {children}){
         }
     }
 
+    // introduction
+
+    const patchDataIntroduction = async (FunctionCb, id="8", data, errorFunctionCb) =>{
+        let res = await ApiCall({
+          path: `/introduction/${id}`,
+          method: "PATCH",
+          token: token,
+          headers:{
+            'Content-Type': 'application/x-www-form-urlencoded'
+          },
+          data: data
+        });
+        if (res) {
+            if(res.statusCode && res.statusCode == 401){
+                message.warning("Đã hết phiên đăng nhập");
+                return logout();
+            }else{
+                if(res.error){
+                    await errorFunctionCb(res);
+                }else{
+                    await FunctionCb(res);
+                }
+               
+            }
+        }
+    }
+
+    const getDataIntroduction = async (FunctionCb) =>{
+        let res = await ApiCall({
+          path: `/introduction`,
+        });
+        if (res) {
+            console.log("res ",res);
+            if(res.error){
+                console.log("res Error ",res);
+            }else{
+                await FunctionCb(res.data);
+            }
+        }
+    }
+
     // const getOneDayTracking = async (FunctionCb) => {
     //     let res = await ApiCall({
     //         path: `/views?count=1`
@@ -433,6 +474,9 @@ export default function MainContentProvider( {children}){
 
                 getDataImages: getDataImages,
                 deleteImage: deleteImage,
+
+                patchDataIntroduction,
+                getDataIntroduction,
 
                 getDataTracking,
                 getOneMonthTracking,
