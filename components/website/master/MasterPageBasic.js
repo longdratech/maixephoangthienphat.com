@@ -160,7 +160,7 @@ const BlankMasterPage = ({ pageName, children }) => {
           data-height="420"
         />
         {renderHTML(fb)}
-        {renderHTML(ga)}
+        {/* {renderHTML(ga)} */}
       </Head>
       {children}
     </>
